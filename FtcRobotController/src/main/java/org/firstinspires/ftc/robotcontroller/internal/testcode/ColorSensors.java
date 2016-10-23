@@ -31,104 +31,50 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package org.firstinspires.ftc.robotcontroller.internal.testcode;
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.view.View;
 
-import com.qualcomm.ftcrobotcontroller.R;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+public class ColorSensors {
 
-/*
- *
- * This is an example LinearOpMode that shows how to use
- * a Modern Robotics Color Sensor.
- *
- * The op mode assumes that the color sensor
- * is configured with a name of "color sensor".
- *
- * You can use the X button on gamepad1 to toggle the LED on and off.
- *
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
-@TeleOp(name = "ColorSensors", group = "testcode")
-public class ColorSensors extends LinearOpMode {
+    ColorSensor colorSensor;
 
-    ColorSensor colorSensor;    // Hardware Device Object
+        switch (device) {
+            case HITECHNIC_NXT:
+                colorSensor = hardwareMap.colorSensor.get("nxt");
+                break;
+            case ADAFRUIT:
+                colorSensor = hardwareMap.colorSensor.get("lady");
+                break;
+            case MODERN_ROBOTICS_I2C:
+                colorSensor = hardwareMap.colorSensor.get("mr");
+                break;
+        }
+        led = hardwareMap.led.get("led");
+        t = hardwareMap.touchSensor.get("t");
 
-
-    @Override
-    public void runOpMode() throws InterruptedException {
-
-        // hsvValues is an array that will hold the hue, saturation, and value information.
-        float hsvValues[] = {0F,0F,0F};
-
-        // values is a reference to the hsvValues array.
-        final float values[] = hsvValues;
-
-        // get a reference to the RelativeLayout so we can change the background
-        // color of the Robot Controller app to match the hue detected by the RGB sensor.
-        final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(R.id.RelativeLayout);
-
-        // bPrevState and bCurrState represent the previous and current state of the button.
-        boolean bPrevState = false;
-        boolean bCurrState = false;
-
-        // bLedOn represents the state of the LED.
-        boolean bLedOn = true;
-
-        // get a reference to our ColorSensor object.
-        colorSensor = hardwareMap.colorSensor.get("color sensor");
-
-        // Set the LED in the beginning
-        colorSensor.enableLed(bLedOn);
-
-        // wait for the start button to be pressed.
         waitForStart();
 
-        // while the op mode is active, loop and read the RGB data.
-        // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
+        float hsvValues[] = {0,0,0};
+        final float values[] = hsvValues;
+        final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(R.id.RelativeLayout);
         while (opModeIsActive()) {
 
-            // check the status of the x button on either gamepad.
-            bCurrState = gamepad1.x;
+            enableLed(t.isPressed());
 
-            // check for button state transitions.
-            if ((bCurrState == true) && (bCurrState != bPrevState))  {
-
-                // button is transitioning to a pressed state. So Toggle LED
-                bLedOn = !bLedOn;
-                colorSensor.enableLed(bLedOn);
+            switch (device) {
+                case HITECHNIC_NXT:
+                    Color.RGBToHSV(colorSensor.red(), colorSensor.green(), colorSensor.blue(), hsvValues);
+                    break;
+                case ADAFRUIT:
+                    Color.RGBToHSV((colorSensor.red() * 255) / 800, (colorSensor.green() * 255) / 800, (colorSensor.blue() * 255) / 800, hsvValues);
+                    break;
+                case MODERN_ROBOTICS_I2C:
+                    Color.RGBToHSV(colorSensor.red()*8, colorSensor.green()*8, colorSensor.blue()*8, hsvValues);
+                    break;
             }
-
-            // update previous state variable.
-            bPrevState = bCurrState;
-
-            // convert the RGB values to HSV values.
-            Color.RGBToHSV(colorSensor.red() * 8, colorSensor.green() * 8, colorSensor.blue() * 8, hsvValues);
-
-            // send the info back to driver station using telemetry function.
-            telemetry.addData("LED", bLedOn ? "On" : "Off");
             telemetry.addData("Clear", colorSensor.alpha());
             telemetry.addData("Red  ", colorSensor.red());
             telemetry.addData("Green", colorSensor.green());
             telemetry.addData("Blue ", colorSensor.blue());
             telemetry.addData("Hue", hsvValues[0]);
 
-            // change the background color to match the color detected by the RGB sensor.
-            // pass a reference to the hue, saturation, and value array as an argument
-            // to the HSVToColor method.
-            relativeLayout.post(new Runnable() {
-                public void run() {
-                    relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
-                }
-            });
-
-            telemetry.update();
-            idle(); // Always call idle() at the bottom of your while(opModeIsActive()) loop
-        }
     }
 }
