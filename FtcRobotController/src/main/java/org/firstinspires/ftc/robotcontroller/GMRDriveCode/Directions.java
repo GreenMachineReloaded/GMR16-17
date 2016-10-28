@@ -8,5 +8,7 @@ public enum Directions{
     DRightUp,
     DRightDown,
     DLeftUp,
-    DLeftDown
+    DLeftDown,
+    TurnLeft,
+    TurnRight
 }

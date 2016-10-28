@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.robotcontroller.GMRDriveCode;
 
+import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -8,12 +9,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 public class Hardwaresetup {
 
+    private final int NAVX_DIM_I2C_PORT = 0;
+
     public DcMotor leftFront;
     public DcMotor rightFront;
     public DcMotor leftRear;
     public DcMotor rightRear;
 
     HardwareMap hwMap;
+
+    AHRS ahrs;
 
     public Hardwaresetup(){
 
@@ -33,11 +38,15 @@ public class Hardwaresetup {
         leftRear.setPower(0);
         rightRear.setPower(0);
 
-        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        ahrs = AHRS.getInstance(hwMap.deviceInterfaceModule.get("dim"),
+                NAVX_DIM_I2C_PORT,
+                AHRS.DeviceDataType.kProcessedData);
+        ahrs.zeroYaw();
     }
 
 

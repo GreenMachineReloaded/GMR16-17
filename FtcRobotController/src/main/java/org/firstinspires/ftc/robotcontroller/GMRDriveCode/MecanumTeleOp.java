@@ -19,20 +19,21 @@ public class MecanumTeleOp extends OpMode {
     @Override
     public void init() {
         move.init(hardwareMap);
+        move.startEncoders();
     }
 
     @Override
     public void loop() {
 
         x = gamepad1.left_stick_x;
-        y = gamepad1.left_stick_y;
+        y = -gamepad1.left_stick_y;
         z = gamepad1.right_stick_x;
 
-        move.setMotorPower(x,y,z);
+        move.setMotorPower(x, y, z);
 
-        telemetry.addData("Gamepad 1 Left Stick y", gamepad1.left_stick_y);
-        telemetry.addData("Gamepad 1 Left Stick x", gamepad1.left_stick_x);
-        telemetry.addData("Gamepad 1 Right Stick x", gamepad1.right_stick_x);
+        telemetry.addData("Left Encoder", move.getLeftEncoder());
+        telemetry.addData("Right Encoder", move.getRightEncoder());
+        telemetry.addData("Current Yaw", move.getYaw());
         updateTelemetry(telemetry);
 
     }
