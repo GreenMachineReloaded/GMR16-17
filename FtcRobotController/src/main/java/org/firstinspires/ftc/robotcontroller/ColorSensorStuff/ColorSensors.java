@@ -2,13 +2,13 @@ package org.firstinspires.ftc.robotcontroller.ColorSensorStuff;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 public class ColorSensors {
     private ColorSensor colorSensor;
-    public ColorSensors(ColorSensor colorArg) {
-        colorSensor = colorArg;
-        colorSensor.enableLed(false);
+    public ColorSensors(ColorSensor colorSensor) {
+        this.colorSensor = colorSensor;
+        this.colorSensor.enableLed(false);
     }
-    public ColorSensors(ColorSensor colorArg, boolean OnOff) {
-        colorSensor = colorArg;
-        colorSensor.enableLed(OnOff);
+    public ColorSensors(ColorSensor colorSensor, boolean OnOff) {
+        this.colorSensor = colorSensor;
+        this.colorSensor.enableLed(OnOff);
     }
     public void turnOnLight(boolean OnOff) {
         colorSensor.enableLed(OnOff);

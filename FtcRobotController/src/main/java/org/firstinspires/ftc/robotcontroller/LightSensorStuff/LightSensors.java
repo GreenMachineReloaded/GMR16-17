@@ -8,59 +8,24 @@ import org.firstinspires.ftc.robotcontroller.GMRDriveCode.MoveMotors;
 public class LightSensors extends MoveMotors{
     LightSensor lightSensor;
     public LightSensors(LightSensor lightSensor) {
-        lightSensor.enableLed(false);
         this.lightSensor = lightSensor;
+        this.lightSensor.enableLed(false);
+    }
+    public LightSensors(LightSensor lightSensor, boolean OnOff) {
+        this.lightSensor = lightSensor;
+        this.lightSensor.enableLed(OnOff);
     }
     public void enableLight(boolean onoff) {
         lightSensor.enableLed(onoff);
     }
     public double LevelOfLight() {
-        return lightSensor.getLightDetected();
+        return 8 * lightSensor.getLightDetected();
     }
-    public void CHANGENAME(Directions d) {
-        switch (d) {
-            case Forward:
-                while (lightSensor.getLightDetected() < 1) {
-                    super.driveForward();
-                }
-                break;
-            case Backward:
-                while (lightSensor.getLightDetected() < 1) {
-                    super.driveForward();
-                }
-                break;
-            case StrafeLeft:
-                while (lightSensor.getLightDetected() < 1) {
-                    super.driveForward();
-                }
-                break;
-            case StrafeRight:
-                while (lightSensor.getLightDetected() < 1) {
-                    super.driveForward();
-                }
-                break;
-            case DLeftUp:
-                while (lightSensor.getLightDetected() < 1) {
-                    super.driveForward();
-                }
-                break;
-            case DRightUp:
-                while (lightSensor.getLightDetected() < 1) {
-                    super.driveForward();
-                }
-                break;
-            case DLeftDown:
-                while (lightSensor.getLightDetected() < 1) {
-                    super.driveForward();
-                }
-                break;
-            case DRightDown:
-                while (lightSensor.getLightDetected() < 1) {
-                    super.driveForward();
-                }
-                break;
+    public void Drive(Directions direction, double power) {
+        while(lightSensor.getLightDetected() < 1) {
+            super.Drive(direction, power);
         }
-
+        super.Stop();
     }
 
 }

@@ -11,7 +11,7 @@ public class TestLightSensorON extends LinearOpMode{
         lightSensors.enableLight(true);
         waitForStart();
         while(true) {
-            telemetry.addData("value off: ", lightSensors.LevelOfLight());
+            telemetry.addData("value on: ", lightSensors.LevelOfLight());
             telemetry.update();
             sleep(100);
         }
