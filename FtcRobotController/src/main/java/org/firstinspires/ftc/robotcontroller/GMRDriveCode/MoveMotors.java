@@ -4,6 +4,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.LightSensors;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
+import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
@@ -12,6 +16,16 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class MoveMotors {
 
     Hardwaresetup robot = new Hardwaresetup();
+
+    ColorSensors colorSensorsBeacon;
+    ColorSensors colorSensorsGroundLeft;
+    ColorSensors colorSensorsGroundRight;
+    LightSensors lightSensors;
+    ProxSensors proxSensors;
+
+    Continue c = new Continue();
+
+    ColorSensors.whichColor whichColor;
 
     float goalDegrees = -1;
 
@@ -26,7 +40,14 @@ public class MoveMotors {
 
     public void init(HardwareMap hwMap, Telemetry Telemetry){
         robot.init(hwMap);
+
         telemetry = Telemetry;
+
+        colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon);
+        colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft);
+        colorSensorsGroundRight = new ColorSensors(robot.colorSensorGroundRight);
+        lightSensors = new LightSensors(robot.lightSensor);
+        proxSensors = new ProxSensors(robot.proxSensor);
     }
 
     public void setMotorPower(double x, double y, double z){
@@ -270,5 +291,86 @@ public class MoveMotors {
         robot.leftRear.setPower(0);
         robot.rightFront.setPower(0);
         robot.rightRear.setPower(0);
+    }
+
+
+
+    public void lightDrive(Directions direction, double power) {
+        Drive(direction, power);
+        while(lightSensors.WhichColor() != ColorSensors.whichColor.WHITE) {
+            c.Sleep(10);
+        }
+        Stop();
+    }
+
+
+
+
+
+    public void colorWhiteDrive(Directions direction, double power, ColorSensors.whichColorSensor which) {
+        Drive(direction, power);
+        if(which == ColorSensors.whichColorSensor.BEACON) {
+            while(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
+                c.Sleep(10);
+            }
+        }
+        else if(which == ColorSensors.whichColorSensor.GROUNDLEFT){
+            while(colorSensorsGroundLeft.isWhite() != ColorSensors.whichColor.WHITE) {
+                c.Sleep(10);
+            }
+        }
+        else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
+            while(colorSensorsGroundRight.isWhite() != ColorSensors.whichColor.WHITE) {
+                c.Sleep(10);
+            }
+        }
+        else {
+            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
+            telemetry.update();
+        }
+        Stop();
+    }
+
+    public void colorDriveRedBlue(Directions direction, double power, ColorSensors.whichColorSensor which, ColorSensors.whichColor whichColor) {
+        Drive(direction, power);
+        if(which == ColorSensors.whichColorSensor.BEACON) {
+            while (colorSensorsBeacon.greaterColor() == whichColor) {
+                c.Sleep(10);
+            }
+        }
+        else if(which == ColorSensors.whichColorSensor.GROUNDLEFT) {
+            while (colorSensorsGroundLeft.greaterColor() == whichColor) {
+                c.Sleep(10);
+            }
+        }
+        else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
+            while (colorSensorsGroundRight.greaterColor() == whichColor) {
+                c.Sleep(10);
+            }
+        }
+        else {
+            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
+            telemetry.update();
+        }
+        Stop();
+    }
+
+
+
+
+
+    public void ProxDrive(Directions direction, double power) {
+        Drive(direction, power);
+        while(proxSensors.getDistance() < .5) {
+            c.Sleep(10);
+        }
+        Stop();
+    }
+    public void ProxDrive(Directions direction, double power, double prox) {
+        Drive(direction, power);
+        while(proxSensors.getDistance() < prox) {
+            c.Sleep(10);
+        }
+        Stop();
     }
 }
