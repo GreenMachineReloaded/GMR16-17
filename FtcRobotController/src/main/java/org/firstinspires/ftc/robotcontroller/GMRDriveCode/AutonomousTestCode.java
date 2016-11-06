@@ -7,19 +7,21 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Created by Payton on 10/9/2016
  */
-@TeleOp(name="Autonomous Test V1", group="Mecanum Bot")
+@TeleOp(name="Autonomous Test V3", group="Mecanum Bot")
 public class AutonomousTestCode extends OpMode {
 
     boolean programStart;
     MoveMotors move = new MoveMotors();
     ElapsedTime time = new ElapsedTime();
     Hardwaresetup robot = new Hardwaresetup();
+    boolean stop = true;
 
     @Override
     public void init() {
         programStart = true;
         move.init(hardwareMap);
         robot.init(hardwareMap);
+        move.startEncoders();
     }
 
     @Override
@@ -28,10 +30,12 @@ public class AutonomousTestCode extends OpMode {
             time.reset();
             programStart = false;
         }
-        if (time.seconds()<2) {
-            move.gyroTurn(Directions.TurnLeft,0.3,90);
-        } else if (2<time.seconds()&&time.seconds()<4) {
-            move.gyroTurn(Directions.TurnRight,0.3,90);
+        if (time.seconds()<5 && stop) {
+            stop = move.gyroTurn(Directions.TurnLeft,0.3,180, telemetry);
+            telemetry.addData("Current Degrees: ", move.getYaw());
+            telemetry.update();
+        } else {
+            move.Stop();
         }
     }
 }
