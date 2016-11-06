@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 /**
  * Created by Payton on 10/9/2016
  */
@@ -19,9 +21,14 @@ public class Hardwaresetup {
     public DcMotor leftRear;
     public DcMotor rightRear;
 
-    public ColorSensor colorSensor;
+    public ColorSensor colorSensorBeacon;
+    public ColorSensor colorSensorGroundLeft;
+    public ColorSensor colorSensorGroundRight;
+
     public LightSensor lightSensor;
     public OpticalDistanceSensor proxSensor;
+
+    public Telemetry telemetry;
 
     HardwareMap hwMap;
 
@@ -55,7 +62,10 @@ public class Hardwaresetup {
                 AHRS.DeviceDataType.kProcessedData);
         ahrs.zeroYaw();
 
-        colorSensor = hwMap.colorSensor.get("colorSensor");
+        colorSensorBeacon = hwMap.colorSensor.get("colorSensorBeacon");
+        colorSensorGroundLeft = hwMap.colorSensor.get("colorSensorGroundLeft");
+        colorSensorGroundRight = hwMap.colorSensor.get("colorSensorGroundRight");
+
         lightSensor = hwMap.lightSensor.get("lightSensor");
         proxSensor = hwMap.opticalDistanceSensor.get("proxSensor");
     }

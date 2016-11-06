@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.robotcontroller.ProxSensorsTestCode;
+package org.firstinspires.ftc.robotcontroller.sensorTest;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcontroller.SensorObjects.Continue;
+import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
 

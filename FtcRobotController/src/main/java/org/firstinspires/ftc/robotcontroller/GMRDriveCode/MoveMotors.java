@@ -6,18 +6,23 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
-import org.firstinspires.ftc.robotcontroller.SensorObjects.Continue;
+import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.LightSensors;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
  * Created by Payton on 10/9/2016
  */
 public class MoveMotors {
 
+    Telemetry telemetry;
+
     Hardwaresetup robot = new Hardwaresetup();
 
-    ColorSensors colorSensors;
+    ColorSensors colorSensorsBeacon;
+    ColorSensors colorSensorsGroundLeft;
+    ColorSensors colorSensorsGroundRight;
     LightSensors lightSensors;
     ProxSensors proxSensors;
 
@@ -28,7 +33,9 @@ public class MoveMotors {
     public void init(HardwareMap hwMap){
         robot.init(hwMap);
 
-        colorSensors = new ColorSensors(robot.colorSensor);
+        colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon);
+        colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft);
+        colorSensorsGroundRight = new ColorSensors(robot.colorSensorGroundRight);
         lightSensors = new LightSensors(robot.lightSensor);
         proxSensors = new ProxSensors(robot.proxSensor);
     }
@@ -232,20 +239,63 @@ public class MoveMotors {
         }
         Stop();
     }
-    public void colorDrive(Directions direction, double power) {
+
+
+
+
+
+    public void colorWhiteDrive(Directions direction, double power, ColorSensors.whichColorSensor which) {
         Drive(direction, power);
-        while(colorSensors.isWhite() != ColorSensors.whichColor.WHITE) {
-            c.Sleep(10);
+        if(which == ColorSensors.whichColorSensor.BEACON) {
+            while(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
+                c.Sleep(10);
+            }
+        }
+        else if(which == ColorSensors.whichColorSensor.GROUNDLEFT){
+            while(colorSensorsGroundLeft.isWhite() != ColorSensors.whichColor.WHITE) {
+                c.Sleep(10);
+            }
+        }
+        else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
+            while(colorSensorsGroundRight.isWhite() != ColorSensors.whichColor.WHITE) {
+                c.Sleep(10);
+            }
+        }
+        else {
+            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
+            telemetry.update();
         }
         Stop();
     }
-    public void colorDriveRedBlue(Directions direction, double power, ColorSensors.whichColor greaterColor) {
+
+    public void colorDriveRedBlue(Directions direction, double power, ColorSensors.whichColorSensor which, ColorSensors.whichColor whichColor) {
         Drive(direction, power);
-        while(colorSensors.greaterColor() == greaterColor) {
-            c.Sleep(10);
+        if(which == ColorSensors.whichColorSensor.BEACON) {
+            while (colorSensorsBeacon.greaterColor() == whichColor) {
+                c.Sleep(10);
+            }
+        }
+        else if(which == ColorSensors.whichColorSensor.GROUNDLEFT) {
+            while (colorSensorsGroundLeft.greaterColor() == whichColor) {
+                c.Sleep(10);
+            }
+        }
+        else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
+            while (colorSensorsGroundRight.greaterColor() == whichColor) {
+                c.Sleep(10);
+            }
+        }
+        else {
+            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
+            telemetry.update();
         }
         Stop();
     }
+
+
+
+
+
     public void ProxDrive(Directions direction, double power) {
         Drive(direction, power);
         while(proxSensors.getDistance() < .5) {

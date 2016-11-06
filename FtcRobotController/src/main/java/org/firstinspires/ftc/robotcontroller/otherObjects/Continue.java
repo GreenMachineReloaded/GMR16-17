@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.SensorObjects;
+package org.firstinspires.ftc.robotcontroller.otherObjects;
 import static java.lang.Thread.sleep;;
 public class Continue {
     public Continue() {

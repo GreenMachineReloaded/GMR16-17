@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.LightSensorTestCode;
+package org.firstinspires.ftc.robotcontroller.sensorTest;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;

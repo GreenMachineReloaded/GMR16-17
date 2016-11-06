@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.robotcontroller.ColorSensorTestCode;
+package org.firstinspires.ftc.robotcontroller.sensorTest;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
-import org.firstinspires.ftc.robotcontroller.SensorObjects.Continue;
+import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
 @Autonomous(name = "TEST COLOR SENSORS", group = "Tests")
 @Disabled

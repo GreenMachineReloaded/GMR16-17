@@ -39,4 +39,8 @@ public class ColorSensors {
     public enum whichColor {
         BLUE, RED, BLACK, WHITE, EQUAL
     }
+    public enum whichColorSensor{
+        GROUNDLEFT, GROUNDRIGHT, BEACON
+
+    }
 }
