@@ -1,8 +1,14 @@
 package org.firstinspires.ftc.robotcontroller.GMRDriveCode;
 
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.Continue;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.LightSensors;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
 
 /**
  * Created by Payton on 10/9/2016
@@ -11,8 +17,20 @@ public class MoveMotors {
 
     Hardwaresetup robot = new Hardwaresetup();
 
+    ColorSensors colorSensors;
+    LightSensors lightSensors;
+    ProxSensors proxSensors;
+
+    Continue c = new Continue();
+
+    ColorSensors.whichColor whichColor;
+
     public void init(HardwareMap hwMap){
         robot.init(hwMap);
+
+        colorSensors = new ColorSensors(robot.colorSensor);
+        lightSensors = new LightSensors(robot.lightSensor);
+        proxSensors = new ProxSensors(robot.proxSensor);
     }
 
     public void setMotorPower(double x, double y, double z){
@@ -203,5 +221,43 @@ public class MoveMotors {
         robot.leftRear.setPower(0);
         robot.rightFront.setPower(0);
         robot.rightRear.setPower(0);
+    }
+
+
+
+    public void lightDrive(Directions direction, double power) {
+        Drive(direction, power);
+        while(lightSensors.WhichColor() != ColorSensors.whichColor.WHITE) {
+            c.Sleep(10);
+        }
+        Stop();
+    }
+    public void colorDrive(Directions direction, double power) {
+        Drive(direction, power);
+        while(colorSensors.isWhite() != ColorSensors.whichColor.WHITE) {
+            c.Sleep(10);
+        }
+        Stop();
+    }
+    public void colorDriveRedBlue(Directions direction, double power, ColorSensors.whichColor greaterColor) {
+        Drive(direction, power);
+        while(colorSensors.greaterColor() == greaterColor) {
+            c.Sleep(10);
+        }
+        Stop();
+    }
+    public void ProxDrive(Directions direction, double power) {
+        Drive(direction, power);
+        while(proxSensors.getDistance() < .5) {
+            c.Sleep(10);
+        }
+        Stop();
+    }
+    public void ProxDrive(Directions direction, double power, double prox) {
+        Drive(direction, power);
+        while(proxSensors.getDistance() < prox) {
+            c.Sleep(10);
+        }
+        Stop();
     }
 }

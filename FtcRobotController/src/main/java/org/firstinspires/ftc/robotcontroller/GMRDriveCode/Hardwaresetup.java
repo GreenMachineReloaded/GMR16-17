@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.robotcontroller.GMRDriveCode;
 
 import com.kauailabs.navx.ftc.AHRS;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.LightSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 /**
  * Created by Payton on 10/9/2016
@@ -15,6 +18,10 @@ public class Hardwaresetup {
     public DcMotor rightFront;
     public DcMotor leftRear;
     public DcMotor rightRear;
+
+    public ColorSensor colorSensor;
+    public LightSensor lightSensor;
+    public OpticalDistanceSensor proxSensor;
 
     HardwareMap hwMap;
 
@@ -47,7 +54,9 @@ public class Hardwaresetup {
                 NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData);
         ahrs.zeroYaw();
+
+        colorSensor = hwMap.colorSensor.get("colorSensor");
+        lightSensor = hwMap.lightSensor.get("lightSensor");
+        proxSensor = hwMap.opticalDistanceSensor.get("proxSensor");
     }
-
-
 }

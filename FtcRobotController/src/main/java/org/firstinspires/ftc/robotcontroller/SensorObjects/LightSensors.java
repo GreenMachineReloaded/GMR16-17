@@ -1,9 +1,7 @@
-package org.firstinspires.ftc.robotcontroller.LightSensorStuff;
-import android.test.mock.MockApplication;
+package org.firstinspires.ftc.robotcontroller.SensorObjects;
 
 import com.qualcomm.robotcore.hardware.LightSensor;
 
-import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.MoveMotors;
 public class LightSensors extends MoveMotors{
     LightSensor lightSensor;
@@ -21,11 +19,15 @@ public class LightSensors extends MoveMotors{
     public double LevelOfLight() {
         return 8 * lightSensor.getLightDetected();
     }
-    public void Drive(Directions direction, double power) {
-        while(lightSensor.getLightDetected() < 1) {
-            super.Drive(direction, power);
+    public ColorSensors.whichColor WhichColor() {
+        if(lightSensor.getLightDetected() < 1) {
+            return ColorSensors.whichColor.BLACK;
         }
-        super.Stop();
+        else if(lightSensor.getLightDetected() > 1) {
+            return ColorSensors.whichColor.WHITE;
+        }
+        else {
+            return ColorSensors.whichColor.EQUAL;
+        }
     }
-
 }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.ColorSensorStuff;
+package org.firstinspires.ftc.robotcontroller.SensorObjects;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 public class ColorSensors {
     private ColorSensor colorSensor;
@@ -28,7 +28,15 @@ public class ColorSensors {
             return whichColor.EQUAL;
         }
     }
+    public ColorSensors.whichColor isWhite() {
+        if((colorSensor.blue() * colorSensor.red() * colorSensor.green() * 8) > 100) {
+            return whichColor.WHITE;
+        }
+        else {
+            return whichColor.BLACK;
+        }
+    }
     public enum whichColor {
-        BLUE, RED, EQUAL
+        BLUE, RED, BLACK, WHITE, EQUAL
     }
 }

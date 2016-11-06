@@ -1,9 +1,14 @@
-package org.firstinspires.ftc.robotcontroller.ColorSensorStuff;
+package org.firstinspires.ftc.robotcontroller.ColorSensorTestCode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.Continue;
 
+@Autonomous(name = "TEST COLOR SENSORS", group = "Tests")
+@Disabled
 public class TestColorSensors extends LinearOpMode{
     ColorSensor colorSensor;
     ColorSensors colorSensors;
@@ -18,7 +23,7 @@ public class TestColorSensors extends LinearOpMode{
             telemetry.addData("BLUE", colorSensors.getBlue());
             telemetry.addData("GREATER", colorSensors.greaterColor());
             telemetry.update();
-            c.StopFor(100);
+            c.Sleep(100);
         }
     }
 }

@@ -1,7 +1,13 @@
-package org.firstinspires.ftc.robotcontroller.LightSensorStuff;
+package org.firstinspires.ftc.robotcontroller.LightSensorTestCode;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.LightSensor;
 
+import org.firstinspires.ftc.robotcontroller.SensorObjects.LightSensors;
+
+@Autonomous(name="TEST LIGHT SENSOR ON", group ="Tests")
+@Disabled
 public class TestLightSensorON extends LinearOpMode{
     LightSensor lightSensor;
     LightSensors lightSensors;
