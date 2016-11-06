@@ -4,12 +4,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 /**
  * Created by Payton on 10/9/2016
  */
 public class MoveMotors {
 
     Hardwaresetup robot = new Hardwaresetup();
+
+    float goalDegrees = -1;
 
     public void init(HardwareMap hwMap){
         robot.init(hwMap);
@@ -121,33 +125,42 @@ public class MoveMotors {
 
     }
 
-    public void gyroTurn(Directions direction, double power, float degrees){
-
-        double leftInput = -power;
-        double rightInput = power;
+    public boolean gyroTurn(Directions direction, double power, float degrees, Telemetry telemetry){
 
         switch(direction) {
             case TurnLeft:
-                if(-robot.ahrs.getYaw() < degrees){
-                    robot.leftFront.setPower(-leftInput);
-                    robot.rightFront.setPower(rightInput);
-                    robot.leftRear.setPower(-leftInput);
-                    robot.rightRear.setPower(rightInput);
+                if (goalDegrees == -1) {
+                    goalDegrees = (getYaw() - degrees);
+                    if (goalDegrees < 0) {
+                        goalDegrees = (goalDegrees + 360);
+                    }
+                }
+                if (!(getYaw() > goalDegrees - 1 && getYaw() < goalDegrees + 1)) {
+                    Drive(direction, power);
+                    telemetry.addData("Goal degrees: ", goalDegrees);
                 } else {
                     Stop();
+                    goalDegrees = -1;
+                    return false;
                 }
                 break;
             case TurnRight:
-                if(robot.ahrs.getYaw() < degrees) {
-                    robot.leftFront.setPower(leftInput);
-                    robot.rightFront.setPower(-rightInput);
-                    robot.leftRear.setPower(leftInput);
-                    robot.rightRear.setPower(-rightInput);
+                if (goalDegrees == -1) {
+                    goalDegrees = (getYaw() + degrees);
+                    if (goalDegrees > 360) {
+                        goalDegrees = (goalDegrees - 360);
+                    }
+                }
+                if (!(getYaw() > goalDegrees - 1 && getYaw() < goalDegrees + 1)) {
+                    Drive(direction, power);
                 } else {
                     Stop();
+                    goalDegrees = -1;
+                    return false;
                 }
                 break;
         }
+        return false;
 
     }
 
@@ -187,7 +200,7 @@ public class MoveMotors {
     }
 
     public int getLeftEncoder() {
-        return robot.leftFront.getCurrentPosition();
+        return -robot.leftFront.getCurrentPosition();
     }
 
     public int getRightEncoder() {
@@ -195,7 +208,11 @@ public class MoveMotors {
     }
 
     public float getYaw(){
-        return robot.ahrs.getYaw();
+        if(robot.ahrs.getYaw() < 0) {
+            return (360 + robot.ahrs.getYaw());
+        } else {
+            return robot.ahrs.getYaw();
+        }
     }
 
     public void Stop(){
