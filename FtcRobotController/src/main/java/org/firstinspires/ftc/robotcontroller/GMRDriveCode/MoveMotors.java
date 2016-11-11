@@ -46,9 +46,8 @@ public class MoveMotors {
         colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon);
         colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft);
         colorSensorsGroundRight = new ColorSensors(robot.colorSensorGroundRight);
-        lightSensors = new LightSensors(robot.lightSensor);
         proxSensors = new ProxSensors(robot.proxSensor);
-        //startEncoders();
+        startEncoders();
     }
 
     public void setMotorPower(double x, double y, double z){
@@ -209,11 +208,11 @@ public class MoveMotors {
                         goalDegrees = (goalDegrees - 360);
                     }
                 }
-                if (!(getYaw() > (goalDegrees - 1) && getYaw() < (goalDegrees + 1))) {
+                if (!(getYaw() > (goalDegrees - 3) && getYaw() < (goalDegrees + 3))) {
                     Drive(direction, power);
                     telemetry.addData("Goal degrees: ", goalDegrees);
-                    telemetry.addData("Goal degrees + 1: ", goalDegrees + 1);
-                    telemetry.addData("Goal degrees - 1: ", goalDegrees - 1);
+                    telemetry.addData("Goal degrees + 3: ", goalDegrees + 3);
+                    telemetry.addData("Goal degrees - 3: ", goalDegrees - 3);
                 } else {
                     Stop();
                     goalDegrees = -1;
