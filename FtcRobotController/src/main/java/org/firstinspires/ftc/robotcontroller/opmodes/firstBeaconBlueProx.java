@@ -2,14 +2,13 @@ package org.firstinspires.ftc.robotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.MoveMotors;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
-import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
+import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
 @Autonomous(name="hit beacon blue one")
 @Disabled
@@ -18,7 +17,7 @@ public class firstBeaconBlueProx extends LinearOpMode{
         Hardwaresetup set = new Hardwaresetup();
         set.init(hardwareMap);
         MoveMotors move = new MoveMotors();
-        move.init(hardwareMap);
+        move.init(hardwareMap, telemetry);
         ColorSensors colorSensor = new ColorSensors(set.colorSensorBeacon);
         ProxSensors proxSensors = new ProxSensors(set.proxSensor);
         Continue c = new Continue();

@@ -20,7 +20,6 @@ public class AutonomousTestCode extends OpMode {
     public void init() {
         move.init(hardwareMap, telemetry);
         robot.init(hardwareMap);
-        move.startEncoders();
     }
 
     @Override
@@ -30,7 +29,7 @@ public class AutonomousTestCode extends OpMode {
             programStart = false;
         }
         if (time.seconds()<5 && stop) {
-            stop = move.gyroTurn(Directions.TurnRight,0.5, 90);
+            move.Drive(Directions.TurnRight,0.5/*, 90*/);
             telemetry.addData("Current Degrees: ", move.getYaw());
             telemetry.update();
         } else {

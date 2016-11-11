@@ -65,8 +65,6 @@ public class Hardwaresetup {
         colorSensorBeacon = hwMap.colorSensor.get("colorSensorBeacon");
         colorSensorGroundLeft = hwMap.colorSensor.get("colorSensorGroundLeft");
         colorSensorGroundRight = hwMap.colorSensor.get("colorSensorGroundRight");
-
-        lightSensor = hwMap.lightSensor.get("lightSensor");
         proxSensor = hwMap.opticalDistanceSensor.get("proxSensor");
     }
 }

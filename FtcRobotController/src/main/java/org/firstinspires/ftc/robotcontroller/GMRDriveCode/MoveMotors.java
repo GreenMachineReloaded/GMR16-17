@@ -23,7 +23,7 @@ public class MoveMotors {
     LightSensors lightSensors;
     ProxSensors proxSensors;
 
-    Continue c = new Continue();
+    Continue sleep = new Continue();
 
     ColorSensors.whichColor whichColor;
 
@@ -48,6 +48,7 @@ public class MoveMotors {
         colorSensorsGroundRight = new ColorSensors(robot.colorSensorGroundRight);
         lightSensors = new LightSensors(robot.lightSensor);
         proxSensors = new ProxSensors(robot.proxSensor);
+        //startEncoders();
     }
 
     public void setMotorPower(double x, double y, double z){
@@ -101,13 +102,13 @@ public class MoveMotors {
         if ((startingOrientation - 1) < 0){
             lowerBound = (360 + (0 - (1 - startingOrientation)));
         } else {
-            lowerBound = (startingOrientation) - 2;
+            lowerBound = (startingOrientation - 1);
         }
 
         if ((startingOrientation + 1) > 360) {
             upperBound = (0 + (360 - (1 + startingOrientation)));
         } else {
-            upperBound = (startingOrientation + 2);
+            upperBound = (startingOrientation + 1);
         }
 
         switch (direction) {
@@ -298,7 +299,7 @@ public class MoveMotors {
     public void lightDrive(Directions direction, double power) {
         Drive(direction, power);
         while(lightSensors.WhichColor() != ColorSensors.whichColor.WHITE) {
-            c.Sleep(10);
+            sleep.Sleep(10);
         }
         Stop();
     }
@@ -311,17 +312,17 @@ public class MoveMotors {
         Drive(direction, power);
         if(which == ColorSensors.whichColorSensor.BEACON) {
             while(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
-                c.Sleep(10);
+                sleep.Sleep(10);
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDLEFT){
             while(colorSensorsGroundLeft.isWhite() != ColorSensors.whichColor.WHITE) {
-                c.Sleep(10);
+                sleep.Sleep(10);
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
             while(colorSensorsGroundRight.isWhite() != ColorSensors.whichColor.WHITE) {
-                c.Sleep(10);
+                sleep.Sleep(10);
             }
         }
         else {
@@ -335,17 +336,17 @@ public class MoveMotors {
         Drive(direction, power);
         if(which == ColorSensors.whichColorSensor.BEACON) {
             while (colorSensorsBeacon.greaterColor() == whichColor) {
-                c.Sleep(10);
+                sleep.Sleep(10);
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDLEFT) {
             while (colorSensorsGroundLeft.greaterColor() == whichColor) {
-                c.Sleep(10);
+                sleep.Sleep(10);
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
             while (colorSensorsGroundRight.greaterColor() == whichColor) {
-                c.Sleep(10);
+                sleep.Sleep(10);
             }
         }
         else {
@@ -362,14 +363,14 @@ public class MoveMotors {
     public void ProxDrive(Directions direction, double power) {
         Drive(direction, power);
         while(proxSensors.getDistance() < .5) {
-            c.Sleep(10);
+            sleep.Sleep(10);
         }
         Stop();
     }
     public void ProxDrive(Directions direction, double power, double prox) {
         Drive(direction, power);
         while(proxSensors.getDistance() < prox) {
-            c.Sleep(10);
+            sleep.Sleep(10);
         }
         Stop();
     }
