@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
 
 @Autonomous(name="hit beacon blue one")
 @Disabled
-public class firstBeaconBlueProx extends LinearOpMode{
+public class FirstBeaconBlueProx extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         Hardwaresetup set = new Hardwaresetup();
         set.init(hardwareMap);
