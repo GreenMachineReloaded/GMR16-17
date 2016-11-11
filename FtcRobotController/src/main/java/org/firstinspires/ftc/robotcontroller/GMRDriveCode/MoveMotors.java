@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Created by Payton on 10/9/2016
  */
 public class MoveMotors {
-
+    //should we remove this after we finish the moveMotors object?
     Telemetry telemetry;
 
     Hardwaresetup robot = new Hardwaresetup();
@@ -22,7 +22,6 @@ public class MoveMotors {
     ColorSensors colorSensorsBeacon;
     ColorSensors colorSensorsGroundLeft;
     ColorSensors colorSensorsGroundRight;
-    LightSensors lightSensors;
     ProxSensors proxSensors;
 
     Continue c = new Continue();
@@ -31,16 +30,25 @@ public class MoveMotors {
 
     float goalDegrees = -1;
 
-    public void init(HardwareMap hwMap){
+
+
+    //Why are we using init? shouldn't this all be in the constructior?
+    public void init(HardwareMap hwMap, Telemetry telemetry){
         robot.init(hwMap);
 
         colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon);
         colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft);
         colorSensorsGroundRight = new ColorSensors(robot.colorSensorGroundRight);
-        lightSensors = new LightSensors(robot.lightSensor);
         proxSensors = new ProxSensors(robot.proxSensor);
+        this.telemetry = telemetry;
     }
 
+
+
+
+
+    //instead of storing the varibul though LFpower, why not just stick the function inside set power?
+    //PS by calling setMotorPower you are creating LFpower RFpower LRpower RRpower multipul timez.
     public void setMotorPower(double x, double y, double z){
 
         /*
@@ -63,6 +71,9 @@ public class MoveMotors {
 
     }
 
+
+
+    //should the gyro have its own object that move motors creates? aka Gyros gyros = new Gyros(gyro);
     public double currentDegrees(double x,double y) {
 
         //double magnitude = (Math.sqrt((x*x)+(-y*-y)));
@@ -77,11 +88,15 @@ public class MoveMotors {
 
     }
 
+
+
+
     public void Drive(Directions direction, double power){
 
         double leftInput = -power;
         double rightInput = power;
-
+        telemetry.addData("power: ", power);
+        telemetry.update();
         switch (direction) {
             case Forward:
                 robot.leftFront.setPower(leftInput);
@@ -147,6 +162,10 @@ public class MoveMotors {
 
     }
 
+
+
+    //should the gyro have its own object that move motors creates? aka Gyros gyros = new Gyros(gyro);
+    //PS why dose this return a true or false?
     public boolean gyroTurn(Directions direction, double power, float degrees, Telemetry telemetry){
 
         switch(direction) {
@@ -186,6 +205,10 @@ public class MoveMotors {
 
     }
 
+
+
+
+    //what is this? my understanding: it is the drive function that uses incoders.
     public void encoderDriveC(Directions direction, double power) {
 
         double leftInput = -power;
@@ -216,11 +239,22 @@ public class MoveMotors {
         }
     }
 
+
+
+
+
+    //Why is this here?
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
     public void startEncoders(){
         robot.leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    //PS it is used in MecanumTeleOp
 
+
+
+    //should the encoders be there own object?
     public int getLeftEncoder() {
         return -robot.leftFront.getCurrentPosition();
     }
@@ -229,6 +263,8 @@ public class MoveMotors {
         return robot.rightFront.getCurrentPosition();
     }
 
+
+    //should the gyro have its own object that move motors creates? aka Gyros gyros = new Gyros(gyro);
     public float getYaw(){
         if(robot.ahrs.getYaw() < 0) {
             return (360 + robot.ahrs.getYaw());
@@ -237,6 +273,10 @@ public class MoveMotors {
         }
     }
 
+
+
+
+    //should Stop be lowercased?
     public void Stop(){
         robot.leftFront.setPower(0);
         robot.leftRear.setPower(0);
@@ -245,19 +285,21 @@ public class MoveMotors {
     }
 
 
-
-    public void lightDrive(Directions direction, double power) {
-        Drive(direction, power);
-        while(lightSensors.WhichColor() != ColorSensors.whichColor.WHITE) {
-            c.Sleep(10);
-        }
-        Stop();
-    }
+        //should we remove this?
 
 
+//    public void lightDrive(Directions direction, double power) {
+//        Drive(direction, power);
+//        while(lightSensors.WhichColor() != ColorSensors.whichColor.WHITE) {
+//            c.Sleep(10);
+//        }
+//        Stop();
+//    }
 
 
 
+
+    //should we combine color white drive with color drive red blue?
     public void colorWhiteDrive(Directions direction, double power, ColorSensors.whichColorSensor which) {
         Drive(direction, power);
         if(which == ColorSensors.whichColorSensor.BEACON) {
@@ -309,7 +351,7 @@ public class MoveMotors {
 
 
 
-
+    //should we remove this?
     public void ProxDrive(Directions direction, double power) {
         Drive(direction, power);
         while(proxSensors.getDistance() < .5) {

@@ -17,8 +17,9 @@ public class MecanumTeleOp extends OpMode {
     double z;
 
     @Override
+    //Is this required?
     public void init() {
-        move.init(hardwareMap);
+        //move.init(hardwareMap);
         move.startEncoders();
     }
 

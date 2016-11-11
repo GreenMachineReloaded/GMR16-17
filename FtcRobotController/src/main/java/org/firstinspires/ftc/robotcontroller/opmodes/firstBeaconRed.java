@@ -16,19 +16,19 @@ public class firstBeaconRed extends LinearOpMode{
         Hardwaresetup set = new Hardwaresetup();
         set.init(hardwareMap);
         MoveMotors move = new MoveMotors();
-        move.init(hardwareMap);
-        Continue c = new Continue();
+        //move.init(hardwareMap);
+        Continue sleep = new Continue();
         waitForStart();
         move.colorWhiteDrive(Directions.DRightUp, 50, ColorSensors.whichColorSensor.GROUNDLEFT);
         move.Stop();
-        c.Sleep(100);
+        sleep.Sleep(100);
         move.ProxDrive(Directions.Forward, 25, .7);
-        c.Sleep(100);
+        sleep.Sleep(100);
         move.colorDriveRedBlue(Directions.StrafeLeft, 50, ColorSensors.whichColorSensor.BEACON, ColorSensors.whichColor.RED);
         move.Stop();
-        c.Sleep(100);
+        sleep.Sleep(100);
         move.Drive(Directions.Forward, 25);
-        c.Sleep(300);
+        sleep.Sleep(300);
         move.Stop();
     }
 }

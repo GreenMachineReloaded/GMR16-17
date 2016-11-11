@@ -16,7 +16,7 @@ public class CurrentDegrees extends OpMode {
 
     @Override
     public void init() {
-        move.init(hardwareMap);
+     //   move.init(hardwareMap);
     }
 
     @Override
