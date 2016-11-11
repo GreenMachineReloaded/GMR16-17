@@ -324,10 +324,6 @@ public class MoveMotors {
                 sleep.Sleep(10);
             }
         }
-        else {
-            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
-            telemetry.update();
-        }
         Stop();
     }
 
@@ -347,10 +343,6 @@ public class MoveMotors {
             while (colorSensorsGroundRight.greaterColor() == whichColor) {
                 sleep.Sleep(10);
             }
-        }
-        else {
-            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
-            telemetry.update();
         }
         Stop();
     }
