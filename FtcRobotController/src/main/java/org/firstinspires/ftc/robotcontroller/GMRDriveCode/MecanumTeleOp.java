@@ -18,7 +18,8 @@ public class MecanumTeleOp extends OpMode {
 
     @Override
     public void init() {
-        move.init(hardwareMap, telemetry);
+        move.init(hardwareMap);
+        move.startEncoders();
     }
 
     @Override
