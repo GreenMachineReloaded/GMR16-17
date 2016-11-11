@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.robotcontroller.GMRDriveCode;
-//should this be in moveMotors?
+
 public enum Directions{
     Forward,
     Backward,

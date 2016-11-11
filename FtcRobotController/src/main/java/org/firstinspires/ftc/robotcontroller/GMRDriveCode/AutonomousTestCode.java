@@ -19,7 +19,7 @@ public class AutonomousTestCode extends OpMode {
     @Override
     public void init() {
         programStart = true;
-        //move.init(hardwareMap);
+        move.init(hardwareMap);
         robot.init(hardwareMap);
         move.startEncoders();
     }
