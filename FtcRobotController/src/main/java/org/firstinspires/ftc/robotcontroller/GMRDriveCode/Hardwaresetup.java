@@ -4,9 +4,10 @@ import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
@@ -20,12 +21,17 @@ public class Hardwaresetup {
     public DcMotor rightFront;
     public DcMotor leftRear;
     public DcMotor rightRear;
+    public DcMotor sweeper;
+    public DcMotor launcher;
+    public DcMotor ballLift;
+
+    public Servo ballLiftServo;
+    public Servo launchAim;
 
     public ColorSensor colorSensorBeacon;
     public ColorSensor colorSensorGroundLeft;
     public ColorSensor colorSensorGroundRight;
 
-    public LightSensor lightSensor;
     public OpticalDistanceSensor proxSensor;
 
     public Telemetry telemetry;
@@ -34,11 +40,15 @@ public class Hardwaresetup {
 
     AHRS ahrs;
 
+    Continue sleep;
+
     public Hardwaresetup(){
 
     }
 
     public void init(HardwareMap hardwaremap) {
+
+        sleep = new Continue();
 
         hwMap = hardwaremap;
 
@@ -46,6 +56,12 @@ public class Hardwaresetup {
         rightFront = hwMap.dcMotor.get("rightfront");
         leftRear = hwMap.dcMotor.get("leftrear");
         rightRear = hwMap.dcMotor.get("rightrear");
+        sweeper = hwMap.dcMotor.get("sweeper");
+        launcher = hwMap.dcMotor.get("launcher");
+        ballLift = hwMap.dcMotor.get("balllift");
+
+        ballLiftServo = hwMap.servo.get("ballliftservo");
+        launchAim = hwMap.servo.get("launchaim");
 
         leftFront.setPower(0);
         rightFront.setPower(0);
@@ -54,6 +70,9 @@ public class Hardwaresetup {
 
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        sleep.Sleep(5);
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
