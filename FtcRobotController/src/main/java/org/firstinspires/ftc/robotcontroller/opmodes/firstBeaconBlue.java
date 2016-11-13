@@ -15,7 +15,7 @@ public class firstBeaconBlue extends LinearOpMode{
         Hardwaresetup set = new Hardwaresetup();
         set.init(hardwareMap);
         MoveMotors move = new MoveMotors();
-        move.init(hardwareMap);
+        move.init(hardwareMap, telemetry);
         Continue c = new Continue();
         waitForStart();
         move.colorWhiteDrive(Directions.DLeftUp, 50, ColorSensors.whichColorSensor.GROUNDLEFT);

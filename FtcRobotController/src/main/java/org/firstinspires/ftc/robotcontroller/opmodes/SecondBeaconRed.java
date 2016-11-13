@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcontroller.GMRDriveCode.MoveMotors;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
-@Autonomous(name="hit beacon red two")
+@Autonomous(name="hit beacon red three")
 public class SecondBeaconRed extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         Hardwaresetup set = new Hardwaresetup();

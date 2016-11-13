@@ -21,12 +21,12 @@ public class Hardwaresetup {
     public DcMotor rightFront;
     public DcMotor leftRear;
     public DcMotor rightRear;
-    public DcMotor sweeper;
-    public DcMotor launcher;
-    public DcMotor ballLift;
+    public DcMotor sweeperMotor;
+    public DcMotor launchMotor;
+    public DcMotor ballLiftMotor;
 
     public Servo ballLiftServo;
-    public Servo launchAim;
+    public Servo launchAimServo;
 
     public ColorSensor colorSensorBeacon;
     public ColorSensor colorSensorGroundLeft;
@@ -56,12 +56,12 @@ public class Hardwaresetup {
         rightFront = hwMap.dcMotor.get("rightfront");
         leftRear = hwMap.dcMotor.get("leftrear");
         rightRear = hwMap.dcMotor.get("rightrear");
-        sweeper = hwMap.dcMotor.get("sweeper");
-        launcher = hwMap.dcMotor.get("launcher");
-        ballLift = hwMap.dcMotor.get("balllift");
+        sweeperMotor = hwMap.dcMotor.get("sweepermotor");
+        launchMotor = hwMap.dcMotor.get("launchmotor");
+        //ballLiftMotor = hwMap.dcMotor.get("balllift");
 
-        ballLiftServo = hwMap.servo.get("ballliftservo");
-        launchAim = hwMap.servo.get("launchaim");
+        //ballLiftServo = hwMap.servo.get("ballliftservo");
+        //launchAimServo = hwMap.servo.get("launchaim");
 
         leftFront.setPower(0);
         rightFront.setPower(0);
@@ -75,6 +75,8 @@ public class Hardwaresetup {
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        sweeperMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         ahrs = AHRS.getInstance(hwMap.deviceInterfaceModule.get("dim"),
                 NAVX_DIM_I2C_PORT,
@@ -85,7 +87,6 @@ public class Hardwaresetup {
         colorSensorGroundLeft = hwMap.colorSensor.get("colorSensorGroundLeft");
         colorSensorGroundRight = hwMap.colorSensor.get("colorSensorGroundRight");
 
-        lightSensor = hwMap.lightSensor.get("lightSensor");
         proxSensor = hwMap.opticalDistanceSensor.get("proxSensor");
     }
 }

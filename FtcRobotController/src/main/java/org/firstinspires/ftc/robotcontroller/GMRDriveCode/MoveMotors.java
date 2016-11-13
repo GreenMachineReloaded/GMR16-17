@@ -37,6 +37,10 @@ public class MoveMotors {
 
     float goalDegrees = -1;
 
+    boolean canLaunch = true;
+
+    int goalPosition = -1;
+
     public void init(HardwareMap hwMap, Telemetry Telemetry){
         robot.init(hwMap);
 
@@ -61,13 +65,40 @@ public class MoveMotors {
         double LFpower = Range.clip(-(y+x+z),-1,1);
         double RFpower = Range.clip((y-x-z),-1,1);
         double LRpower = Range.clip(-(y-x+z),-1,1);
-        double RRpower = Range.clip((y + x - z), -1, 1);
+        double RRpower = Range.clip((y+x-z), -1, 1);
 
         robot.leftFront.setPower(LFpower);
         robot.rightFront.setPower(RFpower);
         robot.leftRear.setPower(LRpower);
         robot.rightRear.setPower(RRpower);
 
+    }
+
+    public void lanuchControl(boolean leftTrigger) {
+        if (leftTrigger) {
+            if (canLaunch){
+                goalPosition = (getLaunchEncoder() + 1550);
+                canLaunch = false;
+                telemetry.addData("","");
+            }
+        }
+        if (getLaunchEncoder() < goalPosition) {
+            robot.launchMotor.setPower(1);
+            telemetry.addData("Goal Position", goalPosition);
+        } else {
+            robot.launchMotor.setPower(0);
+            canLaunch = true;
+        }
+    }
+
+    public void sweeperControl(boolean rightBumper, double rightTrigger) {
+        if(rightBumper) {
+            robot.sweeperMotor.setPower(1);
+        } else if (rightTrigger > 0) {
+            robot.sweeperMotor.setPower(-1);
+        } else {
+            robot.sweeperMotor.setPower(0);
+        }
     }
 
     public double currentDegrees(double x,double y) {
@@ -236,6 +267,8 @@ public class MoveMotors {
     public int getRightEncoder() {
         return robot.rightFront.getCurrentPosition();
     }
+
+    public int getLaunchEncoder() { return robot.launchMotor.getCurrentPosition(); }
 
     public float getYaw(){
         if(robot.ahrs.getYaw() < 0) {
