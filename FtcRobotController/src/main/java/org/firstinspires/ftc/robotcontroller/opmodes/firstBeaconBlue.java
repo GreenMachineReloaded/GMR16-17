@@ -8,14 +8,14 @@ import org.firstinspires.ftc.robotcontroller.GMRDriveCode.MoveMotors;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
-@Autonomous(name="hit beacon blue one")
+@Autonomous(name="hit beacon red one")
 public class firstBeaconBlue extends LinearOpMode{
 
     public void runOpMode() throws InterruptedException {
         Hardwaresetup set = new Hardwaresetup();
         set.init(hardwareMap);
         MoveMotors move = new MoveMotors();
-        move.init(hardwareMap, telemetry);
+        move.init(hardwareMap);
         Continue c = new Continue();
         waitForStart();
         move.colorWhiteDrive(Directions.DLeftUp, 50, ColorSensors.whichColorSensor.GROUNDLEFT);
