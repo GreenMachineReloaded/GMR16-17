@@ -9,13 +9,14 @@ import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
 @Autonomous(name="test all color sensors")
+@Disabled
 public class TestAllColorSensors extends LinearOpMode{
     public void runOpMode() throws InterruptedException{
         Hardwaresetup hardwaresetup = new Hardwaresetup();
         hardwaresetup.init(hardwareMap);
         ColorSensors colorSensorsGL = new ColorSensors(hardwaresetup.colorSensorGroundLeft, true);
         ColorSensors colorSensorsGR = new ColorSensors(hardwaresetup.colorSensorGroundRight, true);
-        ColorSensors colorSensorsB = new ColorSensors(hardwaresetup.colorSensorGroundRight, true);
+        ColorSensors colorSensorsB = new ColorSensors(hardwaresetup.colorSensorBeacon, true);
         Continue c = new Continue();
         waitForStart();
         while(true) {

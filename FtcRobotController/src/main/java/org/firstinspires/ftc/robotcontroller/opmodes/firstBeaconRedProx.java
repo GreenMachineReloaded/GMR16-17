@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
 
-@Autonomous(name="hit beacon red one")
+@Autonomous(name="hit beacon red one prox")
 @Disabled
 public class FirstBeaconRedProx extends LinearOpMode{
     public void runOpMode() throws InterruptedException {

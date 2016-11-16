@@ -8,20 +8,21 @@ import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
-@Autonomous(name="test color white bottom left")
-@Disabled
-public class TestColorWhiteBottomLeft extends LinearOpMode{
+@Autonomous(name="test color sensors port")
+public class TestColorPort extends LinearOpMode{
     public void runOpMode() throws InterruptedException{
-        Hardwaresetup hardwaresetup = new Hardwaresetup();
-        hardwaresetup.init(hardwareMap);
-        ColorSensors colorSensors = new ColorSensors(hardwareMap.colorSensor.get("colorSensorGroundLeft"));
-        colorSensors.turnOnLight(true);
+
+        ColorSensor colorbeacon = hardwareMap.colorSensor.get("c");
         Continue c = new Continue();
         waitForStart();
+        colorbeacon.enableLed(false);
         while(true) {
-            telemetry.addData("BLUE: ", "" + hardwaresetup.colorSensorGroundLeft.blue());
-            telemetry.addData("BLUE: ", "" + colorSensors.getBlue());
-            telemetry.addData("GREATER", "" + colorSensors.isWhite());
+            telemetry.addData("blue: ", colorbeacon.blue());
+            telemetry.addData("red: ", colorbeacon.red());
+            telemetry.addData("address: ", colorbeacon.getI2cAddress());
+            telemetry.addData("info: ", colorbeacon.getConnectionInfo());
+            telemetry.addData("name: ", colorbeacon.getDeviceName());
+
             telemetry.update();
             c.Sleep(100);
         }
