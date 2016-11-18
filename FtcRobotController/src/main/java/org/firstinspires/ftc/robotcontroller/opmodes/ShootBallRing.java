@@ -9,9 +9,7 @@ import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.MoveMotors;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
-
 @Autonomous(name="lanch")
-
 public class ShootBallRing extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         Hardwaresetup set = new Hardwaresetup();
@@ -21,7 +19,10 @@ public class ShootBallRing extends LinearOpMode{
         Continue c = new Continue();
         DcMotor fire = hardwareMap.dcMotor.get("launchmotor");
         waitForStart();
-        fire.setPower(.5);
+        move.Drive(Directions.Forward, .5);
+        c.Sleep(1000);
+        move.Stop();
+        fire.setPower(.75);
         c.Sleep(1000);
         fire.setPower(0);
     }
