@@ -9,8 +9,8 @@ import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.MoveMotors;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
-@Autonomous(name="lanch")
-public class ShootBallRing extends LinearOpMode{
+@Autonomous(name="lanch hit ball")
+public class ShootNockPlantRED extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         Hardwaresetup set = new Hardwaresetup();
         set.init(hardwareMap);
@@ -23,7 +23,16 @@ public class ShootBallRing extends LinearOpMode{
         c.Sleep(1100);
         move.Stop();
         fire.setPower(.75);
-        c.Sleep(1000);
+        c.Sleep(2000);
         fire.setPower(0);
+        move.Drive(Directions.Forward, .25);
+        c.Sleep(200);
+        move.Drive(Directions.TurnLeft, .5);
+        c.Sleep(1000);
+        move.Drive(Directions.TurnRight, .5);
+        c.Sleep(1000);
+        move.Drive(Directions.Forward, .3);
+        c.Sleep(700);
+        move.Stop();
     }
 }
