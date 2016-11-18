@@ -36,7 +36,7 @@ public class BeaconOneBlueState extends OpMode {
             programStart = false;
         }
         if (state == currentState.stateOne) {
-            String number;
+
         }
 
     }
