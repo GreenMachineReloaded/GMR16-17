@@ -14,7 +14,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Created by Payton on 10/9/2016
  */
 public class MoveMotors {
-
     Hardwaresetup robot = new Hardwaresetup();
 
     ColorSensors colorSensorsBeacon;
@@ -22,12 +21,6 @@ public class MoveMotors {
     ColorSensors colorSensorsGroundRight;
     LightSensors lightSensors;
     ProxSensors proxSensors;
-
-    Continue sleep = new Continue();
-
-    ColorSensors.whichColor whichColor;
-
-    float goalDegrees = -1;
 
     float startingOrientation = -1;
 
@@ -38,6 +31,16 @@ public class MoveMotors {
     static final double     wheelDiameterInches   = 4.0 ;
     static final double     countsPerInch         = (countsPerMotorRev * driveGearReduction) / (wheelDiameterInches * Math.PI);
 
+    Continue sleep = new Continue();
+
+    ColorSensors.whichColor whichColor;
+
+    float goalDegrees = -1;
+
+    boolean canLaunch = true;
+
+    int goalPosition = -1;
+
     public void init(HardwareMap hwMap, Telemetry Telemetry){
         robot.init(hwMap);
 
@@ -47,7 +50,6 @@ public class MoveMotors {
         colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft);
         colorSensorsGroundRight = new ColorSensors(robot.colorSensorGroundRight);
         proxSensors = new ProxSensors(robot.proxSensor);
-        startEncoders();
     }
 
     public void setMotorPower(double x, double y, double z){
@@ -63,13 +65,40 @@ public class MoveMotors {
         double LFpower = Range.clip(-(y+x+z),-1,1);
         double RFpower = Range.clip((y-x-z),-1,1);
         double LRpower = Range.clip(-(y-x+z),-1,1);
-        double RRpower = Range.clip((y + x - z), -1, 1);
+        double RRpower = Range.clip((y+x-z), -1, 1);
 
         robot.leftFront.setPower(LFpower);
         robot.rightFront.setPower(RFpower);
         robot.leftRear.setPower(LRpower);
         robot.rightRear.setPower(RRpower);
 
+    }
+
+    public void launchControl(boolean leftTrigger) {
+        if (leftTrigger) {
+            if (canLaunch){
+                goalPosition = (getLaunchEncoder() + 1550);
+                canLaunch = false;
+                telemetry.addData("","");
+            }
+        }
+        if (getLaunchEncoder() < goalPosition) {
+            robot.launchMotor.setPower(1);
+            telemetry.addData("Goal Position", goalPosition);
+        } else {
+            robot.launchMotor.setPower(0);
+            canLaunch = true;
+        }
+    }
+
+    public void sweeperControl(boolean rightBumper, double rightTrigger) {
+        if(rightBumper) {
+            robot.sweeperMotor.setPower(1);
+        } else if (rightTrigger > 0) {
+            robot.sweeperMotor.setPower(-1);
+        } else {
+            robot.sweeperMotor.setPower(0);
+        }
     }
 
     public double currentDegrees(double x,double y) {
@@ -91,36 +120,12 @@ public class MoveMotors {
         double leftInput = -power;
         double rightInput = power;
 
-        float upperBound;
-        float lowerBound;
-
-        if (startingOrientation == -1) {
-            startingOrientation = getYaw();
-        }
-
-        if ((startingOrientation - 1) < 0){
-            lowerBound = (360 + (0 - (1 - startingOrientation)));
-        } else {
-            lowerBound = (startingOrientation - 1);
-        }
-
-        if ((startingOrientation + 1) > 360) {
-            upperBound = (0 + (360 - (1 + startingOrientation)));
-        } else {
-            upperBound = (startingOrientation + 1);
-        }
-
         switch (direction) {
             case Forward:
                 robot.leftFront.setPower(leftInput);
                 robot.rightFront.setPower(rightInput);
                 robot.leftRear.setPower(leftInput);
                 robot.rightRear.setPower(rightInput);
-                if (getYaw() != startingOrientation) {
-                    if (getYaw() < 0 ) {
-                        int O = 0;
-                    }
-                }
                 break;
             case Backward:
                 robot.leftFront.setPower(-leftInput);
@@ -190,17 +195,15 @@ public class MoveMotors {
                         goalDegrees = (goalDegrees + 360);
                     }
                 }
-                if (!(getYaw() > (goalDegrees - 1) && getYaw() < (goalDegrees + 1))) {
+                if (!(getYaw() > goalDegrees - 1 && getYaw() < goalDegrees + 1)) {
                     Drive(direction, power);
-                    telemetry.addData("Goal degrees: ", goalDegrees);
-                    telemetry.addData("Goal degrees + 1: ", goalDegrees + 1);
-                    telemetry.addData("Goal degrees - 1: ", goalDegrees - 1);
+                    telemetry.addData("Goal degrees", goalDegrees);
+                    return true;
                 } else {
                     Stop();
                     goalDegrees = -1;
                     return false;
                 }
-                break;
             case TurnRight:
                 if (goalDegrees == -1) {
                     goalDegrees = (getYaw() + degrees);
@@ -210,21 +213,20 @@ public class MoveMotors {
                 }
                 if (!(getYaw() > (goalDegrees - 3) && getYaw() < (goalDegrees + 3))) {
                     Drive(direction, power);
-                    telemetry.addData("Goal degrees: ", goalDegrees);
-                    telemetry.addData("Goal degrees + 3: ", goalDegrees + 3);
-                    telemetry.addData("Goal degrees - 3: ", goalDegrees - 3);
+                    telemetry.addData("Goal degrees", goalDegrees);
+                    telemetry.addData("Goal degrees + 3", goalDegrees + 3);
+                    telemetry.addData("Goal degrees - 3", goalDegrees - 3);
+                    return true;
                 } else {
                     Stop();
                     goalDegrees = -1;
                     return false;
                 }
-                break;
         }
         return false;
-
     }
 
-    public void encoderDrive(Directions direction, double power, float inches) {
+    public boolean encoderDrive(Directions direction, double power, double inches) {
 
         double leftInput = -power;
         double rightInput = power;
@@ -232,9 +234,6 @@ public class MoveMotors {
         switch(direction) {
 
             case Forward:
-                if (getRightInches() < inches && getLeftInches() < inches) {
-                    break;
-                }
                 break;
             case Backward:
                 break;
@@ -255,6 +254,7 @@ public class MoveMotors {
             case TurnRight:
                 break;
         }
+        return false;
     }
 
     public void startEncoders(){
@@ -262,21 +262,13 @@ public class MoveMotors {
         robot.rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public int getLeftEncoder() {
-        return -robot.leftFront.getCurrentPosition();
-    }
+    public int getLeftEncoder() { return -robot.leftFront.getCurrentPosition(); }
 
     public int getRightEncoder() {
         return robot.rightFront.getCurrentPosition();
     }
 
-    public double getRightInches() {
-        return (robot.rightFront.getCurrentPosition() / countsPerInch);
-    }
-
-    public double getLeftInches() {
-        return (robot.leftFront.getCurrentPosition() / countsPerInch);
-    }
+    public int getLaunchEncoder() { return robot.launchMotor.getCurrentPosition(); }
 
     public float getYaw(){
         if(robot.ahrs.getYaw() < 0) {
@@ -293,7 +285,13 @@ public class MoveMotors {
         robot.rightRear.setPower(0);
     }
 
+    public double encoderInchesRight() {
+        return (getRightEncoder() / countsPerInch);
+    }
 
+    public double encoderInchesLeft() {
+        return (getLeftEncoder() / countsPerInch);
+    }
 
     public void lightDrive(Directions direction, double power) {
         Drive(direction, power);
@@ -324,6 +322,10 @@ public class MoveMotors {
                 sleep.Sleep(10);
             }
         }
+        else {
+            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
+            telemetry.update();
+        }
         Stop();
     }
 
@@ -343,6 +345,10 @@ public class MoveMotors {
             while (colorSensorsGroundRight.greaterColor() == whichColor) {
                 sleep.Sleep(10);
             }
+        }
+        else {
+            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
+            telemetry.update();
         }
         Stop();
     }

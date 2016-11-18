@@ -19,7 +19,6 @@ public class ColorSensors {
     public double getBlue() {
         return (8 * colorSensor.blue());
     }
-    public double getGreen() { return (8 * colorSensor.green());}
     public ColorSensors.whichColor greaterColor() {
         if (getRed() > getBlue()) {
             return whichColor.RED;
@@ -30,7 +29,7 @@ public class ColorSensors {
         }
     }
     public ColorSensors.whichColor isWhite() {
-        if((colorSensor.blue() * colorSensor.red() * colorSensor.green()) > 100) {
+        if((colorSensor.blue() * colorSensor.red() * colorSensor.green() * 8) > 100) {
             return whichColor.WHITE;
         }
         else {
