@@ -32,7 +32,7 @@ public class MecanumTeleOp extends OpMode {
         z = gamepad1.right_stick_x;
 
         move.setMotorPower(x, y, z);
-        move.lanuchControl(gamepad1.left_bumper);
+        move.launchControl(gamepad1.left_bumper);
         move.sweeperControl(gamepad1.right_bumper, gamepad1.right_trigger);
 
         telemetry.addData("Current Yaw", move.getYaw());

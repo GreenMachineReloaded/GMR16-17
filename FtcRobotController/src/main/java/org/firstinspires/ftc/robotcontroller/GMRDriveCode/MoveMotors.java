@@ -74,7 +74,7 @@ public class MoveMotors {
 
     }
 
-    public void lanuchControl(boolean leftTrigger) {
+    public void launchControl(boolean leftTrigger) {
         if (leftTrigger) {
             if (canLaunch){
                 goalPosition = (getLaunchEncoder() + 1550);
