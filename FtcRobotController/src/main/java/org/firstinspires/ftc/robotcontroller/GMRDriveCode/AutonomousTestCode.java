@@ -4,16 +4,19 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensor;
+
 /**
  * Created by Payton on 10/9/2016
  */
-@TeleOp(name="Autonomous Test V3", group="Mecanum Bot")
+@TeleOp(name="Autonomous Test V4", group="Mecanum Bot")
 public class AutonomousTestCode extends OpMode {
 
     boolean programStart;
     MoveMotors move = new MoveMotors();
     ElapsedTime time = new ElapsedTime();
     Hardwaresetup robot = new Hardwaresetup();
+    ColorSensor color = new ColorSensor();
     boolean stop = true;
 
     @Override
@@ -31,10 +34,7 @@ public class AutonomousTestCode extends OpMode {
             programStart = false;
         }
         if (stop) {
-            stop = move.gyroTurn(Directions.TurnRight,0.5, 90);
-            telemetry.addData("Current Degrees", move.getYaw());
-            telemetry.addData("Current stop Value", stop);
-            telemetry.update();
+            telemetry.addData("Current Color", 6);
         } else {
             move.Stop();
         }

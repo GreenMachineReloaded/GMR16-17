@@ -10,6 +10,28 @@ import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+/*
+public I2cDevice CSBeacon;
+    public I2cDevice CSGroundLeft;
+    public I2cDevice CSGroundRight;
+
+    public I2cDeviceSynch CRBeacon;
+    public I2cDeviceSynch CRGroundLeft;
+    public I2cDeviceSynch CRGroundRight;
+
+    CSBeacon = hwMap.i2cDevice.get("CSBeacon");
+        CRBeacon = new I2cDeviceSynchImpl(CSBeacon, I2cAddr.create8bit(0x3c), false);
+        CRBeacon.engage();
+
+        CSGroundLeft = hwMap.i2cDevice.get("CSGroundLeft");
+        CRGroundLeft = new I2cDeviceSynchImpl(CSGroundLeft, I2cAddr.create8bit(0x3c), false);
+        CRGroundLeft.engage();
+
+        CSGroundRight = hwMap.i2cDevice.get("CSGroundRight");
+        CRGroundRight = new I2cDeviceSynchImpl(CSGroundRight, I2cAddr.create8bit(0x3c), false);
+        CRGroundRight.engage();
+ */
+
 /**
  * Created by Payton on 10/9/2016
  */
@@ -46,9 +68,9 @@ public class MoveMotors {
 
         telemetry = Telemetry;
 
-        colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon);
-        colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft);
-        colorSensorsGroundRight = new ColorSensors(robot.colorSensorGroundRight);
+        colorSensorsBeacon = new ColorSensors(robot.CSBeacon_);
+        colorSensorsGroundLeft = new ColorSensors(robot.CSGroundLeft_);
+        colorSensorsGroundRight = new ColorSensors(robot.CSGroundRight_);
         proxSensors = new ProxSensors(robot.proxSensor);
     }
 
@@ -98,6 +120,16 @@ public class MoveMotors {
             robot.sweeperMotor.setPower(-1);
         } else {
             robot.sweeperMotor.setPower(0);
+        }
+    }
+
+    public void linearSlideControl(boolean gamepad2A, boolean gamepad2B) {
+        if (gamepad2A && !gamepad2B) {
+            robot.ballLiftMotor.setPower(0.8);
+        } else if (!gamepad2A && gamepad2B) {
+            robot.ballLiftMotor.setPower(-0.8);
+        } else {
+            robot.ballLiftMotor.setPower(0);
         }
     }
 

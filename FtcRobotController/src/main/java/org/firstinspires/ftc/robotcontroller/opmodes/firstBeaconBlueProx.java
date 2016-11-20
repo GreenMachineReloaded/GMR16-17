@@ -18,7 +18,7 @@ public class firstBeaconBlueProx extends LinearOpMode{
         set.init(hardwareMap);
         MoveMotors move = new MoveMotors();
         move.init(hardwareMap, telemetry);
-        ColorSensors colorSensor = new ColorSensors(set.colorSensorBeacon);
+        ColorSensors colorSensor = new ColorSensors(set.CSBeacon_);
         ProxSensors proxSensors = new ProxSensors(set.proxSensor);
         Continue c = new Continue();
         waitForStart();

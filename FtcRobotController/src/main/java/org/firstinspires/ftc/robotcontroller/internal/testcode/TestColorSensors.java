@@ -44,7 +44,7 @@ import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.LED;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-@Autonomous(name = "TestColorSensors", group = "Tests")
+@Autonomous(name = "ColorSensor", group = "Tests")
 @Disabled
 public class TestColorSensors extends LinearOpMode {
 

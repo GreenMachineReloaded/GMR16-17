@@ -28,9 +28,9 @@ public class Hardwaresetup {
     public Servo ballLiftServo;
     public Servo launchAimServo;
 
-    public ColorSensor colorSensorBeacon;
-    public ColorSensor colorSensorGroundLeft;
-    public ColorSensor colorSensorGroundRight;
+    public ColorSensor CSBeacon_;
+    public ColorSensor CSGroundLeft_;
+    public ColorSensor CSGroundRight_;
 
     public OpticalDistanceSensor proxSensor;
 
@@ -58,7 +58,7 @@ public class Hardwaresetup {
         rightRear = hwMap.dcMotor.get("rightrear");
         sweeperMotor = hwMap.dcMotor.get("sweepermotor");
         launchMotor = hwMap.dcMotor.get("launchmotor");
-        //ballLiftMotor = hwMap.dcMotor.get("balllift");
+        ballLiftMotor = hwMap.dcMotor.get("balllift");
 
         //ballLiftServo = hwMap.servo.get("ballliftservo");
         //launchAimServo = hwMap.servo.get("launchaim");
@@ -83,9 +83,9 @@ public class Hardwaresetup {
                 AHRS.DeviceDataType.kProcessedData);
         ahrs.zeroYaw();
 
-        colorSensorBeacon = hwMap.colorSensor.get("colorSensorBeacon");
-        colorSensorGroundLeft = hwMap.colorSensor.get("colorSensorGroundLeft");
-        colorSensorGroundRight = hwMap.colorSensor.get("colorSensorGroundRight");
+        CSBeacon_ = hwMap.colorSensor.get("CSBeacon");
+        CSGroundLeft_ = hwMap.colorSensor.get("CSGroundLeft");
+        CSGroundRight_ = hwMap.colorSensor.get("CSGroundRight");
 
         proxSensor = hwMap.opticalDistanceSensor.get("proxSensor");
     }

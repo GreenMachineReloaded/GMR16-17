@@ -27,6 +27,8 @@ public class MecanumTeleOp extends OpMode {
     @Override
     public void loop() {
 
+        telemetry.addData("Program looping","");
+
         x = gamepad1.left_stick_x;
         y = -gamepad1.left_stick_y;
         z = gamepad1.right_stick_x;
@@ -34,18 +36,11 @@ public class MecanumTeleOp extends OpMode {
         move.setMotorPower(x, y, z);
         move.launchControl(gamepad1.left_bumper);
         move.sweeperControl(gamepad1.right_bumper, gamepad1.right_trigger);
+        move.linearSlideControl(gamepad2.a, gamepad2.b);
 
         telemetry.addData("Current Yaw", move.getYaw());
         telemetry.addData("Launch Encoder", move.getLaunchEncoder());
         telemetry.addData("Launcher is Active", gamepad1.left_bumper);
-
-//        if (gamepad1.a) {
-//            robot.launchMotor.setPower(0.01);
-//            telemetry.addData("Launcher Test is Active", true);
-//        } else {
-//            robot.launchMotor.setPower(0);
-//            telemetry.addData("Launcher Test is Active", false);
-//        }
 
         updateTelemetry(telemetry);
 
