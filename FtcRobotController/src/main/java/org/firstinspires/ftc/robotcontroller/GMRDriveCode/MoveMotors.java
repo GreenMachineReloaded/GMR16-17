@@ -2,6 +2,7 @@ package org.firstinspires.ftc.robotcontroller.GMRDriveCode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
@@ -63,6 +64,12 @@ public class MoveMotors {
 
     int goalPosition = -1;
 
+    double servoTestPosition = 0.5;
+
+    ElapsedTime launchTime = new ElapsedTime();
+
+    double timeOfCompletion;
+
     public void init(HardwareMap hwMap, Telemetry Telemetry){
         robot.init(hwMap);
 
@@ -96,21 +103,29 @@ public class MoveMotors {
 
     }
 
-    public void launchControl(boolean leftTrigger) {
-        if (leftTrigger) {
+    public void launchControl(boolean leftBumper) {
+        if (leftBumper) {
             if (canLaunch){
-                goalPosition = (getLaunchEncoder() + 1550);
+                goalPosition = (getLaunchEncoder() + 1680);
                 canLaunch = false;
-                telemetry.addData("","");
+                robot.launchMotor.setPower(1);
+                robot.launchMotor.setTargetPosition(goalPosition);
             }
         }
-        if (getLaunchEncoder() < goalPosition) {
-            robot.launchMotor.setPower(1);
-            telemetry.addData("Goal Position", goalPosition);
+
+        if (getLaunchEncoder() <= (goalPosition - 20)) {
+            launcherServoControl(false);
+            timeOfCompletion = (launchTime.seconds() + 0.7);
         } else {
-            robot.launchMotor.setPower(0);
+            if (launchTime.seconds() < timeOfCompletion) {
+                //launcherServoControl(true);
+                boolean waffle;
+            } else {
+                launcherServoControl(false);
+            }
             canLaunch = true;
         }
+
     }
 
     public void sweeperControl(boolean rightBumper, double rightTrigger) {
@@ -145,6 +160,22 @@ public class MoveMotors {
         }
         return degrees;
 
+    }
+
+    public void launcherServoControl(boolean x) {
+        if (x) {
+            robot.hopperDoorServo.setPosition(0.43);
+        } else {
+            robot.hopperDoorServo.setPosition(0.95);
+        }
+    }
+
+    public void liftControl(boolean dPadUp, boolean dPadDown) {
+        if (dPadUp) {
+            robot.ballLiftServo.setPosition(0.07);
+        } else if (dPadDown) {
+            robot.ballLiftServo.setPosition(0.63);
+        }
     }
 
     public void Drive(Directions direction, double power){
