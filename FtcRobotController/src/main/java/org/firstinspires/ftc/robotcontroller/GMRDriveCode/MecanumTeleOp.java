@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Created by Payton on 10/9/2016
  */
 
-@TeleOp(name="Mecanum Drive: Version Two", group="Mecanum Bot")
+@TeleOp(name="Mecanum Drive: Version Three", group="Mecanum Bot")
 public class MecanumTeleOp extends OpMode {
 
     MoveMotors move = new MoveMotors();
@@ -31,6 +31,11 @@ public class MecanumTeleOp extends OpMode {
     }
 
     @Override
+    public void start() {
+        move.liftControl(false, true);
+    }
+
+    @Override
     public void loop() {
 
         if (start) {
@@ -43,6 +48,7 @@ public class MecanumTeleOp extends OpMode {
         z = gamepad1.right_stick_x;
 
         move.setMotorPower(x, y, z);
+
         if (!gamepad1.x) {
             move.launchControl(gamepad1.left_bumper);
         }

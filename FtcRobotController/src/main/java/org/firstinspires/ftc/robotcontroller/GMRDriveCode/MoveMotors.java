@@ -63,12 +63,15 @@ public class MoveMotors {
     boolean canLaunch = true;
 
     int goalPosition = -1;
+    double goalEncoderPosition = -1;
 
     double servoTestPosition = 0.5;
 
     ElapsedTime launchTime = new ElapsedTime();
 
     double timeOfCompletion;
+
+    boolean encoderDrive = true;
 
     public void init(HardwareMap hwMap, Telemetry Telemetry){
         robot.init(hwMap);
@@ -294,30 +297,51 @@ public class MoveMotors {
         double leftInput = -power;
         double rightInput = power;
 
-        switch(direction) {
+        int combinedEnValue = ((getLeftEncoder() + getRightEncoder()) / 2);
 
-            case Forward:
-                break;
-            case Backward:
-                break;
-            case StrafeLeft:
-                break;
-            case StrafeRight:
-                break;
-            case DRightUp:
-                break;
-            case DRightDown:
-                break;
-            case DLeftUp:
-                break;
-            case DLeftDown:
-                break;
-            case TurnLeft:
-                break;
-            case TurnRight:
-                break;
+        if (encoderDrive){
+            goalEncoderPosition = (combinedEnValue + (inches * countsPerInch));
+            encoderDrive = false;
+            return encoderDrive;
+        } else {
+
+            switch (direction) {
+
+                case Forward:
+                    if ((combinedEnValue) < goalEncoderPosition) {
+                        Drive(direction, power);
+                    } else {
+                        encoderDrive = true;
+                        return encoderDrive;
+                    }
+                    break;
+                case Backward:
+                    if ((combinedEnValue) > goalEncoderPosition) {
+                        Drive(direction, power);
+                    } else {
+                        encoderDrive = true;
+                        return encoderDrive;
+                    }
+                    break;
+                case StrafeLeft:
+                    return encoderDrive;
+                case StrafeRight:
+                    return encoderDrive;
+                case DRightUp:
+                    return encoderDrive;
+                case DRightDown:
+                    return encoderDrive;
+                case DLeftUp:
+                    return encoderDrive;
+                case DLeftDown:
+                    return encoderDrive;
+                case TurnLeft:
+                    return encoderDrive;
+                case TurnRight:
+                    return encoderDrive;
+            }
+            return encoderDrive;
         }
-        return false;
     }
 
     public void startEncoders(){
