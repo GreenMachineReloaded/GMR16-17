@@ -39,7 +39,6 @@ public class SkeletonAuto extends OpMode {
         if (state == currentState.stateOne) {
             if (!isFinished) {
                 isFinished = move.encoderDrive(Directions.Forward, 0.6, 20);
-
             } else {
                 state = currentState.stateTwo;
             }

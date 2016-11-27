@@ -263,7 +263,6 @@ public class MoveMotors {
                 }
                 if (!(getYaw() > goalDegrees - 1 && getYaw() < goalDegrees + 1)) {
                     Drive(direction, power);
-                    telemetry.addData("Goal degrees", goalDegrees);
                     return true;
                 } else {
                     Stop();
@@ -279,9 +278,6 @@ public class MoveMotors {
                 }
                 if (!(getYaw() > (goalDegrees - 3) && getYaw() < (goalDegrees + 3))) {
                     Drive(direction, power);
-                    telemetry.addData("Goal degrees", goalDegrees);
-                    telemetry.addData("Goal degrees + 3", goalDegrees + 3);
-                    telemetry.addData("Goal degrees - 3", goalDegrees - 3);
                     return true;
                 } else {
                     Stop();
