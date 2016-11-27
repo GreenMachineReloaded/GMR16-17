@@ -60,7 +60,7 @@ public class MecanumTeleOp extends OpMode {
         updateTelemetry(telemetry);
 
         telemetry.addData("Current time", time.seconds());
-        telemetry.addData("Current Position", robot.ballLiftServo.getPosition());
+        telemetry.addData("Current Yaw", move.getYaw());
 
         if (gamepad1.y) {
             time.startTime();

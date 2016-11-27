@@ -309,17 +309,20 @@ public class MoveMotors {
 
                 case Forward:
                     if ((combinedEnValue) < goalEncoderPosition) {
-                        Drive(direction, power);
+                        Drive(direction, power);telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
                         encoderDrive = true;
+                        Stop();
                         return encoderDrive;
                     }
                     break;
                 case Backward:
                     if ((combinedEnValue) > goalEncoderPosition) {
                         Drive(direction, power);
+                        telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
                         encoderDrive = true;
+                        Stop();
                         return encoderDrive;
                     }
                     break;
