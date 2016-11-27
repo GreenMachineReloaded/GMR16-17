@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
  * Created by Payton on 11/11/2016
  */
 @Autonomous(name="Blue Side, Beacon One", group="Beacon Pushers")
+@Disabled
 public class BeaconOneBlueState extends OpMode {
 
     MoveMotors move = new MoveMotors();

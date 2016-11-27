@@ -25,8 +25,8 @@ public class Hardwaresetup {
     public DcMotor launchMotor;
     public DcMotor ballLiftMotor;
 
+    public Servo hopperDoorServo;
     public Servo ballLiftServo;
-    public Servo launchAimServo;
 
     public ColorSensor CSBeacon_;
     public ColorSensor CSGroundLeft_;
@@ -60,8 +60,8 @@ public class Hardwaresetup {
         launchMotor = hwMap.dcMotor.get("launchmotor");
         ballLiftMotor = hwMap.dcMotor.get("balllift");
 
-        //ballLiftServo = hwMap.servo.get("ballliftservo");
-        //launchAimServo = hwMap.servo.get("launchaim");
+        hopperDoorServo = hwMap.servo.get("hopperdoorservo");
+        ballLiftServo = hwMap.servo.get("ballliftservo");
 
         leftFront.setPower(0);
         rightFront.setPower(0);
@@ -70,13 +70,14 @@ public class Hardwaresetup {
 
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        launchMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         sleep.Sleep(5);
         leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         sweeperMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        launchMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         ahrs = AHRS.getInstance(hwMap.deviceInterfaceModule.get("dim"),
                 NAVX_DIM_I2C_PORT,
