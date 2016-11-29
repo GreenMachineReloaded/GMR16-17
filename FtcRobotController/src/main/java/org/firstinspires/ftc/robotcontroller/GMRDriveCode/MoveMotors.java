@@ -73,7 +73,7 @@ public class MoveMotors {
 
     boolean encoderDrive = true;
 
-    int gyroRange = 4;
+    int gyroRange = 5;
 
     public void init(HardwareMap hwMap, Telemetry Telemetry){
         robot.init(hwMap);
