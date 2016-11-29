@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
 /**
  * Created by Payton on 11/26/2016
  */
-@Autonomous(name="Skeleton Drive: Version Two", group="Mecanum Bot")
+@Autonomous(name="Skeleton Drive: Version Three", group="Mecanum Bot")
 public class SkeletonAuto extends OpMode {
 
     MoveMotors move = new MoveMotors();
@@ -38,12 +38,12 @@ public class SkeletonAuto extends OpMode {
     public void loop() {
         if (state == currentState.stateOne) {
             if (!isFinished) {
-                isFinished = move.encoderDrive(Directions.Forward, 0.6, 20);
+                isFinished = move.encoderDrive(Directions.Forward, 0.6, 10);
             } else {
                 state = currentState.stateTwo;
+                isFinished = false;
             }
         } else if (state == currentState.stateTwo) {
-            isFinished = false;
             move.launchControl(true);
             sleep.Sleep(1000);
             move.launcherServoControl(true);
@@ -54,12 +54,25 @@ public class SkeletonAuto extends OpMode {
             state = currentState.stateThree;
         } else if (state == currentState.stateThree) {
             if (!isFinished) {
-                isFinished = move.encoderDrive(Directions.Forward, 0.8, 7);
+                isFinished = move.gyroTurn(Directions.TurnLeft, 0.4, 70);
             } else {
                 state = currentState.stateFour;
+                isFinished = false;
             }
         } else if (state == currentState.stateFour) {
-            move.Stop();
+            if (!isFinished) {
+                isFinished = move.encoderDrive(Directions.Forward, 0.6, 11);
+            } else {
+                state = currentState.stateFive;
+                isFinished = false;
+            }
+        } else if (state == currentState.stateFive) {
+            if (!isFinished) {
+                isFinished = move.ProxDrive(Directions.DRightUp, 0.8, 0.1);
+            } else {
+                state = currentState.stateSix;
+                isFinished = false;
+            }
         }
     }
 }

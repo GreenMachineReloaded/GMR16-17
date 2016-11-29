@@ -73,6 +73,8 @@ public class MoveMotors {
 
     boolean encoderDrive = true;
 
+    int gyroRange = 4;
+
     public void init(HardwareMap hwMap, Telemetry Telemetry){
         robot.init(hwMap);
 
@@ -261,13 +263,13 @@ public class MoveMotors {
                         goalDegrees = (goalDegrees + 360);
                     }
                 }
-                if (!(getYaw() > goalDegrees - 1 && getYaw() < goalDegrees + 1)) {
+                if (!(getYaw() > goalDegrees - gyroRange && getYaw() < goalDegrees + gyroRange)) {
                     Drive(direction, power);
-                    return true;
+                    return false;
                 } else {
                     Stop();
                     goalDegrees = -1;
-                    return false;
+                    return true;
                 }
             case TurnRight:
                 if (goalDegrees == -1) {
@@ -276,13 +278,13 @@ public class MoveMotors {
                         goalDegrees = (goalDegrees - 360);
                     }
                 }
-                if (!(getYaw() > (goalDegrees - 3) && getYaw() < (goalDegrees + 3))) {
+                if (!(getYaw() > (goalDegrees - gyroRange) && getYaw() < (goalDegrees + gyroRange))) {
                     Drive(direction, power);
-                    return true;
+                    return false;
                 } else {
                     Stop();
                     goalDegrees = -1;
-                    return false;
+                    return true;
                 }
         }
         return false;
@@ -443,18 +445,20 @@ public class MoveMotors {
 
 
 
-    public void ProxDrive(Directions direction, double power) {
+    public boolean ProxDrive(Directions direction, double power) {
         Drive(direction, power);
-        while(proxSensors.getDistance() < .5) {
-            sleep.Sleep(10);
+        if(proxSensors.getDistance() > .4) {
+            Stop();
+            return true;
         }
-        Stop();
+        return false;
     }
-    public void ProxDrive(Directions direction, double power, double prox) {
+    public boolean ProxDrive(Directions direction, double power, double prox) {
         Drive(direction, power);
-        while(proxSensors.getDistance() < prox) {
-            sleep.Sleep(10);
+        if(proxSensors.getDistance() > prox) {
+            Stop();
+            return true;
         }
-        Stop();
+        return false;
     }
 }

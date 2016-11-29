@@ -21,8 +21,6 @@ public class MecanumTeleOp extends OpMode {
 
     ElapsedTime time = new ElapsedTime();
 
-    boolean start = true;
-
     @Override
     public void init() {
         move.init(hardwareMap, telemetry);
@@ -37,12 +35,6 @@ public class MecanumTeleOp extends OpMode {
 
     @Override
     public void loop() {
-
-        if (start) {
-            move.liftControl(false, true);
-            start = false;
-        }
-
         x = gamepad1.left_stick_x;
         y = -gamepad1.left_stick_y;
         z = gamepad1.right_stick_x;
