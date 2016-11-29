@@ -39,7 +39,7 @@ public class AutonomousTestCode extends OpMode {
             programStart = false;
         }
         if (!stop) {
-            telemetry.addData("Current Color", proxSensor.getDistance());
+            telemetry.addData("Current Distance", proxSensor.getDistance());
         } else {
             move.Stop();
         }

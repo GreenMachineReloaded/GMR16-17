@@ -56,19 +56,19 @@ public class SkeletonAuto extends OpMode {
             if (!isFinished) {
                 isFinished = move.gyroTurn(Directions.TurnLeft, 0.4, 70);
             } else {
-                state = currentState.stateFive;
+                state = currentState.stateFour;
                 isFinished = false;
             }
         } else if (state == currentState.stateFour) {
             if (!isFinished) {
-                isFinished = move.encoderDrive(Directions.Forward, 0.6, 19);
+                isFinished = move.encoderDrive(Directions.Forward, 0.6, 11);
             } else {
                 state = currentState.stateFive;
                 isFinished = false;
             }
         } else if (state == currentState.stateFive) {
             if (!isFinished) {
-                isFinished = move.ProxDrive(Directions.DRightUp, 0.6, 0.15);
+                isFinished = move.ProxDrive(Directions.DRightUp, 0.8, 0.1);
             } else {
                 state = currentState.stateSix;
                 isFinished = false;
