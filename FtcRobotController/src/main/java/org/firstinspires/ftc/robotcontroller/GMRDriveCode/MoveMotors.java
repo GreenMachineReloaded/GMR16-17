@@ -393,52 +393,48 @@ public class MoveMotors {
 
 
 
-    public void colorWhiteDrive(Directions direction, double power, ColorSensors.whichColorSensor which) {
+    public boolean colorWhiteDrive(Directions direction, double power, ColorSensors.whichColorSensor which) {
         Drive(direction, power);
         if(which == ColorSensors.whichColorSensor.BEACON) {
-            while(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
-                sleep.Sleep(10);
+            if(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
+                return true;
+
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDLEFT){
-            while(colorSensorsGroundLeft.isWhite() != ColorSensors.whichColor.WHITE) {
-                sleep.Sleep(10);
+            if(colorSensorsGroundLeft.isWhite() == ColorSensors.whichColor.WHITE) {
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
-            while(colorSensorsGroundRight.isWhite() != ColorSensors.whichColor.WHITE) {
-                sleep.Sleep(10);
+            if(colorSensorsGroundRight.isWhite() == ColorSensors.whichColor.WHITE) {
+                return true;
             }
         }
-        else {
-            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
-            telemetry.update();
-        }
-        Stop();
+        sleep.Sleep(10);
+        return false;
     }
 
-    public void colorDriveRedBlue(Directions direction, double power, ColorSensors.whichColorSensor which, ColorSensors.whichColor whichColor) {
+    public boolean colorDriveRedBlue(Directions direction, double power, ColorSensors.whichColorSensor which, ColorSensors.whichColor whichColor) {
         Drive(direction, power);
         if(which == ColorSensors.whichColorSensor.BEACON) {
-            while (colorSensorsBeacon.greaterColor() == whichColor) {
-                sleep.Sleep(10);
+            if (colorSensorsBeacon.greaterColor() == whichColor) {
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDLEFT) {
-            while (colorSensorsGroundLeft.greaterColor() == whichColor) {
-                sleep.Sleep(10);
+            if (colorSensorsGroundLeft.greaterColor() == whichColor) {
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
-            while (colorSensorsGroundRight.greaterColor() == whichColor) {
-                sleep.Sleep(10);
+            if (colorSensorsGroundRight.greaterColor() == whichColor) {
+
+                return true;
             }
         }
-        else {
-            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
-            telemetry.update();
-        }
-        Stop();
+        sleep.Sleep(10);
+        return false;
     }
 
 

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.robotcontroller.SensorObjects;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 public class ProxSensors {

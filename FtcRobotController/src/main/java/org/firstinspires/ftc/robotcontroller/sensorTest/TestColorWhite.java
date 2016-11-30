@@ -9,22 +9,22 @@ import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
 @Autonomous(name="TEST COLOR WHITE PROGRAM", group ="Tests")
-@Disabled
 public class TestColorWhite extends LinearOpMode{
     ColorSensor colorSensor;
-    ColorSensors colorSensors;
+    ColorSensor colorSensor1;
     Hardwaresetup hardwaresetup;
     Continue c;
     public void runOpMode() throws InterruptedException{
         hardwaresetup = new Hardwaresetup();
         hardwaresetup.init(hardwareMap);
 
-        colorSensors = new ColorSensors(colorSensor, false);
+        colorSensor1 = hardwaresetup.colorSensorGroundLeft;
+        colorSensor = hardwaresetup.colorSensorBeacon;
         c = new Continue();
         waitForStart();
         while(true) {
-            telemetry.addData("WHITE", colorSensor.red() * 8 * colorSensor.blue() * colorSensor.green());
-            telemetry.addData("GREATER", colorSensors.isWhite());
+            telemetry.addData("red", colorSensor.red() * 8);
+            telemetry.addData("red1", colorSensor1.red() * 8);
             telemetry.update();
             c.Sleep(100);
         }

@@ -9,5 +9,9 @@ public enum currentState {
     stateThree,
     stateFour,
     stateFive,
-    stateSix
+    stateSix,
+    stateSeven,
+    stateEight,
+    stateNine,
+    stateTen,
 }

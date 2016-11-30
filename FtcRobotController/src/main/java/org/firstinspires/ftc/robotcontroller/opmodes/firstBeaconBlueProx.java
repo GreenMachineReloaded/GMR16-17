@@ -27,7 +27,7 @@ public class firstBeaconBlueProx extends LinearOpMode{
         move.Drive(Directions.Backward, 50);
         c.Sleep(200);
         move.Stop();
-        move.colorDriveRedBlue(Directions.StrafeRight,50, ColorSensors.whichColorSensor.BEACON, ColorSensors.whichColor.BLUE);
+        move.colorDriveRedBlue(Directions.StrafeRight,.50, ColorSensors.whichColorSensor.BEACON, ColorSensors.whichColor.BLUE);
         move.Stop();
         c.Sleep(200);
         move.Drive(Directions.Forward, 25);

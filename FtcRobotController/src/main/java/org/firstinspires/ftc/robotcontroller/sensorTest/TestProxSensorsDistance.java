@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
 
 @Autonomous(name = "TestProxSensorDistance")
-@Disabled
+
 public class TestProxSensorsDistance extends LinearOpMode{
     Continue c;
     Hardwaresetup hardwaresetup;

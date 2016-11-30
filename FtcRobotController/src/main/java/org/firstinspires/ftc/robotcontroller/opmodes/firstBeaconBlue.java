@@ -18,7 +18,7 @@ public class firstBeaconBlue extends LinearOpMode{
         move.init(hardwareMap, telemetry);
         Continue c = new Continue();
         waitForStart();
-        move.colorWhiteDrive(Directions.DLeftUp, 50, ColorSensors.whichColorSensor.GROUNDLEFT);
+        //move.colorWhiteDrive(Directions.DLeftUp, 50, ColorSensors.whichColorSensor.GROUNDLEFT);
         move.Stop();
         c.Sleep(100);
         move.ProxDrive(Directions.Forward, 25, .7);

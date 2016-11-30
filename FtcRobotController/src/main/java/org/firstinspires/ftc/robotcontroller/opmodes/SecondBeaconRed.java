@@ -18,7 +18,7 @@ public class SecondBeaconRed extends LinearOpMode{
         Continue c = new Continue();
         waitForStart();
 
-        move.colorWhiteDrive(Directions.DRightUp, 50, ColorSensors.whichColorSensor.GROUNDLEFT);
+        //move.colorWhiteDrive(Directions.DRightUp, 50, ColorSensors.whichColorSensor.GROUNDLEFT);
 
         move.ProxDrive(Directions.Forward, 25, .7);
 
