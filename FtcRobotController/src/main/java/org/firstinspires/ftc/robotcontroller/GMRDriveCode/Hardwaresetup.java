@@ -4,6 +4,7 @@ import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -28,9 +29,9 @@ public class Hardwaresetup {
     public Servo hopperDoorServo;
     public Servo ballLiftServo;
 
-    public ColorSensor CSBeacon_;
-    public ColorSensor CSGroundLeft_;
-    public ColorSensor CSGroundRight_;
+    public ColorSensor colorSensorBeacon;
+    public ColorSensor colorSensorGroundLeft;
+    public ColorSensor colorSensorGroundRight;
 
     public OpticalDistanceSensor proxSensor;
 
@@ -84,9 +85,11 @@ public class Hardwaresetup {
                 AHRS.DeviceDataType.kProcessedData);
         ahrs.zeroYaw();
 
-        CSBeacon_ = hwMap.colorSensor.get("CSBeacon");
-        CSGroundLeft_ = hwMap.colorSensor.get("CSGroundLeft");
-        CSGroundRight_ = hwMap.colorSensor.get("CSGroundRight");
+        colorSensorBeacon = hwMap.colorSensor.get("CSBeacon");
+        colorSensorBeacon.setI2cAddress(I2cAddr.create7bit(0x26));
+        colorSensorGroundLeft = hwMap.colorSensor.get("CSGroundLeft");
+        colorSensorGroundLeft.setI2cAddress(I2cAddr.create7bit(0x16));
+        colorSensorGroundRight = hwMap.colorSensor.get("CSGroundRight");
 
         proxSensor = hwMap.opticalDistanceSensor.get("proxSensor");
     }

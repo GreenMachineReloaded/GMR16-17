@@ -39,7 +39,7 @@ public class AutonomousTestCode extends OpMode {
             programStart = false;
         }
         if (!stop) {
-            telemetry.addData("Current Distance", proxSensor.getDistance());
+            telemetry.addData("Gyro Yaw", move.getYaw());
         } else {
             move.Stop();
         }

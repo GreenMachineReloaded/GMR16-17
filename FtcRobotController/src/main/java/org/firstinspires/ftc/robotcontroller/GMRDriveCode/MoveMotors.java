@@ -80,9 +80,9 @@ public class MoveMotors {
 
         telemetry = Telemetry;
 
-        colorSensorsBeacon = new ColorSensors(robot.CSBeacon_);
-        colorSensorsGroundLeft = new ColorSensors(robot.CSGroundLeft_);
-        colorSensorsGroundRight = new ColorSensors(robot.CSGroundRight_);
+        colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon);
+        colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft);
+        colorSensorsGroundRight = new ColorSensors(robot.colorSensorGroundRight);
         proxSensors = new ProxSensors(robot.proxSensor);
     }
 

@@ -38,7 +38,7 @@ public class SkeletonAuto extends OpMode {
     public void loop() {
         if (state == currentState.stateOne) {
             if (!isFinished) {
-                isFinished = move.encoderDrive(Directions.Forward, 0.6, 10);
+                isFinished = move.encoderDrive(Directions.Forward, 0.6, 11);
             } else {
                 state = currentState.stateTwo;
                 isFinished = false;
@@ -56,7 +56,7 @@ public class SkeletonAuto extends OpMode {
             if (!isFinished) {
                 isFinished = move.gyroTurn(Directions.TurnLeft, 0.4, 70);
             } else {
-                state = currentState.stateFour;
+                state = currentState.stateFive;
                 isFinished = false;
             }
         } else if (state == currentState.stateFour) {
@@ -68,7 +68,7 @@ public class SkeletonAuto extends OpMode {
             }
         } else if (state == currentState.stateFive) {
             if (!isFinished) {
-                isFinished = move.ProxDrive(Directions.DRightUp, 0.8, 0.1);
+                isFinished = move.ProxDrive(Directions.DRightUp, 0.6, 0.15);
             } else {
                 state = currentState.stateSix;
                 isFinished = false;
