@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
@@ -12,9 +13,12 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 public class TestColorWhite extends LinearOpMode{
     ColorSensor colorSensor;
     ColorSensors colorSensors;
+    Hardwaresetup hardwaresetup;
     Continue c;
     public void runOpMode() throws InterruptedException{
-        colorSensor = hardwareMap.colorSensor.get("colorSensor");
+        hardwaresetup = new Hardwaresetup();
+        hardwaresetup.init(hardwareMap);
+
         colorSensors = new ColorSensors(colorSensor, false);
         c = new Continue();
         waitForStart();
