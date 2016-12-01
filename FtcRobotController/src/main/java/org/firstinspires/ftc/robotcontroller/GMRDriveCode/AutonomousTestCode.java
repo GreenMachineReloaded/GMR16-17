@@ -44,7 +44,6 @@ public class AutonomousTestCode extends OpMode {
             programStart = false;
         }
         if (!stop) {
-            telemetry.addData("Gyro Yaw", move.getYaw());
             robot.colorSensorBeacon.enableLed(true);
             robot.colorSensorGroundLeft.enableLed(true);
             telemetry.addData("Current Red", colorSensorsGroundLeft.getRed());

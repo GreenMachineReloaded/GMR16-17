@@ -30,6 +30,7 @@ public class ColorSensors {
     }
 
     public ColorSensors.whichColor isWhite() {
+        if(getRed() > 100 && getBlue() > 100) {
             return whichColor.WHITE;
         }
         else {
