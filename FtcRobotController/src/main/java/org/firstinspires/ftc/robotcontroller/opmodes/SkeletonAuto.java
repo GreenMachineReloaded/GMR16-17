@@ -15,14 +15,14 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
 @Autonomous(name="Skeleton Drive: Version Three", group="Mecanum Bot")
 public class SkeletonAuto extends OpMode {
 
-    MoveMotors move = new MoveMotors();
-    Hardwaresetup robot = new Hardwaresetup();
+    private MoveMotors move = new MoveMotors();
+    private Hardwaresetup robot = new Hardwaresetup();
 
-    currentState state = currentState.stateOne;
+    private currentState state = currentState.stateFive;
 
-    boolean isFinished = false;
+    private boolean isFinished = false;
 
-    Continue sleep = new Continue();
+    private Continue sleep = new Continue();
     @Override
     public void init() {
         move.init(hardwareMap, telemetry);

@@ -44,12 +44,13 @@ public class BeaconOneRedState extends OpMode {
                 isFinished = false;
             }
         } else if (state == currentState.stateTwo) {
-            move.launchControl(true);
+            //move.launchControl(true);
             sleep.Sleep(1000);
             move.launcherServoControl(true);
             sleep.Sleep(1000);
-            move.launchControl(false);
-            move.launchControl(true);
+            //move.launchControl(false);
+            sleep.Sleep(5);
+            //move.launchControl(true);
             sleep.Sleep(1000);
             state = currentState.stateThree;
         } else if (state == currentState.stateThree) {
@@ -61,7 +62,7 @@ public class BeaconOneRedState extends OpMode {
             }
         } else if (state == currentState.stateFour) {
             if (!isFinished) {
-                isFinished = move.gyroTurn(Directions.TurnLeft, 0.4, 70);
+                isFinished = move.gyroTurn(Directions.TurnLeft, 0.4, 65);
             } else {
                 state = currentState.stateFive;
                 isFinished = false;
@@ -74,24 +75,17 @@ public class BeaconOneRedState extends OpMode {
                 isFinished = false;
             }
         } else if (state == currentState.stateSix) {
-            move.Drive(Directions.StrafeRight, 1);
-            sleep.Sleep(500);
-            move.Stop();
-            state = currentState.stateSeven;
-        } else if (state == currentState.stateSeven) {
-            move.Drive(Directions.StrafeRight, 1);
-            sleep.Sleep(500);
-            move.Stop();
-            state = currentState.stateEight;
-        } else if (state == currentState.stateEight) {
             if (!isFinished) {
-                isFinished = move.colorDriveRedBlue(Directions.StrafeRight, .5, ColorSensors.whichColorSensor.GROUNDLEFT, ColorSensors.whichColor.RED);
+                isFinished = move.colorWhiteDrive(Directions.StrafeRight, .5, ColorSensors.whichColorSensor.GROUNDLEFT);
             } else {
-                state = currentState.stateNine;
+                state = currentState.stateSeven;
                 isFinished = false;
             }
-        }
-        else {
+        } else if (state == currentState.stateSeven) {
+
+        } else if (state == currentState.stateEight) {
+
+        } else {
             move.Stop();
         }
     }
