@@ -28,14 +28,15 @@ public class ColorSensors {
             return whichColor.EQUAL;
         }
     }
+
     public ColorSensors.whichColor isWhite() {
-        if((colorSensor.blue() * colorSensor.red() * colorSensor.green() * 8) > 100) {
             return whichColor.WHITE;
         }
         else {
             return whichColor.BLACK;
         }
     }
+
     public enum whichColor {
         BLUE, RED, BLACK, WHITE, EQUAL
     }

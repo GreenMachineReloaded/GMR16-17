@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensor;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
@@ -19,6 +20,8 @@ public class AutonomousTestCode extends OpMode {
     ElapsedTime time = new ElapsedTime();
     Hardwaresetup robot = new Hardwaresetup();
     ColorSensor color = new ColorSensor();
+    ColorSensors colorSensorsBeacon;
+    ColorSensors colorSensorsGroundLeft;
     ProxSensors proxSensor;
     Continue sleep = new Continue();
     boolean stop = false;
@@ -30,6 +33,8 @@ public class AutonomousTestCode extends OpMode {
         robot.init(hardwareMap);
         move.startEncoders();
         proxSensor = new ProxSensors(robot.proxSensor);
+        colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon, true);
+        colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft, true);
     }
 
     @Override
@@ -40,6 +45,10 @@ public class AutonomousTestCode extends OpMode {
         }
         if (!stop) {
             telemetry.addData("Gyro Yaw", move.getYaw());
+            robot.colorSensorBeacon.enableLed(true);
+            robot.colorSensorGroundLeft.enableLed(true);
+            telemetry.addData("Current Red", colorSensorsGroundLeft.getRed());
+            telemetry.addData("Current Blue", colorSensorsGroundLeft.getBlue());
         } else {
             move.Stop();
         }
