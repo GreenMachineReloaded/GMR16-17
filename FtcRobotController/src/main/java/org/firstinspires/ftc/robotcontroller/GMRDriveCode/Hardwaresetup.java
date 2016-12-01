@@ -89,6 +89,7 @@ public class Hardwaresetup {
         colorSensorBeacon.setI2cAddress(I2cAddr.create7bit(0x26));
         colorSensorGroundLeft = hwMap.colorSensor.get("CSGroundLeft");
         colorSensorGroundLeft.setI2cAddress(I2cAddr.create7bit(0x16));
+        colorSensorGroundLeft.enableLed(true);
         colorSensorGroundRight = hwMap.colorSensor.get("CSGroundRight");
 
         proxSensor = hwMap.opticalDistanceSensor.get("proxSensor");

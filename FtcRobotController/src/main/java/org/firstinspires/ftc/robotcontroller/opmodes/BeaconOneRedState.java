@@ -18,7 +18,7 @@ public class BeaconOneRedState extends OpMode {
 
     MoveMotors move = new MoveMotors();
     Hardwaresetup robot = new Hardwaresetup();
-
+    ColorSensors colorSensors;
     currentState state = currentState.stateOne;
     boolean isFinished = false;
 
@@ -27,6 +27,7 @@ public class BeaconOneRedState extends OpMode {
     public void init() {
         move.init(hardwareMap, telemetry);
         robot.init(hardwareMap);
+        colorSensors = new ColorSensors(robot.colorSensorBeacon);
     }
 
     @Override
@@ -59,6 +60,8 @@ public class BeaconOneRedState extends OpMode {
                 state = currentState.stateFour;
                 isFinished = false;
             }
+
+
         } else if (state == currentState.stateFour) {
             if (!isFinished) {
                 isFinished = move.gyroTurn(Directions.TurnLeft, 0.4, 70);
@@ -66,31 +69,65 @@ public class BeaconOneRedState extends OpMode {
                 state = currentState.stateFive;
                 isFinished = false;
             }
+
+
         } else if (state == currentState.stateFive) {
             if (!isFinished) {
-                isFinished = move.encoderDrive(Directions.Forward, 0.6, 11);
+                isFinished = move.encoderDrive(Directions.Forward, 0.6, 15);
             } else {
                 state = currentState.stateSix;
                 isFinished = false;
             }
-        } else if (state == currentState.stateSix) {
-            move.Drive(Directions.StrafeRight, 1);
-            sleep.Sleep(500);
-            move.Stop();
-            state = currentState.stateSeven;
-        } else if (state == currentState.stateSeven) {
-            move.Drive(Directions.StrafeRight, 1);
-            sleep.Sleep(500);
-            move.Stop();
-            state = currentState.stateEight;
-        } else if (state == currentState.stateEight) {
+        }else if(state == currentState.stateSix) {
             if (!isFinished) {
-                isFinished = move.colorDriveRedBlue(Directions.StrafeRight, .5, ColorSensors.whichColorSensor.GROUNDLEFT, ColorSensors.whichColor.RED);
+                isFinished = move.gyroTurn(Directions.TurnRight, 0.3, 70);
+            } else {
+                state = currentState.stateSeven;
+                isFinished = false;
+            }
+        } else if (state == currentState.stateSeven) {
+            if (!isFinished) {
+                isFinished = move.colorWhiteDrive(Directions.Forward, .25, ColorSensors.whichColorSensor.GROUNDLEFT);
+            } else {
+                state = currentState.stateEight;
+                isFinished = false;
+            }
+        } else if(state == currentState.stateEight) {
+            if (!isFinished) {
+                isFinished = move.gyroTurn(Directions.TurnLeft, 0.3, 70);
             } else {
                 state = currentState.stateNine;
                 isFinished = false;
             }
         }
+
+        else if(state == currentState.stateNine) {
+        if (!isFinished) {
+            isFinished = move.ProxDrive(Directions.Forward, 0.25, 0.2);
+        } else {
+            state = currentState.stateTen;
+            isFinished = false;
+            }
+        } else if(state == currentState.stateTen) {
+            move.Drive(Directions.Forward, .25);
+            sleep.Sleep(100);
+            move.Stop();
+            move.Drive(Directions.Backward, .25);
+            sleep.Sleep(100);
+            move.Stop();
+            state = currentState.stateEleven;
+        } else if(state == currentState.stateEleven) {
+            if(colorSensors.getBlue() > colorSensors.getRed()) {
+                move.Drive(Directions.Forward, .25);
+                sleep.Sleep(100);
+                move.Stop();
+                move.Drive(Directions.Backward, .25);
+                sleep.Sleep(100);
+                move.Stop();
+            }
+            state = currentState.stateTwelve;
+        }
+
         else {
             move.Stop();
         }

@@ -398,7 +398,6 @@ public class MoveMotors {
         if(which == ColorSensors.whichColorSensor.BEACON) {
             if(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
                 return true;
-
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDLEFT){

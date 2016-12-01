@@ -14,4 +14,7 @@ public enum currentState {
     stateEight,
     stateNine,
     stateTen,
+    stateEleven,
+    stateTwelve,
+    stateThirteen
 }
