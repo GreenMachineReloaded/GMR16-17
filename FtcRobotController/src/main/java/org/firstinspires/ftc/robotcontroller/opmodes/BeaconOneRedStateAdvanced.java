@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
  * Created by Payton on 11/26/2016
  */
 @Autonomous(name="hit beacon red!!!!!!!", group="Mecanum Bot")
-public class BeaconOneRedState extends OpMode {
+public class BeaconOneRedStateAdvanced extends OpMode {
 
     MoveMotors move = new MoveMotors();
     Hardwaresetup robot = new Hardwaresetup();
@@ -54,13 +54,13 @@ public class BeaconOneRedState extends OpMode {
             sleep.Sleep(1000);
             state = currentState.stateFour;
         } else if (state == currentState.stateThree) {
+
 //            if (!isFinished) {
 //                isFinished = move.encoderDrive(Directions.Forward, 0.6, 3);
 //            } else {
 //                state = currentState.stateFour;
 //                isFinished = false;
 //            }
-
 
         } else if (state == currentState.stateFour) {
             if (!isFinished) {
@@ -99,14 +99,12 @@ public class BeaconOneRedState extends OpMode {
                 state = currentState.stateNine;
                 isFinished = false;
             }
-        }
-
-        else if(state == currentState.stateNine) {
-        if (!isFinished) {
-            isFinished = move.ProxDrive(Directions.Forward, 0.25, 0.2);
-        } else {
-            state = currentState.stateTen;
-            isFinished = false;
+        } else if(state == currentState.stateNine) {
+            if (!isFinished) {
+                isFinished = move.ProxDrive(Directions.Forward, 0.25, 0.2);
+            } else {
+                state = currentState.stateTen;
+                isFinished = false;
             }
         } else if(state == currentState.stateTen) {
             move.Drive(Directions.StrafeRight, .25);

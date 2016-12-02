@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
  * Created by Payton on 11/26/2016
  */
 @Autonomous(name="hit beacon red!!!!!!!", group="Mecanum Bot")
-public class BeaconOneBlueState extends OpMode {
+public class BeaconOneBlueStateAdvanced extends OpMode {
 
     MoveMotors move = new MoveMotors();
     Hardwaresetup robot = new Hardwaresetup();
