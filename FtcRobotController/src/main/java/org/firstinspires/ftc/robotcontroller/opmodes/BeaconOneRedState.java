@@ -52,14 +52,14 @@ public class BeaconOneRedState extends OpMode {
             move.launchControl(false);
             move.launchControl(true);
             sleep.Sleep(1000);
-            state = currentState.stateThree;
+            state = currentState.stateFour;
         } else if (state == currentState.stateThree) {
-            if (!isFinished) {
-                isFinished = move.encoderDrive(Directions.Forward, 0.6, 3);
-            } else {
-                state = currentState.stateFour;
-                isFinished = false;
-            }
+//            if (!isFinished) {
+//                isFinished = move.encoderDrive(Directions.Forward, 0.6, 3);
+//            } else {
+//                state = currentState.stateFour;
+//                isFinished = false;
+//            }
 
 
         } else if (state == currentState.stateFour) {
@@ -109,14 +109,19 @@ public class BeaconOneRedState extends OpMode {
             isFinished = false;
             }
         } else if(state == currentState.stateTen) {
+            move.Drive(Directions.StrafeRight, .25);
+            sleep.Sleep(200);
+            move.Stop();
+            state = currentState.stateEleven;
+        } else if(state == currentState.stateEleven) {
             move.Drive(Directions.Forward, .25);
             sleep.Sleep(100);
             move.Stop();
             move.Drive(Directions.Backward, .25);
             sleep.Sleep(100);
             move.Stop();
-            state = currentState.stateEleven;
-        } else if(state == currentState.stateEleven) {
+            state = currentState.stateTwelve;
+        } else if(state == currentState.stateTwelve) {
             if(colorSensors.getBlue() > colorSensors.getRed()) {
                 move.Drive(Directions.Forward, .25);
                 sleep.Sleep(100);
@@ -125,7 +130,7 @@ public class BeaconOneRedState extends OpMode {
                 sleep.Sleep(100);
                 move.Stop();
             }
-            state = currentState.stateTwelve;
+            state = currentState.stateThirteen;
         }
 
         else {
