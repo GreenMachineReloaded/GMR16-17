@@ -115,16 +115,16 @@ public class BeaconOneBlueStateAdvanced extends OpMode {
             state = currentState.stateEleven;
         } else if(state == currentState.stateEleven) {
             move.Drive(Directions.Forward, .25);
-            sleep.Sleep(100);
+            sleep.Sleep(150);
             move.Stop();
             move.Drive(Directions.Backward, .25);
-            sleep.Sleep(100);
+            sleep.Sleep(50);
             move.Stop();
             state = currentState.stateTwelve;
         } else if(state == currentState.stateTwelve) {
+            sleep.Sleep(4000);
             if(colorSensors.getBlue() < colorSensors.getRed()) {
                 telemetry.addData("Hitting Beacon","");
-                sleep.Sleep(4000);
                 move.Drive(Directions.Forward, .25);
                 sleep.Sleep(150);
                 move.Stop();

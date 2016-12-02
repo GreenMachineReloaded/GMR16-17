@@ -265,8 +265,10 @@ public class MoveMotors {
                 }
                 if (!(getYaw() > goalDegrees - gyroRange && getYaw() < goalDegrees + gyroRange)) {
                     Drive(direction, power);
+                    telemetry.addData("Current Gyro", getYaw());
                     return false;
                 } else {
+                    telemetry.addData("Current Gyro", getYaw());
                     Stop();
                     goalDegrees = -1;
                     return true;
@@ -279,9 +281,11 @@ public class MoveMotors {
                     }
                 }
                 if (!(getYaw() > (goalDegrees - gyroRange) && getYaw() < (goalDegrees + gyroRange))) {
+                    telemetry.addData("Current Gyro", getYaw());
                     Drive(direction, power);
                     return false;
                 } else {
+                    telemetry.addData("Current Gyro", getYaw());
                     Stop();
                     goalDegrees = -1;
                     return true;
