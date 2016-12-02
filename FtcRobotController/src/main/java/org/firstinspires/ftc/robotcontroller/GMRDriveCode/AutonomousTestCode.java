@@ -33,7 +33,7 @@ public class AutonomousTestCode extends OpMode {
         robot.init(hardwareMap);
         move.startEncoders();
         proxSensor = new ProxSensors(robot.proxSensor);
-        colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon, true);
+        colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon, false);
         colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft, true);
     }
 
@@ -44,10 +44,8 @@ public class AutonomousTestCode extends OpMode {
             programStart = false;
         }
         if (!stop) {
-            robot.colorSensorBeacon.enableLed(true);
-            robot.colorSensorGroundLeft.enableLed(true);
-            telemetry.addData("Current Red", colorSensorsGroundLeft.getRed());
-            telemetry.addData("Current Blue", colorSensorsGroundLeft.getBlue());
+            telemetry.addData("Current Red", colorSensorsBeacon.getRed());
+            telemetry.addData("Current Blue", colorSensorsBeacon.getBlue());
         } else {
             move.Stop();
         }

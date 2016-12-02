@@ -54,6 +54,14 @@ public class MecanumTeleOp extends OpMode {
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", move.getYaw());
 
+//        if (gamepad1.a) {
+//            robot.launchMotor.setPower(0.05);
+//        } else if (gamepad1.b) {
+//            robot.launchMotor.setPower(-0.05);
+//        } else {
+//            robot.launchMotor.setPower(0);
+//        }
+
         if (gamepad1.y) {
             time.startTime();
         }

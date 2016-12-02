@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
 /**
  * Created by Payton on 11/26/2016
  */
-@Autonomous(name="hit beacon red!!!!!!!", group="Mecanum Bot")
+@Autonomous(name="hit beacon blue!!!!!!!", group="Mecanum Bot")
 public class BeaconOneBlueStateAdvanced extends OpMode {
 
     MoveMotors move = new MoveMotors();
@@ -87,7 +87,7 @@ public class BeaconOneBlueStateAdvanced extends OpMode {
             }
         } else if (state == currentState.stateSeven) {
             if (!isFinished) {
-                isFinished = move.colorWhiteDrive(Directions.Forward, .25, ColorSensors.whichColorSensor.GROUNDLEFT);
+                isFinished = move.colorWhiteDrive(Directions.Forward, .12, ColorSensors.whichColorSensor.GROUNDLEFT);
             } else {
                 state = currentState.stateEight;
                 isFinished = false;
@@ -103,7 +103,7 @@ public class BeaconOneBlueStateAdvanced extends OpMode {
 
         else if(state == currentState.stateNine) {
             if (!isFinished) {
-                isFinished = move.ProxDrive(Directions.Forward, 0.25, 0.2);
+                isFinished = move.ProxDrive(Directions.Forward, 0.2, 0.2);
             } else {
                 state = currentState.stateTen;
                 isFinished = false;
@@ -122,19 +122,19 @@ public class BeaconOneBlueStateAdvanced extends OpMode {
             move.Stop();
             state = currentState.stateTwelve;
         } else if(state == currentState.stateTwelve) {
-            if(colorSensors.getBlue() > colorSensors.getRed()) {
+            if(colorSensors.getBlue() < colorSensors.getRed()) {
+                telemetry.addData("Hitting Beacon","");
+                sleep.Sleep(4000);
                 move.Drive(Directions.Forward, .25);
-                sleep.Sleep(100);
+                sleep.Sleep(150);
                 move.Stop();
                 move.Drive(Directions.Backward, .25);
-                sleep.Sleep(100);
+                sleep.Sleep(50);
+                move.Stop();
+            } else {
+                telemetry.addData("Done Hitting Beacon","");
                 move.Stop();
             }
-            state = currentState.stateThirteen;
-        }
-
-        else {
-            move.Stop();
         }
     }
 }

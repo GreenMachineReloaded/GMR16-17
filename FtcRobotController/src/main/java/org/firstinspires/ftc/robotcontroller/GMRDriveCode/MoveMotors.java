@@ -396,21 +396,29 @@ public class MoveMotors {
     public boolean colorWhiteDrive(Directions direction, double power, ColorSensors.whichColorSensor which) {
         Drive(direction, power);
         if(which == ColorSensors.whichColorSensor.BEACON) {
+            telemetry.addData("Current Red", colorSensorsBeacon.getRed());
+            telemetry.addData("Current Red", colorSensorsBeacon.getRed());
             if(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
+                Stop();
                 return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDLEFT){
+            telemetry.addData("Current Red", colorSensorsGroundLeft.getRed());
+            telemetry.addData("Current Red", colorSensorsGroundLeft.getRed());
             if(colorSensorsGroundLeft.isWhite() == ColorSensors.whichColor.WHITE) {
+                Stop();
                 return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
+            telemetry.addData("Current Red", colorSensorsGroundRight.getRed());
+            telemetry.addData("Current Red", colorSensorsGroundRight.getRed());
             if(colorSensorsGroundRight.isWhite() == ColorSensors.whichColor.WHITE) {
+                Stop();
                 return true;
             }
         }
-        sleep.Sleep(10);
         return false;
     }
 

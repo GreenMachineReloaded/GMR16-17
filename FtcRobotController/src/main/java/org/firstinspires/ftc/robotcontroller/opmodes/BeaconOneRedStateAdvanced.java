@@ -87,7 +87,7 @@ public class BeaconOneRedStateAdvanced extends OpMode {
             }
         } else if (state == currentState.stateSeven) {
             if (!isFinished) {
-                isFinished = move.colorWhiteDrive(Directions.Forward, .25, ColorSensors.whichColorSensor.GROUNDLEFT);
+                isFinished = move.colorWhiteDrive(Directions.Forward, .12, ColorSensors.whichColorSensor.GROUNDLEFT);
             } else {
                 state = currentState.stateEight;
                 isFinished = false;
@@ -99,40 +99,45 @@ public class BeaconOneRedStateAdvanced extends OpMode {
                 state = currentState.stateNine;
                 isFinished = false;
             }
-        } else if(state == currentState.stateNine) {
+        } else if (state == currentState.stateNine) {
+            move.Drive(Directions.StrafeRight, 0.5);
+            sleep.Sleep(600);
+            move.Stop();
+            state = currentState.stateTen;
+        } else if(state == currentState.stateTen) {
             if (!isFinished) {
-                isFinished = move.ProxDrive(Directions.Forward, 0.25, 0.2);
+                isFinished = move.ProxDrive(Directions.Forward, 0.2, 0.2);
             } else {
-                state = currentState.stateTen;
+                state = currentState.stateEleven;
                 isFinished = false;
             }
-        } else if(state == currentState.stateTen) {
+        } else if(state == currentState.stateEleven) {
             move.Drive(Directions.StrafeRight, .25);
             sleep.Sleep(200);
             move.Stop();
-            state = currentState.stateEleven;
-        } else if(state == currentState.stateEleven) {
+            state = currentState.stateTwelve;
+        } else if(state == currentState.stateTwelve) {
             move.Drive(Directions.Forward, .25);
             sleep.Sleep(100);
             move.Stop();
             move.Drive(Directions.Backward, .25);
             sleep.Sleep(100);
             move.Stop();
-            state = currentState.stateTwelve;
-        } else if(state == currentState.stateTwelve) {
+            state = currentState.stateThirteen;
+        } else if(state == currentState.stateThirteen) {
             if(colorSensors.getBlue() > colorSensors.getRed()) {
+                telemetry.addData("Hitting Beacon","");
+                sleep.Sleep(4000);
                 move.Drive(Directions.Forward, .25);
-                sleep.Sleep(100);
+                sleep.Sleep(150);
                 move.Stop();
                 move.Drive(Directions.Backward, .25);
-                sleep.Sleep(100);
+                sleep.Sleep(50);
+                move.Stop();
+            }else {
+                telemetry.addData("Done Hitting Beacon","");
                 move.Stop();
             }
-            state = currentState.stateThirteen;
-        }
-
-        else {
-            move.Stop();
         }
     }
 }
