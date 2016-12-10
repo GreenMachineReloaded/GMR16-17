@@ -40,27 +40,15 @@ public class MecanumTeleOp extends OpMode {
         z = gamepad1.right_stick_x;
 
         move.setMotorPower(x, y, z);
-
-        if (!gamepad1.x) {
-            move.launchControl(gamepad1.left_bumper);
-        }
+        move.launchControl(gamepad1.left_bumper, gamepad1.x);
         move.sweeperControl(gamepad1.right_bumper, gamepad1.right_trigger);
         move.linearSlideControl(gamepad2.a, gamepad2.b);
-        move.launcherServoControl(gamepad1.x);
         move.liftControl(gamepad2.dpad_up, gamepad2.dpad_down);
 
         updateTelemetry(telemetry);
 
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", move.getYaw());
-
-//        if (gamepad1.a) {
-//            robot.launchMotor.setPower(0.05);
-//        } else if (gamepad1.b) {
-//            robot.launchMotor.setPower(-0.05);
-//        } else {
-//            robot.launchMotor.setPower(0);
-//        }
 
         if (gamepad1.y) {
             time.startTime();
