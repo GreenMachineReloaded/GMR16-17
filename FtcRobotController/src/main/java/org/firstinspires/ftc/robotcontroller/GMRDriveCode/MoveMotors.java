@@ -108,6 +108,33 @@ public class MoveMotors {
 
     }
 
+    public void launchControl(boolean leftBumper, boolean x) {
+        if (leftBumper) {
+            if (canLaunch){
+                goalPosition = (getLaunchEncoder() + 1680);
+                canLaunch = false;
+                robot.launchMotor.setPower(1);
+                robot.launchMotor.setTargetPosition(goalPosition);
+            }
+        }
+
+        if (robot.launchMotor.getCurrentPosition() < goalPosition - 20) {
+            launcherServoControl(false);
+            timeOfCompletion = (launchTime.seconds() + 0.7);
+        } else {
+            if (launchTime.seconds() < timeOfCompletion) {
+                launcherServoControl(true);
+            } else {
+                if (x) {
+                    launcherServoControl(true);
+                } else {
+                    launcherServoControl(false);
+                }
+            }
+            canLaunch = true;
+        }
+    }
+
     public void launchControl(boolean leftBumper) {
         if (leftBumper) {
             if (canLaunch){
@@ -118,19 +145,17 @@ public class MoveMotors {
             }
         }
 
-        if (getLaunchEncoder() <= (goalPosition - 20)) {
+        if (robot.launchMotor.getCurrentPosition() < goalPosition - 20) {
             launcherServoControl(false);
             timeOfCompletion = (launchTime.seconds() + 0.7);
         } else {
             if (launchTime.seconds() < timeOfCompletion) {
-                //launcherServoControl(true);
-                boolean waffle;
+                launcherServoControl(true);
             } else {
-                launcherServoControl(false);
+                    launcherServoControl(false);
             }
             canLaunch = true;
         }
-
     }
 
     public void sweeperControl(boolean rightBumper, double rightTrigger) {
@@ -281,8 +306,8 @@ public class MoveMotors {
                     }
                 }
                 if (!(getYaw() > (goalDegrees - gyroRange) && getYaw() < (goalDegrees + gyroRange))) {
-                    telemetry.addData("Current Gyro", getYaw());
                     Drive(direction, power);
+                    telemetry.addData("Current Gyro", getYaw());
                     return false;
                 } else {
                     telemetry.addData("Current Gyro", getYaw());
@@ -311,7 +336,8 @@ public class MoveMotors {
 
                 case Forward:
                     if ((combinedEnValue) < goalEncoderPosition) {
-                        Drive(direction, power);telemetry.addData("Current Combined Value", combinedEnValue);
+                        Drive(direction, power);
+                        telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
                         encoderDrive = true;
                         Stop();

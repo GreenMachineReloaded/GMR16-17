@@ -39,7 +39,7 @@ public class BeaconOneRedStateAdvanced extends OpMode {
     public void loop() {
         if (state == currentState.stateOne) {
             if (!isFinished) {
-                isFinished = move.encoderDrive(Directions.Forward, 0.6, 11);
+                isFinished = move.encoderDrive(Directions.Forward, 0.6, 11.5);
             } else {
                 state = currentState.stateTwo;
                 isFinished = false;
@@ -69,8 +69,6 @@ public class BeaconOneRedStateAdvanced extends OpMode {
                 state = currentState.stateFive;
                 isFinished = false;
             }
-
-
         } else if (state == currentState.stateFive) {
             if (!isFinished) {
                 isFinished = move.encoderDrive(Directions.Forward, 0.6, 15);
