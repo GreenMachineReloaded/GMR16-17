@@ -44,8 +44,7 @@ public class AutonomousTestCode extends OpMode {
             programStart = false;
         }
         if (!stop) {
-            telemetry.addData("Current Red", colorSensorsBeacon.getRed());
-            telemetry.addData("Current Blue", colorSensorsBeacon.getBlue());
+            stop = move.gyroTurn(Directions.TurnLeft, 0.5, 90);
         } else {
             move.Stop();
         }

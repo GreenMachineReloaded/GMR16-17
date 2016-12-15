@@ -11,10 +11,10 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
 
 /**
- * Created by Payton on 12/2/2016
+ * Created by Payton on 12/10/2016
  */
 @Autonomous(name="Long Shot", group="Mecanum Bot")
-public class LongShot extends OpMode {
+public class LongShot extends OpMode{
 
     MoveMotors move = new MoveMotors();
     Hardwaresetup robot = new Hardwaresetup();
@@ -36,6 +36,7 @@ public class LongShot extends OpMode {
     @Override
     public void start() {
         move.liftControl(false, true);
+        sleepTime = (time.seconds() + 15);
     }
 
     @Override
