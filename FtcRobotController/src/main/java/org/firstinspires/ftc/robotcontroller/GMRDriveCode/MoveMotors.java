@@ -73,14 +73,16 @@ public class MoveMotors {
 
     boolean encoderDrive = true;
 
+    int gyroRange = 4;
+
     public void init(HardwareMap hwMap, Telemetry Telemetry){
         robot.init(hwMap);
 
         telemetry = Telemetry;
 
-        colorSensorsBeacon = new ColorSensors(robot.CSBeacon_);
-        colorSensorsGroundLeft = new ColorSensors(robot.CSGroundLeft_);
-        colorSensorsGroundRight = new ColorSensors(robot.CSGroundRight_);
+        colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon);
+        colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft);
+        colorSensorsGroundRight = new ColorSensors(robot.colorSensorGroundRight);
         proxSensors = new ProxSensors(robot.proxSensor);
     }
 
@@ -261,13 +263,15 @@ public class MoveMotors {
                         goalDegrees = (goalDegrees + 360);
                     }
                 }
-                if (!(getYaw() > goalDegrees - 1 && getYaw() < goalDegrees + 1)) {
+                if (!(getYaw() > goalDegrees - gyroRange && getYaw() < goalDegrees + gyroRange)) {
                     Drive(direction, power);
-                    return true;
+                    telemetry.addData("Current Gyro", getYaw());
+                    return false;
                 } else {
+                    telemetry.addData("Current Gyro", getYaw());
                     Stop();
                     goalDegrees = -1;
-                    return false;
+                    return true;
                 }
             case TurnRight:
                 if (goalDegrees == -1) {
@@ -276,13 +280,15 @@ public class MoveMotors {
                         goalDegrees = (goalDegrees - 360);
                     }
                 }
-                if (!(getYaw() > (goalDegrees - 3) && getYaw() < (goalDegrees + 3))) {
+                if (!(getYaw() > (goalDegrees - gyroRange) && getYaw() < (goalDegrees + gyroRange))) {
+                    telemetry.addData("Current Gyro", getYaw());
                     Drive(direction, power);
-                    return true;
+                    return false;
                 } else {
+                    telemetry.addData("Current Gyro", getYaw());
                     Stop();
                     goalDegrees = -1;
-                    return false;
+                    return true;
                 }
         }
         return false;
@@ -391,70 +397,75 @@ public class MoveMotors {
 
 
 
-    public void colorWhiteDrive(Directions direction, double power, ColorSensors.whichColorSensor which) {
+    public boolean colorWhiteDrive(Directions direction, double power, ColorSensors.whichColorSensor which) {
         Drive(direction, power);
         if(which == ColorSensors.whichColorSensor.BEACON) {
-            while(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
-                sleep.Sleep(10);
+            telemetry.addData("Current Red", colorSensorsBeacon.getRed());
+            telemetry.addData("Current Red", colorSensorsBeacon.getRed());
+            if(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
+                Stop();
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDLEFT){
-            while(colorSensorsGroundLeft.isWhite() != ColorSensors.whichColor.WHITE) {
-                sleep.Sleep(10);
+            telemetry.addData("Current Red", colorSensorsGroundLeft.getRed());
+            telemetry.addData("Current Red", colorSensorsGroundLeft.getRed());
+            if(colorSensorsGroundLeft.isWhite() == ColorSensors.whichColor.WHITE) {
+                Stop();
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
-            while(colorSensorsGroundRight.isWhite() != ColorSensors.whichColor.WHITE) {
-                sleep.Sleep(10);
+            telemetry.addData("Current Red", colorSensorsGroundRight.getRed());
+            telemetry.addData("Current Red", colorSensorsGroundRight.getRed());
+            if(colorSensorsGroundRight.isWhite() == ColorSensors.whichColor.WHITE) {
+                Stop();
+                return true;
             }
         }
-        else {
-            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
-            telemetry.update();
-        }
-        Stop();
+        return false;
     }
 
-    public void colorDriveRedBlue(Directions direction, double power, ColorSensors.whichColorSensor which, ColorSensors.whichColor whichColor) {
+    public boolean colorDriveRedBlue(Directions direction, double power, ColorSensors.whichColorSensor which, ColorSensors.whichColor whichColor) {
         Drive(direction, power);
         if(which == ColorSensors.whichColorSensor.BEACON) {
-            while (colorSensorsBeacon.greaterColor() == whichColor) {
-                sleep.Sleep(10);
+            if (colorSensorsBeacon.greaterColor() == whichColor) {
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDLEFT) {
-            while (colorSensorsGroundLeft.greaterColor() == whichColor) {
-                sleep.Sleep(10);
+            if (colorSensorsGroundLeft.greaterColor() == whichColor) {
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
-            while (colorSensorsGroundRight.greaterColor() == whichColor) {
-                sleep.Sleep(10);
+            if (colorSensorsGroundRight.greaterColor() == whichColor) {
+
+                return true;
             }
         }
-        else {
-            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
-            telemetry.update();
-        }
-        Stop();
+        sleep.Sleep(10);
+        return false;
     }
 
 
 
 
 
-    public void ProxDrive(Directions direction, double power) {
+    public boolean ProxDrive(Directions direction, double power) {
         Drive(direction, power);
-        while(proxSensors.getDistance() < .5) {
-            sleep.Sleep(10);
+        if(proxSensors.getDistance() > .4) {
+            Stop();
+            return true;
         }
-        Stop();
+        return false;
     }
-    public void ProxDrive(Directions direction, double power, double prox) {
+    public boolean ProxDrive(Directions direction, double power, double prox) {
         Drive(direction, power);
-        while(proxSensors.getDistance() < prox) {
-            sleep.Sleep(10);
+        if(proxSensors.getDistance() > prox) {
+            Stop();
+            return true;
         }
-        Stop();
+        return false;
     }
 }
