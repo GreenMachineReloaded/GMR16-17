@@ -4,8 +4,9 @@ import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import static org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions.Forward;
 
 public class DriveTrain {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,15 +30,12 @@ public class DriveTrain {
     //gyro sensor
 
     //variables for gyro sensor
-    private float goalDegrees = -1;
+    private float goalDegrees;
         // ???
-    private int goalPosition = -1;
+    private int goalPosition;
         // ???
-    private int gyroRange = 4;
+    private int gyroRange;
         // ???
-    private boolean encoderDrive = true;
-    private double goalEncoderPosition = -1;
-
     private static final double     countsPerMotorRev    = 1440 ;
     private static final double     driveGearReduction    = 1.5 ;
     private static final double     wheelDiameterInches   = 4.0 ;
@@ -46,7 +44,9 @@ public class DriveTrain {
 // MISS V
     private Telemetry telemetry;        //do we need this?
     //object for reference (telemetry)
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private boolean encoderDrive;
+    private double goalEncoderPosition;
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of DriveTrain and passes a reference to the hardware map, telemetry, the 4 string names of the motors in the order left front, right front, left back, right back and the port reference to the gyro.
     public DriveTrain(HardwareMap hardwareMap, Telemetry telemetry) {new DriveTrain(hardwareMap, telemetry, "leftfront", "rightfront", "leftrear", "rightrear", 0);}
@@ -75,9 +75,22 @@ public class DriveTrain {
         this.gyro.zeroYaw();
             //sets the gyro sensors position to zero.
         //miss setup
+
+        this.goalDegrees = -1;
+        // ???
+        this.goalPosition = -1;
+        // ???
+        this.gyroRange = 4;
+
         this.telemetry = telemetry;
         //do we need this?
+<<<<<<< HEAD
         telemetry.addData("Drive Train Starting", "");
+=======
+
+        this.encoderDrive = true;
+        this.goalEncoderPosition = -1;
+>>>>>>> origin/m-RobotReconfig
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //     MOVE
@@ -289,4 +302,3 @@ public class DriveTrain {
 //  ENUMS
     public enum Direction{FORWARD,BACKWARD,STRAFELEFT,STRAFERIGHT,DRIGHTUP,DRIGHTDOWN,DLEFTUP,DLEFTDOWN,TURNLEFT,TURNRIGHT}
 }
-

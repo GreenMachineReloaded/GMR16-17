@@ -25,23 +25,15 @@ public class BeaconNav {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //constructors with all references
-    public BeaconNav(HardwareMap hardwareMap, Telemetry Telemetry)  {
-        new BeaconNav(hardwareMap, Telemetry, "CSBeacon", "CSGroundLeft", "CSGroundRight", "proxSensor", false, true, true, true,8);
-    }
+    public BeaconNav(HardwareMap hardwareMap, Telemetry telemetry)                                                                                                                                                                                                                                                   {new BeaconNav(hardwareMap, telemetry, "CSBeacon", "CSGroundLeft", "CSGroundRight", "proxSensor", false, true, true, true,8);}
     //constructors with all references except boolean
-    public BeaconNav(HardwareMap hardwareMap, Telemetry Telemetry, boolean beaconLightOn, boolean groundLeftLightOn, boolean groundRightLightOn, boolean proxLightOn)   {
-        new BeaconNav(hardwareMap, Telemetry, "CSBeacon", "CSGroundLeft", "CSGroundRight", "proxSensor", beaconLightOn, groundLeftLightOn, groundRightLightOn, proxLightOn,8);
-    }
+    public BeaconNav(HardwareMap hardwareMap, Telemetry telemetry, boolean beaconLightOn, boolean groundLeftLightOn, boolean groundRightLightOn, boolean proxLightOn)                                                                                                                                                {new BeaconNav(hardwareMap, telemetry, "CSBeacon", "CSGroundLeft", "CSGroundRight", "proxSensor", beaconLightOn, groundLeftLightOn, groundRightLightOn, proxLightOn,8);}
     //constructors with all references except string
-    public BeaconNav(HardwareMap hardwareMap, Telemetry Telemetry, String colorSensorBeaconStringArg, String colorSensorGroundLeftStringArg, String colorSensorGroundRightStringArg, String proxSensorStringArg)    {
-        new BeaconNav(hardwareMap, Telemetry, colorSensorBeaconStringArg, colorSensorGroundLeftStringArg, colorSensorGroundRightStringArg, proxSensorStringArg, false, true, true, true, 8);
-    }
+    public BeaconNav(HardwareMap hardwareMap, Telemetry telemetry, String colorSensorBeaconStringArg, String colorSensorGroundLeftStringArg, String colorSensorGroundRightStringArg, String proxSensorStringArg)                                                                                                     {new BeaconNav(hardwareMap, telemetry, colorSensorBeaconStringArg, colorSensorGroundLeftStringArg, colorSensorGroundRightStringArg, proxSensorStringArg, false, true, true, true, 8);}
     //constructors with only the color factor inited
-    public BeaconNav(HardwareMap hardwareMap, Telemetry Telemetry, String colorSensorBeaconStringArg, String colorSensorGroundLeftStringArg, String colorSensorGroundRightStringArg, String proxSensorStringArg, boolean beaconLightOn, boolean groundLeftLightOn, boolean groundRightLightOn, boolean proxLightOn)  {
-        new BeaconNav(hardwareMap, Telemetry, colorSensorBeaconStringArg, colorSensorGroundLeftStringArg, colorSensorGroundRightStringArg, proxSensorStringArg, beaconLightOn, groundLeftLightOn, groundRightLightOn, proxLightOn, 8);
-    }
+    public BeaconNav(HardwareMap hardwareMap, Telemetry telemetry, String colorSensorBeaconStringArg, String colorSensorGroundLeftStringArg, String colorSensorGroundRightStringArg, String proxSensorStringArg, boolean beaconLightOn, boolean groundLeftLightOn, boolean groundRightLightOn, boolean proxLightOn)  {new BeaconNav(hardwareMap, telemetry, colorSensorBeaconStringArg, colorSensorGroundLeftStringArg, colorSensorGroundRightStringArg, proxSensorStringArg, beaconLightOn, groundLeftLightOn, groundRightLightOn, proxLightOn, 8);}
     //constructor with none of the init that sets up everything
-    public BeaconNav(HardwareMap hardwareMap, Telemetry Telemetry, String colorSensorBeaconStringArg, String colorSensorGroundLeftStringArg, String colorSensorGroundRightStringArg, String proxSensorStringArg, boolean beaconLightOn, boolean groundLeftLightOn, boolean groundRightLightOn, boolean proxLightOnOff,double colorFactor) {
+    public BeaconNav(HardwareMap hardwareMap, Telemetry telemetry, String colorSensorBeaconStringArg, String colorSensorGroundLeftStringArg, String colorSensorGroundRightStringArg, String proxSensorStringArg, boolean beaconLightOn, boolean groundLeftLightOn, boolean groundRightLightOn, boolean proxLightOnOff,double colorFactor) {
         //setup for all color sensors
             //setup for the beacon
         colorSensorBeacon = hardwareMap.colorSensor.get(colorSensorBeaconStringArg);
@@ -59,7 +51,7 @@ public class BeaconNav {
         colorSensorGroundRight.enableLed(groundRightLightOn);
         proxSensor.enableLed(proxLightOnOff);
         //setup for all miscellaneous variable
-        this.telemetry = Telemetry;
+        this.telemetry = telemetry;
         this.colorFactor = colorFactor;
         telemetry.addData("Beacon Nav Starting", "");
     }

@@ -26,7 +26,7 @@ public class Launch {
 // MISC V
     private boolean canLaunch = true;
     //boolean to test if the launcher can launch again.
-    private int goalPosition = -1;
+    private int goalPosition;
     // ???
     private double timeOfCompletion;
     //???
@@ -59,7 +59,10 @@ public class Launch {
         this.sweeperMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //setups the encoder of the launching motor.
         this.launchMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        telemetry.addData("Launch Starting", "");
+        canLaunch = true;
+        goalPosition = -1;
+        timeOfCompletion = 0;
+        launchTime = new ElapsedTime();
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LAUNCHING
@@ -85,23 +88,23 @@ public class Launch {
 
     public void launchControl(boolean leftBumper, boolean x) {
         if (leftBumper) {
-            if (canLaunch){
-                goalPosition = (getLaunchEncoder() + 1680);
-                canLaunch = false;
+            if (this.canLaunch){
+                this.goalPosition = (getLaunchEncoder() + 1680);
+                this.canLaunch = false;
                 this.launchMotor.setPower(1);
                 this.launchMotor.setTargetPosition(goalPosition);
             }
         }
         if (this.launchMotor.getCurrentPosition() < goalPosition - 20) {
-            launcherServoControl(false);
-            timeOfCompletion = (launchTime.seconds() + 0.7);
+            this.launcherServoControl(false);
+            this.timeOfCompletion = (this.launchTime.seconds() + 0.7);
         }else {
-            if (launchTime.seconds() < timeOfCompletion) {launcherServoControl(true);}
+            if (this.launchTime.seconds() < this.timeOfCompletion) {launcherServoControl(true);}
             else {
-                if(x){launcherServoControl(true); }
-                else {launcherServoControl(false);}
+                if(x){this.launcherServoControl(true); }
+                else {this.launcherServoControl(false);}
             }
-            canLaunch = true;
+            this.canLaunch = true;
         }
     }
     //could this be private?
