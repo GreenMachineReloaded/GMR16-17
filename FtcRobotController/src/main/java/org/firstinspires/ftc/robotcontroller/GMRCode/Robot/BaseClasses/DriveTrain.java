@@ -4,8 +4,6 @@ import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import static org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions.Forward;
@@ -38,6 +36,10 @@ public class DriveTrain {
         // ???
     private int gyroRange;
         // ???
+    private static final double     countsPerMotorRev    = 1440 ;
+    private static final double     driveGearReduction    = 1.5 ;
+    private static final double     wheelDiameterInches   = 4.0 ;
+    private static final double     countsPerInch         = (countsPerMotorRev * driveGearReduction) / (wheelDiameterInches * Math.PI);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
     private Telemetry telemetry;        //do we need this?
@@ -169,13 +171,21 @@ public class DriveTrain {
                 break;
         }
     }
+    public void stop(){
+        this.leftFront.setPower(0);
+        this.leftRear.setPower(0);
+        this.rightFront.setPower(0);
+        this.rightRear.setPower(0);
+    }
     public boolean encoderDrive(Direction direction, double power, double inches) {
 
         double leftInput = -power;
         double rightInput = power;
+
         int combinedEnValue = ((getLeftEncoder() + getRightEncoder()) / 2);
+
         if (encoderDrive){
-            goalEncoderPosition = (combinedEnValue + (inches * (1440 * 1.5) / (4 * Math.PI)));
+            goalEncoderPosition = (combinedEnValue + (inches * countsPerInch));
             encoderDrive = false;
             return encoderDrive;
         } else {
@@ -184,7 +194,7 @@ public class DriveTrain {
 
                 case FORWARD:
                     if ((combinedEnValue) < goalEncoderPosition) {
-                        this.Drive(Direction.FORWARD, power);
+                        Drive(direction, power);
                         telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
                         encoderDrive = true;
@@ -194,7 +204,7 @@ public class DriveTrain {
                     break;
                 case BACKWARD:
                     if ((combinedEnValue) > goalEncoderPosition) {
-                        this.Drive(Direction.BACKWARD, power);
+                        Drive(direction, power);
                         telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
                         encoderDrive = true;
@@ -208,9 +218,9 @@ public class DriveTrain {
                     return encoderDrive;
                 case DRIGHTUP:
                     return encoderDrive;
-                case DLEFTUP:
-                    return encoderDrive;
                 case DRIGHTDOWN:
+                    return encoderDrive;
+                case DLEFTUP:
                     return encoderDrive;
                 case DLEFTDOWN:
                     return encoderDrive;
@@ -221,12 +231,6 @@ public class DriveTrain {
             }
             return encoderDrive;
         }
-    }
-    public void stop(){
-        this.leftFront.setPower(0);
-        this.leftRear.setPower(0);
-        this.rightFront.setPower(0);
-        this.rightRear.setPower(0);
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -240,7 +244,7 @@ public class DriveTrain {
                         goalDegrees = (goalDegrees + 360);
                     }
                 }
-                if (!(this.getYaw() > goalDegrees - this.getYaw() && this.getYaw() < goalDegrees + this.getYaw())) {
+                if (!(this.getYaw() > (goalDegrees - goalDegrees) && this.getYaw() < (goalDegrees + goalDegrees))) {
                     Drive(direction, power);
                     return false;
                 } else {
@@ -294,4 +298,3 @@ public class DriveTrain {
 //  ENUMS
     public enum Direction{FORWARD,BACKWARD,STRAFELEFT,STRAFERIGHT,DRIGHTUP,DRIGHTDOWN,DLEFTUP,DLEFTDOWN,TURNLEFT,TURNRIGHT}
 }
-

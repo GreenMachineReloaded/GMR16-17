@@ -23,20 +23,25 @@ public class Launch {
     private Servo hopperDoorServo;
     private Servo ballLiftServo;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// MISS V
-    private boolean canLaunch;
+// MISC V
+    private boolean canLaunch = true;
     //boolean to test if the launcher can launch again.
     private int goalPosition;
     // ???
     private double timeOfCompletion;
     //???
-    private ElapsedTime launchTime;
+    private ElapsedTime launchTime = new ElapsedTime();
+
+    Telemetry telemetry;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of Launch and passes a reference to the hardware map, telemetry and the 3 string names of the motors and servos in the order sweeper, launcher and door hopper.
-    public Launch(HardwareMap hardwareMap, Telemetry Telemetry){new Launch(hardwareMap,Telemetry,"sweepermotor","balllift","launchmotor","ballliftservo","hopperdoorservo");}
+    public Launch(HardwareMap hardwareMap, Telemetry telemetry){
+        new Launch(hardwareMap,telemetry,"sweepermotor","balllift","launchmotor","ballliftservo","hopperdoorservo");
+    }
     //sets up all the references to the launching motors and servos.
-    public Launch(HardwareMap hardwareMap, Telemetry Telemetry, String sweeperMotorStringArg, String ballLiftMotorStringArg, String launchMotorStringArg, String ballLiftServoStringArg,String hopperDoorServoStringArg) {
+    public Launch(HardwareMap hardwareMap, Telemetry telemetry, String sweeperMotorStringArg, String ballLiftMotorStringArg, String launchMotorStringArg, String ballLiftServoStringArg,String hopperDoorServoStringArg) {
+        this.telemetry = telemetry;
         //setup for the sweeper
         this.sweeperMotor = hardwareMap.dcMotor.get(sweeperMotorStringArg);
         //setup for all the launching stuff
@@ -52,14 +57,12 @@ public class Launch {
 
         //is this required?
         this.sweeperMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //setups the incoder of the lanuching motor.
+        //setups the encoder of the launching motor.
         this.launchMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
         canLaunch = true;
         goalPosition = -1;
         timeOfCompletion = 0;
         launchTime = new ElapsedTime();
-
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LAUNCHING
@@ -82,6 +85,7 @@ public class Launch {
             canLaunch = true;
         }
     }
+
     public void launchControl(boolean leftBumper, boolean x) {
         if (leftBumper) {
             if (this.canLaunch){
@@ -116,6 +120,7 @@ public class Launch {
         else {this.ballLiftMotor.setPower(0);}
     }
     public void liftControl(boolean dPadUp, boolean dPadDown) {
+        this.telemetry.addData("Lift Control Starting", "");
         if (dPadUp) {this.ballLiftServo.setPosition(0.07);}
         else if (dPadDown) {this.ballLiftServo.setPosition(0.63);}
     }

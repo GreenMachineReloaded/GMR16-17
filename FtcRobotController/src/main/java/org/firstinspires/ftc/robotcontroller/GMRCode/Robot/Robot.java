@@ -5,6 +5,7 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrai
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.WaitFor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class Robot {
     public DriveTrain driveTrain;
     public Launch launch;
@@ -26,9 +27,9 @@ public class Robot {
         if(this.beaconNav.isColor(whichGMRColorSensor, whichColor)) {this.driveTrain.stop(); return true;}
         else {return false;}
     }
-    public boolean whiteDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor , BeaconNav.Color whichColor) {
+    public boolean whiteDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor) {
         this.driveTrain.Drive(direction, power);
-        if(beaconNav.isWhite(whichGMRColorSensor)) {this.driveTrain.stop(); return true;}
+        if(beaconNav.isWhite(whichGMRColorSensor)) {driveTrain.stop(); return true;}
         else {return false;}
     }
     public boolean ProxDrive(DriveTrain.Direction direction, double power) {
