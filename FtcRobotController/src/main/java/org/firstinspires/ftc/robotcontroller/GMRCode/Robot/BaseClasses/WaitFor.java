@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses;
-import static java.lang.Thread.sleep;;
+import static java.lang.Thread.sleep;
 public class WaitFor {
     public void Sleep(int StopTime) {
         if(StopTime < 0) {throw new IndexOutOfBoundsException("time can not be less then 0");}
