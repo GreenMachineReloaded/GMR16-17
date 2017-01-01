@@ -4,7 +4,11 @@ import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import static org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions.Forward;
 
 public class DriveTrain {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,17 +32,19 @@ public class DriveTrain {
     //gyro sensor
 
     //variables for gyro sensor
-    private float goalDegrees = -1;
+    private float goalDegrees;
         // ???
-    private int goalPosition = -1;
+    private int goalPosition;
         // ???
-    private int gyroRange = 4;
+    private int gyroRange;
         // ???
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
     private Telemetry telemetry;        //do we need this?
     //object for reference (telemetry)
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private boolean encoderDrive;
+    private double goalEncoderPosition;
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of DriveTrain and passes a reference to the hardware map, telemetry, the 4 string names of the motors in the order left front, right front, left back, right back and the port reference to the gyro.
     public DriveTrain(HardwareMap hardwareMap, Telemetry telemetry) {new DriveTrain(hardwareMap, telemetry, "leftfront", "rightfront", "leftrear", "rightrear", 0);}
@@ -67,8 +73,18 @@ public class DriveTrain {
         this.gyro.zeroYaw();
             //sets the gyro sensors position to zero.
         //miss setup
+
+        this.goalDegrees = -1;
+        // ???
+        this.goalPosition = -1;
+        // ???
+        this.gyroRange = 4;
+
         this.telemetry = telemetry;
         //do we need this?
+
+        this.encoderDrive = true;
+        this.goalEncoderPosition = -1;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //     MOVE
@@ -151,6 +167,59 @@ public class DriveTrain {
                 this.leftRear.setPower(-power);
                 this.rightRear.setPower(-power);
                 break;
+        }
+    }
+    public boolean encoderDrive(Direction direction, double power, double inches) {
+
+        double leftInput = -power;
+        double rightInput = power;
+        int combinedEnValue = ((getLeftEncoder() + getRightEncoder()) / 2);
+        if (encoderDrive){
+            goalEncoderPosition = (combinedEnValue + (inches * (1440 * 1.5) / (4 * Math.PI)));
+            encoderDrive = false;
+            return encoderDrive;
+        } else {
+
+            switch (direction) {
+
+                case FORWARD:
+                    if ((combinedEnValue) < goalEncoderPosition) {
+                        this.Drive(Direction.FORWARD, power);
+                        telemetry.addData("Current Combined Value", combinedEnValue);
+                    } else {
+                        encoderDrive = true;
+                        stop();
+                        return encoderDrive;
+                    }
+                    break;
+                case BACKWARD:
+                    if ((combinedEnValue) > goalEncoderPosition) {
+                        this.Drive(Direction.BACKWARD, power);
+                        telemetry.addData("Current Combined Value", combinedEnValue);
+                    } else {
+                        encoderDrive = true;
+                        stop();
+                        return encoderDrive;
+                    }
+                    break;
+                case STRAFELEFT:
+                    return encoderDrive;
+                case STRAFERIGHT:
+                    return encoderDrive;
+                case DRIGHTUP:
+                    return encoderDrive;
+                case DLEFTUP:
+                    return encoderDrive;
+                case DRIGHTDOWN:
+                    return encoderDrive;
+                case DLEFTDOWN:
+                    return encoderDrive;
+                case TURNLEFT:
+                    return encoderDrive;
+                case TURNRIGHT:
+                    return encoderDrive;
+            }
+            return encoderDrive;
         }
     }
     public void stop(){
