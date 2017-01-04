@@ -31,9 +31,9 @@ public class MecanumTeleOp extends OpMode {
     @Override
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
-        beaconNav = robot.getBeaconNav();
+//        beaconNav = robot.getBeaconNav();
         driveTrain = robot.getDriveTrain();
-        launch = robot.getLaunch();
+//        launch = robot.getLaunch();
         time.reset();
     }
 
@@ -49,18 +49,19 @@ public class MecanumTeleOp extends OpMode {
         y = -gamepad1.left_stick_y;
         z = gamepad1.right_stick_x;
 
-        //robot.driveTrain.setMotorPower(x, y, z);
-        //robot.launch.launchControl(gamepad1.left_bumper, gamepad1.x);
-        //robot.launch.sweeperControl(gamepad1.right_bumper, gamepad1.right_trigger);
-        //robot.launch.linearSlideControl(gamepad2.a, gamepad2.b);
-        //robot.launch.liftControl(gamepad2.dpad_up, gamepad2.dpad_down);
+        robot.driveTrain.setMotorPower(x, y, z);
+        robot.launch.launchControl(gamepad1.left_bumper, gamepad1.x);
+        robot.launch.sweeperControl(gamepad1.right_bumper, gamepad1.right_trigger);
+        robot.launch.linearSlideControl(gamepad2.a, gamepad2.b);
+        robot.launch.liftControl(gamepad2.dpad_up, gamepad2.dpad_down);
         updateTelemetry(telemetry);
 
         telemetry.addData("Current time", time.seconds());
-        //telemetry.addData("Current Yaw", robot.driveTrain.getYaw());
-
-        telemetry.addData("Robot Value", robot);
+        telemetry.addData("Current Yaw", robot.driveTrain.getYaw());
+        telemetry.addData("-----------", "");
         telemetry.addData("Robot Class", driveTrain.getClass().getDeclaredMethods());
+        telemetry.addData("-----------", "");
 
+        //robot.launch.fixLauncher(gamepad2.left_stick_y);
     }
 }

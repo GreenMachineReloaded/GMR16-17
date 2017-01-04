@@ -18,10 +18,16 @@ public class Launch {
     private DcMotor sweeperMotor;
     private DcMotor ballLiftMotor;
     private DcMotor launchMotor;
+    private String sweeperMotorStringArg = "sweepermotor";
+    private String ballLiftMotorStringArg = "balllift";
+    private String launchMotorStringArg = "launchmotor";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SERVO V
     private Servo hopperDoorServo;
     private Servo ballLiftServo;
+
+    private String ballLiftServoStringArg = "ballliftservo";
+    private String hopperDoorServoStringArg = "hopperdoorservo";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISC V
     private boolean canLaunch = true;
@@ -37,10 +43,6 @@ public class Launch {
 // CONSTRUCT
     //calls the second constructor of Launch and passes a reference to the hardware map, telemetry and the 3 string names of the motors and servos in the order sweeper, launcher and door hopper.
     public Launch(HardwareMap hardwareMap, Telemetry telemetry){
-        new Launch(hardwareMap,telemetry,"sweepermotor","balllift","launchmotor","ballliftservo","hopperdoorservo");
-    }
-    //sets up all the references to the launching motors and servos.
-    public Launch(HardwareMap hardwareMap, Telemetry telemetry, String sweeperMotorStringArg, String ballLiftMotorStringArg, String launchMotorStringArg, String ballLiftServoStringArg,String hopperDoorServoStringArg) {
         this.telemetry = telemetry;
         //setup for the sweeper
         this.sweeperMotor = hardwareMap.dcMotor.get(sweeperMotorStringArg);
@@ -120,7 +122,6 @@ public class Launch {
         else {this.ballLiftMotor.setPower(0);}
     }
     public void liftControl(boolean dPadUp, boolean dPadDown) {
-        this.telemetry.addData("Lift Control Starting", "");
         if (dPadUp) {this.ballLiftServo.setPosition(0.07);}
         else if (dPadDown) {this.ballLiftServo.setPosition(0.63);}
     }
@@ -134,4 +135,9 @@ public class Launch {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ENCODER
     public int getLaunchEncoder() {return this.launchMotor.getCurrentPosition();}
+
+    public void fixLauncher(float gamepad1LeftStick) {
+        launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        launchMotor.setPower(gamepad1LeftStick/50);
+    }
 }

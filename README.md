@@ -24,7 +24,7 @@ Version 2.20 (released on 16.09.08)
   * Support for Modern Robotics Compass Sensor.
   * Support for Modern Robotics Range Sensor.
   * Revise device names for Pushbot templates to match the names used in Pushbot guide.
-  * Fixed bug so that IrSeekerSensorV3 device is accessible as IrSeekerSensor in hardwareMap.
+  * Fixed bug so that IrSeekerSensorV3 device is accessible as IrSeekerSensor in hwMap.
   * Modified computer vision code to require an individual Vuforia license (per legal requirement from PTC).
   * Minor fixes.
   * Blockly enhancements:
@@ -81,7 +81,7 @@ Version 2.00 (released on 16.08.19)
  * Swap mechanism added to FTC Robot Controller configuration activity.  For example, if you have two motor controllers on a robot, and you misidentified them in your configuration file, you can use the Swap button to swap the devices within the configuration file (so you do not have to manually re-enter in the configuration info for the two devices).
  * Fix mechanism added to all user to replace an electronic module easily.  For example, suppose a servo controller dies on your robot. You replace the broken module with a new module, which has a different serial number from the original servo controller.  You can use the Fix button to automatically reconfigure your configuration file to use the serial number of the new module.
  * Improvements made to fix resiliency and responsiveness of the system.
- * For LinearOpMode the user now must for a telemetry.update() to update the telemetry data on the driver station.  This update() mechanism ensures that the driver station gets the updated data properly and at the same time.
+ * For LinearOpMode the user now must for a telemtry.update() to update the telemtry data on the driver station.  This update() mechanism ensures that the driver station gets the updated data properly and at the same time.
  * The Auto Configure function of the Robot Controller is now template based.  If there is a commonly used robot configuration, a template can be created so that the Auto Configure mechanism can be used to quickly configure a robot of this type.
  * The logic to detect a runaway op mode (both in the LinearOpMode and OpMode types) and to abort the run, then auto recover has been improved/implemented.
  * Fix has been incorporated so that Logitech F310 gamepad mappings will be correct for Marshmallow users.
@@ -170,7 +170,7 @@ Release 16.01.04
  * LED.getDeviceName and .getConnectionInfo() return null
  * apps check for ROBOCOL_VERSION mismatch
  * Fix for Telemetry also has off-by-one errors in its data string sizing / short size limitations error
- * User telemetry output is sorted.
+ * User telemtry output is sorted.
  * added formatting variants to DbgLog and RobotLog APIs
  * code modified to allow for a long list of op mode names.
  * changes to improve thread safety of RobocolDatagramSocket

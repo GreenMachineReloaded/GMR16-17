@@ -4,9 +4,8 @@ import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import static org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions.Forward;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class DriveTrain {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,6 +40,13 @@ public class DriveTrain {
     private static final double     wheelDiameterInches   = 4.0 ;
     private static final double     countsPerInch         = (countsPerMotorRev * driveGearReduction) / (wheelDiameterInches * Math.PI);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SETUP V
+    private String LeftFront = "leftfront";
+    private String RightFront = "rightfront";
+    private String LeftRear = "leftrear";
+    private String RightRear = "rightrear";
+    private final int gyroPort = 0;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
     private Telemetry telemetry;        //do we need this?
     //object for reference (telemetry)
@@ -49,19 +55,17 @@ public class DriveTrain {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of DriveTrain and passes a reference to the hardware map, telemetry, the 4 string names of the motors in the order left front, right front, left back, right back and the port reference to the gyro.
-    public DriveTrain(HardwareMap hardwareMap, Telemetry telemetry) {new DriveTrain(hardwareMap, telemetry, "leftfront", "rightfront", "leftrear", "rightrear", 0);}
-    //sets up all the motors and the gyro.
-    public DriveTrain(HardwareMap hardwareMap, Telemetry telemetry, String leftFrontMotorStringArg, String rightFrontMotorStringArg, String leftRearMotorStringArg, String rightRearMotorStringArg, int gyroPort) {
+    public DriveTrain(HardwareMap hardwareMap, Telemetry telemetry) {
         //setup for all the motors.
             //setup for all the front motors.
-        this.leftFront = hardwareMap.dcMotor.get(leftFrontMotorStringArg);
+        this.leftFront = hardwareMap.dcMotor.get(LeftFront);
                 //setup for the left front motor.
-        this.rightFront = hardwareMap.dcMotor.get(rightFrontMotorStringArg);
+        this.rightFront = hardwareMap.dcMotor.get(RightFront);
                 //setup for the right front motor.
             //setup for all the back motors.
-        this.leftRear = hardwareMap.dcMotor.get(leftRearMotorStringArg);
+        this.leftRear = hardwareMap.dcMotor.get(LeftRear);
                 //setup for the left back motor.
-        this.rightRear = hardwareMap.dcMotor.get(rightRearMotorStringArg);
+        this.rightRear = hardwareMap.dcMotor.get(RightRear);
                 //setup for the right back motor.
         //sets all the motors power to zero.
         //do we need this?
@@ -84,13 +88,8 @@ public class DriveTrain {
 
         this.telemetry = telemetry;
         //do we need this?
-<<<<<<< HEAD
-        telemetry.addData("Drive Train Starting", "");
-=======
-
         this.encoderDrive = true;
         this.goalEncoderPosition = -1;
->>>>>>> origin/m-RobotReconfig
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //     MOVE
@@ -248,7 +247,7 @@ public class DriveTrain {
                         goalDegrees = (goalDegrees + 360);
                     }
                 }
-                if (!(this.getYaw() > (goalDegrees - goalDegrees) && this.getYaw() < (goalDegrees + goalDegrees))) {
+                if (!(this.getYaw() > (goalDegrees - gyroRange) && this.getYaw() < (goalDegrees + gyroRange))) {
                     Drive(direction, power);
                     return false;
                 } else {

@@ -12,33 +12,24 @@ public class Robot {
     public Launch launch;
     public BeaconNav beaconNav;
     public WaitFor waitFor;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/m-RobotReconfig
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry) {new Robot(hardwareMap, telemetry, false, false);}
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, boolean writeDebug) {new Robot(hardwareMap, telemetry, writeDebug, false);}
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, boolean writeDebug, boolean writeToFile) {
-        this.driveTrain = new DriveTrain(hardwareMap, telemetry);
-        this.launch = new Launch(hardwareMap, telemetry);
-        this.beaconNav = new BeaconNav(hardwareMap, telemetry);
-<<<<<<< HEAD
+    public HardwareMap hwMap;
+    public Telemetry telemtry;
+    private int number = 0;
+    public Robot(HardwareMap hwMap, Telemetry telemtry) {
+        this.driveTrain = new DriveTrain(hwMap, telemtry);
+        this.launch = new Launch(hwMap, telemtry);
+        this.beaconNav = new BeaconNav(hwMap, telemtry);
         waitFor = new WaitFor();
-        if(writeDebug) {
-            //start thread
-        }
-        if(writeToFile) {
-            //start thread
-=======
-        this.waitFor = new WaitFor();
-        if(writeDebug || writeToFile) {
-            //start thread here
->>>>>>> origin/m-RobotReconfig
-        }
-        telemetry.addData("Robot Starting", "");
-        telemetry.addData("Drive Train", driveTrain);
-        telemetry.addData("Launch", launch);
-        telemetry.addData("Beacon Nav", beaconNav);
+        this.hwMap = hwMap;
+        this.telemtry = telemtry;
+
+//        if(writeDebug) {
+//            //start thread
+//        }
+//        if(writeToFile) {
+//            //start thread
+//        }
+
     }
     public boolean colorDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor , BeaconNav.Color whichColor) {
         this.driveTrain.Drive(direction, power);
@@ -67,14 +58,33 @@ public class Robot {
     }
 
     public DriveTrain getDriveTrain() {
-        return driveTrain;
+        if (this.driveTrain == null) {
+            this.driveTrain = new DriveTrain(hwMap, telemtry);
+        }
+        return this.driveTrain;
     }
 
     public Launch getLaunch() {
-        return launch;
+        if (this.launch == null) {
+            this.launch = new Launch(hwMap, telemtry);
+        }
+        return this.launch;
     }
 
     public BeaconNav getBeaconNav() {
-        return beaconNav;
+        if (this.beaconNav == null) {
+            this.beaconNav = new BeaconNav(hwMap, telemtry);
+        }
+        return this.beaconNav;
+    }
+
+    public void printObjects() {
+        telemtry.addData("Drive Train", driveTrain);
+        telemtry.addData("Launch", launch);
+        telemtry.addData("Beacon Nav", beaconNav);
+    }
+
+    public int number() {
+        return number += 1;
     }
 }

@@ -132,14 +132,14 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code><a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#hardwareMap">hardwareMap</a></strong></code>
+<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#hwMap">hwMap</a></strong></code>
 <div class="block">Hardware Mappings</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../../org/firstinspires/ftc/robotcore/external/Telemetry.html" title="interface in org.firstinspires.ftc.robotcore.external">Telemetry</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#telemetry">telemetry</a></strong></code>
-<div class="block">The <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#telemetry"><code>telemetry</code></a> field contains an object in which a user may accumulate data which
+<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#telemtry">telemtry</a></strong></code>
+<div class="block">The <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#telemtry"><code>telemtry</code></a> field contains an object in which a user may accumulate data which
  is to be transmitted to the driver station.</div>
 </td>
 </tr>
@@ -211,13 +211,13 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#postInitLoop()">postInitLoop</a></strong>()</code>
-<div class="block">automatically update telemetry in a non-linear opmode</div>
+<div class="block">automatically update telemtry in a non-linear opmode</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#postLoop()">postLoop</a></strong>()</code>
-<div class="block">automatically update telemetry in a non-linear opmode</div>
+<div class="block">automatically update telemtry in a non-linear opmode</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -252,9 +252,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#updateTelemetry(org.firstinspires.ftc.robotcore.external.Telemetry)">updateTelemetry</a></strong>(<a href="../../../../../org/firstinspires/ftc/robotcore/external/Telemetry.html" title="interface in org.firstinspires.ftc.robotcore.external">Telemetry</a>&nbsp;telemetry)</code>
-<div class="block">Refreshes the user's telemetry on the driver station with the contents of the provided telemetry
- object if a nominal amount of time has passed since the last telemetry transmission.</div>
+<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#updateTelemetry(org.firstinspires.ftc.robotcore.external.Telemetry)">updateTelemetry</a></strong>(<a href="../../../../../org/firstinspires/ftc/robotcore/external/Telemetry.html" title="interface in org.firstinspires.ftc.robotcore.external">Telemetry</a>&nbsp;telemtry)</code>
+<div class="block">Refreshes the user's telemtry on the driver station with the contents of the provided telemtry
+ object if a nominal amount of time has passed since the last telemtry transmission.</div>
 </td>
 </tr>
 </table>
@@ -299,25 +299,25 @@ extends java.lang.Object</pre>
 <div class="block">Gamepad 2</div>
 </li>
 </ul>
-<a name="telemetry">
+<a name="telemtry">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>telemetry</h4>
-<pre>public&nbsp;<a href="../../../../../org/firstinspires/ftc/robotcore/external/Telemetry.html" title="interface in org.firstinspires.ftc.robotcore.external">Telemetry</a> telemetry</pre>
-<div class="block">The <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#telemetry"><code>telemetry</code></a> field contains an object in which a user may accumulate data which
+<h4>telemtry</h4>
+<pre>public&nbsp;<a href="../../../../../org/firstinspires/ftc/robotcore/external/Telemetry.html" title="interface in org.firstinspires.ftc.robotcore.external">Telemetry</a> telemtry</pre>
+<div class="block">The <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#telemtry"><code>telemtry</code></a> field contains an object in which a user may accumulate data which
  is to be transmitted to the driver station. This data is automatically transmitted to the
  driver station on a regular, periodic basis.</div>
 </li>
 </ul>
-<a name="hardwareMap">
+<a name="hwMap">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>hardwareMap</h4>
-<pre>public&nbsp;<a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a> hardwareMap</pre>
+<h4>hwMap</h4>
+<pre>public&nbsp;<a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a> hwMap</pre>
 <div class="block">Hardware Mappings</div>
 </li>
 </ul>
@@ -470,11 +470,11 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>updateTelemetry</h4>
-<pre>public&nbsp;void&nbsp;updateTelemetry(<a href="../../../../../org/firstinspires/ftc/robotcore/external/Telemetry.html" title="interface in org.firstinspires.ftc.robotcore.external">Telemetry</a>&nbsp;telemetry)</pre>
-<div class="block">Refreshes the user's telemetry on the driver station with the contents of the provided telemetry
- object if a nominal amount of time has passed since the last telemetry transmission. Once
- transmitted, the contents of the telemetry object are (by default) cleared.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>telemetry</code> - the telemetry data to transmit</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#telemetry"><code>telemetry</code></a>, 
+<pre>public&nbsp;void&nbsp;updateTelemetry(<a href="../../../../../org/firstinspires/ftc/robotcore/external/Telemetry.html" title="interface in org.firstinspires.ftc.robotcore.external">Telemetry</a>&nbsp;telemtry)</pre>
+<div class="block">Refreshes the user's telemtry on the driver station with the contents of the provided telemtry
+ object if a nominal amount of time has passed since the last telemtry transmission. Once
+ transmitted, the contents of the telemtry object are (by default) cleared.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>telemtry</code> - the telemtry data to transmit</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#telemtry"><code>telemtry</code></a>,
 <a href="../../../../../org/firstinspires/ftc/robotcore/external/Telemetry.html#update()"><code>Telemetry.update()</code></a></dd></dl>
 </li>
 </ul>
@@ -494,7 +494,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>postInitLoop</h4>
 <pre>protected&nbsp;void&nbsp;postInitLoop()</pre>
-<div class="block">automatically update telemetry in a non-linear opmode</div>
+<div class="block">automatically update telemtry in a non-linear opmode</div>
 </li>
 </ul>
 <a name="postLoop()">
@@ -504,7 +504,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>postLoop</h4>
 <pre>protected&nbsp;void&nbsp;postLoop()</pre>
-<div class="block">automatically update telemetry in a non-linear opmode</div>
+<div class="block">automatically update telemtry in a non-linear opmode</div>
 </li>
 </ul>
 </li>
