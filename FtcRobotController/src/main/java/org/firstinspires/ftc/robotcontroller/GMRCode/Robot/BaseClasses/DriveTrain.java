@@ -7,6 +7,9 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 public class DriveTrain {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MOVE V
@@ -277,6 +280,43 @@ public class DriveTrain {
         if(this.gyro.getYaw() < 0) {return (360 + this.gyro.getYaw());}
         else {return this.gyro.getYaw();}
     }
+
+    public void experimentalDrive(double x, double y, double z){
+        /*
+        Guide to motor Powers:
+        Left Front: - (y + x + Z)
+        Right Front: y - x - z
+        Left Rear: y + x - z
+        Right Rear: - (y - x + z)
+         */
+//        double LFpower = Range.clip(-(y+x+z),-1,1);
+//        double RFpower = Range.clip((y-x-z),-1,1);
+//        double LRpower = Range.clip(-(y-x+z),-1,1);
+//        double RRpower = Range.clip((y+x-z), -1, 1);
+
+        double forwrd = x; /* Invert stick X axis */
+        double strafe = y;
+
+        double pi = Math.PI;
+
+/* Adjust Joystick X/Y inputs by navX MXP yaw angle */
+
+        double gyro_radians = getYaw() * pi/180;
+        double temp = forwrd * cos(gyro_radians) +
+                strafe * sin(gyro_radians);
+        strafe = -forwrd * sin(gyro_radians) +
+                strafe * cos(gyro_radians);
+        forwrd = temp;
+
+/* At this point, Joystick X/Y (strafe/forwrd) vectors have been */
+/* rotated by the gyro angle, and can be sent to drive system */
+
+        this.leftFront.setPower(Range.clip(-(forwrd+strafe+z),-1,1));
+        this.rightFront.setPower(Range.clip((forwrd-strafe-z),-1,1));
+        this.leftRear.setPower(Range.clip(-(forwrd-strafe+z),-1,1));
+        this.rightRear.setPower(Range.clip((forwrd+strafe-z), -1, 1));
+    }
+
     public double currentDegrees(double x,double y) {
         //double magnitude = (Math.sqrt((x*x)+(-y*-y)));
         //return (Math.asin(x/magnitude)/0.0175);
