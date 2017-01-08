@@ -36,9 +36,7 @@ public class Launch {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of Launch and passes a reference to the hardware map, telemetry and the 3 string names of the motors and servos in the order sweeper, launcher and door hopper.
-    public Launch(HardwareMap hardwareMap, Telemetry telemetry){
-        new Launch(hardwareMap,telemetry,"sweepermotor","balllift","launchmotor","ballliftservo","hopperdoorservo");
-    }
+    public Launch(HardwareMap hardwareMap, Telemetry telemetry){new Launch(hardwareMap,telemetry,"sweepermotor","balllift","launchmotor","ballliftservo","hopperdoorservo");}
     //sets up all the references to the launching motors and servos.
     public Launch(HardwareMap hardwareMap, Telemetry telemetry, String sweeperMotorStringArg, String ballLiftMotorStringArg, String launchMotorStringArg, String ballLiftServoStringArg,String hopperDoorServoStringArg) {
         this.telemetry = telemetry;
