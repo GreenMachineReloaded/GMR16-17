@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
-import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
-import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 
 /**
@@ -18,10 +16,6 @@ public class MecanumTeleOp extends OpMode {
 
     private Robot robot;
 
-    private BeaconNav beaconNav;
-    private DriveTrain driveTrain;
-    private Launch launch;
-
     private double x;
     private double y;
     private double z;
@@ -31,16 +25,13 @@ public class MecanumTeleOp extends OpMode {
     @Override
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
-//        beaconNav = robot.getBeaconNav();
-        driveTrain = robot.getDriveTrain();
-//        launch = robot.getLaunch();
         time.reset();
     }
 
     @Override
     public void start() {
         time.reset();
-        //robot.launch.liftControl(false, true);
+        robot.launch.liftControl(false, true);
     }
 
     @Override
@@ -59,9 +50,9 @@ public class MecanumTeleOp extends OpMode {
 
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", robot.driveTrain.getYaw());
-        telemetry.addData("-----------", "");
-        telemetry.addData("Robot Class", driveTrain.getClass().getDeclaredMethods());
-        telemetry.addData("-----------", "");
+        telemetry.addData("Left Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
+        telemetry.addData("Right Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDRIGHT));
+        telemetry.addData("Beacon Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.BEACON));
 
         //robot.launch.fixLauncher(gamepad2.left_stick_y);
     }
