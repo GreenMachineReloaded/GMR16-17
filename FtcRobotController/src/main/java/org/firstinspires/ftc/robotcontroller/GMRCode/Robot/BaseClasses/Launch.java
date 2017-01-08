@@ -111,15 +111,25 @@ public class Launch {
     }
     //could this be private?
     public void launcherServoControl(boolean x) {
-        if (x) {this.hopperDoorServo.setPosition(0.43);}
-        else {this.hopperDoorServo.setPosition(0.95);}
+        if (x) {
+            this.hopperDoorServo.setPosition(0.43);
+        }
+        else {
+            this.hopperDoorServo.setPosition(0.95);
+        }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LINEAR SLIDE
     public void linearSlideControl(boolean gamepad2A, boolean gamepad2B) {
-        if (gamepad2A && !gamepad2B) {this.ballLiftMotor.setPower(0.8);}
-        else if (!gamepad2A && gamepad2B) {this.ballLiftMotor.setPower(-0.8);}
-        else {this.ballLiftMotor.setPower(0);}
+        if (gamepad2A && !gamepad2B) {
+            this.ballLiftMotor.setPower(0.8);
+        }
+        else if (!gamepad2A && gamepad2B) {
+            this.ballLiftMotor.setPower(-0.8);
+        }
+        else {
+            this.ballLiftMotor.setPower(0);
+        }
     }
     public void liftControl(boolean dPadUp, boolean dPadDown) {
         if (dPadUp) {this.ballLiftServo.setPosition(0.07);}
