@@ -48,7 +48,6 @@ public class DebugThread extends Thread{
                 e.printStackTrace();
             }
         }
-
         this.run();
     }
     public void run() {
@@ -56,10 +55,10 @@ public class DebugThread extends Thread{
             if(debug) {
                 telemetry.addData("drive", beaconNav.getDebugCommand());
                 this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
-                telemetry.addData("launch", beaconNav.getDebugCommand());
-                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
-                telemetry.addData("beacon", beaconNav.getDebugCommand());
-                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
+//                telemetry.addData("launch", beaconNav.getDebugCommand());
+//                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
+//                telemetry.addData("beacon", beaconNav.getDebugCommand());
+//                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
                 telemetry.update();
             }
             if(fileDebug) {
