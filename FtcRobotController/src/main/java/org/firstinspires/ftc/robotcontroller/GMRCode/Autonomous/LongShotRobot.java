@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.opmodes.robotOpmodes;
+package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
