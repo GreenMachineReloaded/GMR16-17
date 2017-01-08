@@ -18,8 +18,10 @@ public class DebugThread extends Thread{
     boolean debug;
     boolean fileDebug;
     boolean ON;
+    double secondInterval;
     BufferedWriter bufferedWriter;
 
+    String allDebugCommands;
     public DebugThread(Telemetry telemetry, DriveTrain driveTrain, Launch launch, BeaconNav beaconNav, WaitFor waitFor) {
         this.beaconNav = beaconNav;
         this.driveTrain = driveTrain;
@@ -27,53 +29,53 @@ public class DebugThread extends Thread{
         this.telemetry = telemetry;
         this.waitFor = waitFor;
     }
-    public void start(String fileName, boolean debug, boolean fileDebug) {
+    public void begin(boolean debug, boolean fileDebug) {this.begin("debugInfo", debug, fileDebug, .5);}
+    public void begin(String fileName, boolean debug, boolean fileDebug) {this.begin(fileName, debug, fileDebug, .5);}
+    public void begin(String fileName, boolean debug, boolean fileDebug, double secondInterval) {
         int fileNumber = 0;
         this.debug = debug;
         this.fileDebug = fileDebug;
+        this.secondInterval = secondInterval;
+        this.allDebugCommands = "";
+        ON = true;
+
         if(fileDebug) {
             File file = new File("PATH"+fileName+""+fileNumber);
-            while(file.exists()) {
-                fileNumber++;
-                file = new File("PATH"+fileName+""+fileNumber);
-            }
-            try {
-                bufferedWriter = new BufferedWriter(new FileWriter(file));
-            } catch (IOException e) {
+            while(file.exists()) {fileNumber++; file = new File("PATH"+fileName+""+fileNumber);}
+            try {bufferedWriter = new BufferedWriter(new FileWriter(file));}
+            catch (IOException e) {
                 telemetry.addData("filewriter crashed", null);
                 e.printStackTrace();
             }
         }
-        ON = true;
+
         this.run();
     }
     public void run() {
         while(ON) {
             if(debug) {
                 telemetry.addData("drive", beaconNav.getDebugCommand());
+                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
                 telemetry.addData("launch", beaconNav.getDebugCommand());
+                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
                 telemetry.addData("beacon", beaconNav.getDebugCommand());
+                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
                 telemetry.update();
             }
             if(fileDebug) {
                 try {
-                    bufferedWriter.write("[DriveTrain]...: \n"+beaconNav.getDebugCommand());
-                    bufferedWriter.write("[Launch].......: \n"+beaconNav.getDebugCommand());
-                    bufferedWriter.write("[BeaconNav]....: \n"+beaconNav.getDebugCommand());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    bufferedWriter.write("[DriveTrain].....: \n"+beaconNav.getDebugCommand());
+                    bufferedWriter.write("[Launch].........: \n"+beaconNav.getDebugCommand());
+                    bufferedWriter.write("[BeaconNav]......: \n"+beaconNav.getDebugCommand());
+                } catch (IOException e) {e.printStackTrace();}
             }
+            waitFor.Sleep(secondInterval);
         }
         if(debug) {
             telemetry.clear();
-            telemetry.addData("drive", beaconNav.getAllDebugCommands());
-            telemetry.addData("launch", beaconNav.getAllDebugCommands());
-            telemetry.addData("beacon", beaconNav.getAllDebugCommands());
+            telemetry.addData(this.allDebugCommands, null);
             telemetry.update();
         }
     }
-    public void stopThread() {
-        ON = false;
-    }
+    public void stopThread() {ON = false;}
 }
