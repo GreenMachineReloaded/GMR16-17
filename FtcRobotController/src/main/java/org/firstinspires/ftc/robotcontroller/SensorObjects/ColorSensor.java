@@ -8,7 +8,7 @@ public class ColorSensor {
     Hardwaresetup robot = new Hardwaresetup();
     byte[] colorCcache;
 
-    public void init(HardwareMap hwMap){
+    public void init(hwMap hwMap){
         robot.init(hwMap);
     }
 

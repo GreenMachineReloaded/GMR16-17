@@ -104,7 +104,7 @@ implements java.lang.Iterable&lt;<a href="../../../../com/qualcomm/robotcore/har
  names with which the corresponding physical devices were associated during robot configuration.
 
  <p>A HardwareMap also contains an associated application context in which it was instantiated.
- Through their <a href="../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#hardwareMap"><code>hardwareMap</code></a>, this
+ Through their <a href="../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html#hwMap"><code>hwMap</code></a>, this
  provides access to a <code>Context</code> for OpModes, as such an appropriate instance is needed
  by various system APIs.</p></div>
 </li>
@@ -652,8 +652,8 @@ implements java.lang.Iterable&lt;<a href="../../../../com/qualcomm/robotcore/har
  indicated class or interface. If no such device is found, an exception is thrown. Example:
 
  <pre>
-    DcMotor motorLeft = hardwareMap.get(DcMotor.class, "motorLeft");
-    ColorSensor colorSensor = hardwareMap.get(ColorSensor.class, "myColorSensor");
+    DcMotor motorLeft = hwMap.get(DcMotor.class, "motorLeft");
+    ColorSensor colorSensor = hwMap.get(ColorSensor.class, "myColorSensor");
  </pre></div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>classOrInterface</code> - the class or interface indicating the type of the device object to be retrieved</dd><dd><code>deviceName</code> - the name of the device object to be retrieved</dd>
 <dt><span class="strong">Returns:</span></dt><dd>a device with the indicated name which is an instance of the indicated class or interface</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../com/qualcomm/robotcore/hardware/HardwareMap.html#get(java.lang.String)"><code>get(String)</code></a>, 
@@ -674,8 +674,8 @@ implements java.lang.Iterable&lt;<a href="../../../../com/qualcomm/robotcore/har
  return type to the target type that the programmer knows the returned value to be:
 
  <pre>
-    DcMotor motorLeft = (DcMotor)hardwareMap.get("motorLeft");
-    ColorSensor colorSensor = (ColorSensor)hardwareMap.get("myColorSensor");
+    DcMotor motorLeft = (DcMotor)hwMap.get("motorLeft");
+    ColorSensor colorSensor = (ColorSensor)hwMap.get("myColorSensor");
  </pre></div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>deviceName</code> - the name of the device object to be retrieved</dd>
 <dt><span class="strong">Returns:</span></dt><dd>a device with the indicated name.</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../com/qualcomm/robotcore/hardware/HardwareMap.html#get(java.lang.Class,%20java.lang.String)"><code>get(Class, String)</code></a>, 

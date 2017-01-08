@@ -45,7 +45,7 @@ import java.util.Locale;
 /**
  * {@link TestTelemetry} is a simple test of telemetry.
  */
-@Autonomous(name = "Test Telemetry", group = "Tests")
+@Autonomous(name = "Test telemtry", group = "Tests")
 @Disabled
 public class TestTelemetry extends LinearOpMode
     {

@@ -305,9 +305,9 @@ extends <a href="../../../com/qualcomm/ftccommon/FtcEventLoopBase.html" title="c
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../com/qualcomm/ftccommon/FtcEventLoop.html#refreshUserTelemetry(TelemetryMessage,%20double)">refreshUserTelemetry</a></strong>(TelemetryMessage&nbsp;telemetry,
+<td class="colLast"><code><strong><a href="../../../com/qualcomm/ftccommon/FtcEventLoop.html#refreshUserTelemetry(TelemetryMessage,%20double)">refreshUserTelemetry</a></strong>(TelemetryMessage&nbsp;telemtry,
                     double&nbsp;sInterval)</code>
-<div class="block">Update's the user portion of the driver station screen with the contents of the telemetry object
+<div class="block">Update's the user portion of the driver station screen with the contents of the telemtry object
  here provided if a sufficiently long duration has passed since the last update.</div>
 </td>
 </tr>
@@ -556,12 +556,12 @@ extends <a href="../../../com/qualcomm/ftccommon/FtcEventLoopBase.html" title="c
 <ul class="blockList">
 <li class="blockList">
 <h4>refreshUserTelemetry</h4>
-<pre>public&nbsp;void&nbsp;refreshUserTelemetry(TelemetryMessage&nbsp;telemetry,
+<pre>public&nbsp;void&nbsp;refreshUserTelemetry(TelemetryMessage&nbsp;telemtry,
                         double&nbsp;sInterval)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../com/qualcomm/robotcore/eventloop/EventLoop.html#refreshUserTelemetry(TelemetryMessage,%20double)">EventLoop</a></code></strong></div>
-<div class="block">Update's the user portion of the driver station screen with the contents of the telemetry object
+<div class="block">Update's the user portion of the driver station screen with the contents of the telemtry object
  here provided if a sufficiently long duration has passed since the last update.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>telemetry</code> - the telemetry object to send</dd><dd><code>sInterval</code> - the required minimum interval. NaN indicates that a system default interval should be used.</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>telemtry</code> - the telemtry object to send</dd><dd><code>sInterval</code> - the required minimum interval. NaN indicates that a system default interval should be used.</dd></dl>
 </li>
 </ul>
 <a name="teardown()">

@@ -201,7 +201,7 @@ implements <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMod
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>protected <a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpModeManagerImpl.html#hardwareMap">hardwareMap</a></strong></code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpModeManagerImpl.html#hwMap">hwMap</a></strong></code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected <any></code></td>
@@ -263,7 +263,7 @@ implements <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMod
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpModeManagerImpl.html#OpModeManagerImpl(Activity,%20com.qualcomm.robotcore.hardware.HardwareMap)">OpModeManagerImpl</a></strong>(Activity&nbsp;activity,
-                 <a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a>&nbsp;hardwareMap)</code>&nbsp;</td>
+                 <a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a>&nbsp;hwMap)</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -349,9 +349,9 @@ implements <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMod
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpModeManagerImpl.html#refreshUserTelemetry(TelemetryMessage,%20double)">refreshUserTelemetry</a></strong>(TelemetryMessage&nbsp;telemetry,
+<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpModeManagerImpl.html#refreshUserTelemetry(TelemetryMessage,%20double)">refreshUserTelemetry</a></strong>(TelemetryMessage&nbsp;telemtry,
                     double&nbsp;sInterval)</code>
-<div class="block">Update's the user portion of the driver station screen with the contents of the telemetry object
+<div class="block">Update's the user portion of the driver station screen with the contents of the telemtry object
  here provided if a sufficiently long duration has passed since the last update.</div>
 </td>
 </tr>
@@ -416,7 +416,7 @@ implements <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMod
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpModeManagerImpl.html#setHardwareMap(com.qualcomm.robotcore.hardware.HardwareMap)">setHardwareMap</a></strong>(<a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a>&nbsp;hardwareMap)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpModeManagerImpl.html#setHardwareMap(com.qualcomm.robotcore.hardware.HardwareMap)">setHardwareMap</a></strong>(<a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a>&nbsp;hwMap)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -439,7 +439,7 @@ implements <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMod
 <tr class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><strong><a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpModeManagerImpl.html#updateTelemetryNow(com.qualcomm.robotcore.eventloop.opmode.OpMode,%20TelemetryMessage)">updateTelemetryNow</a></strong>(<a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html" title="class in com.qualcomm.robotcore.eventloop.opmode">OpMode</a>&nbsp;opMode,
-                  TelemetryMessage&nbsp;telemetry)</code>
+                  TelemetryMessage&nbsp;telemtry)</code>
 <div class="block">For the use of <code>TelemetryImpl</code>.</div>
 </td>
 </tr>
@@ -547,13 +547,13 @@ implements <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMod
 <pre>protected&nbsp;java.lang.String queuedOpModeName</pre>
 </li>
 </ul>
-<a name="hardwareMap">
+<a name="hwMap">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>hardwareMap</h4>
-<pre>protected&nbsp;<a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a> hardwareMap</pre>
+<h4>hwMap</h4>
+<pre>protected&nbsp;<a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a> hwMap</pre>
 </li>
 </ul>
 <a name="eventLoopManager">
@@ -670,7 +670,7 @@ implements <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMod
 <li class="blockList">
 <h4>OpModeManagerImpl</h4>
 <pre>public&nbsp;OpModeManagerImpl(Activity&nbsp;activity,
-                 <a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a>&nbsp;hardwareMap)</pre>
+                 <a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a>&nbsp;hwMap)</pre>
 </li>
 </ul>
 </li>
@@ -775,7 +775,7 @@ implements <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMod
 <ul class="blockList">
 <li class="blockList">
 <h4>setHardwareMap</h4>
-<pre>public&nbsp;void&nbsp;setHardwareMap(<a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a>&nbsp;hardwareMap)</pre>
+<pre>public&nbsp;void&nbsp;setHardwareMap(<a href="../../../../../com/qualcomm/robotcore/hardware/HardwareMap.html" title="class in com.qualcomm.robotcore.hardware">HardwareMap</a>&nbsp;hwMap)</pre>
 </li>
 </ul>
 <a name="getHardwareMap()">
@@ -1007,7 +1007,7 @@ implements <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMod
 <li class="blockList">
 <h4>updateTelemetryNow</h4>
 <pre>public static&nbsp;void&nbsp;updateTelemetryNow(<a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMode.html" title="class in com.qualcomm.robotcore.eventloop.opmode">OpMode</a>&nbsp;opMode,
-                      TelemetryMessage&nbsp;telemetry)</pre>
+                      TelemetryMessage&nbsp;telemtry)</pre>
 <div class="block">For the use of <code>TelemetryImpl</code>.</div>
 </li>
 </ul>
@@ -1017,11 +1017,11 @@ implements <a href="../../../../../com/qualcomm/robotcore/eventloop/opmode/OpMod
 <ul class="blockList">
 <li class="blockList">
 <h4>refreshUserTelemetry</h4>
-<pre>public&nbsp;void&nbsp;refreshUserTelemetry(TelemetryMessage&nbsp;telemetry,
+<pre>public&nbsp;void&nbsp;refreshUserTelemetry(TelemetryMessage&nbsp;telemtry,
                         double&nbsp;sInterval)</pre>
-<div class="block">Update's the user portion of the driver station screen with the contents of the telemetry object
+<div class="block">Update's the user portion of the driver station screen with the contents of the telemtry object
  here provided if a sufficiently long duration has passed since the last update.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>telemetry</code> - the telemetry object to send</dd><dd><code>sInterval</code> - the required minimum interval. NaN indicates that a system default interval should be used.
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>telemtry</code> - the telemtry object to send</dd><dd><code>sInterval</code> - the required minimum interval. NaN indicates that a system default interval should be used.
                   A value of zero will cause immediate transmission.</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../../com/qualcomm/robotcore/eventloop/EventLoop.html#TELEMETRY_DEFAULT_INTERVAL"><code>EventLoop.TELEMETRY_DEFAULT_INTERVAL</code></a></dd></dl>
 </li>
 </ul>
