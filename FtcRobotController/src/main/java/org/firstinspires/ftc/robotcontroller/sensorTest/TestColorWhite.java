@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
-
+@Disabled
 @Autonomous(name="TEST COLOR WHITE PROGRAM", group ="Tests")
 public class TestColorWhite extends LinearOpMode{
     ColorSensors colorSensor;

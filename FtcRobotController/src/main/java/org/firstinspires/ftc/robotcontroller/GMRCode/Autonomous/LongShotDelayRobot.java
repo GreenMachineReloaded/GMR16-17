@@ -1,19 +1,28 @@
-package org.firstinspires.ftc.robotcontroller.opmodes.robotOpmodes;
+package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
-import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
-public class templet extends OpMode {
+
+@Autonomous(name="Long Shot robot", group="Mecanum Bot")
+
+public class LongShotDelayRobot extends OpMode {
     private Robot robot;
     private boolean isDone;
     private CurrentStates state;
+    private double encoderDistance;
+    private boolean ifRepeat;
     public void init() {
         isDone = false;
-        state = CurrentStates.ENCODERFORWARD;
+        state = CurrentStates.DELAY;
+        encoderDistance = 20;
+        ifRepeat = false;
     }
-    public void start() {robot = new Robot(hardwareMap, telemetry);}
+    public void start() {
+        robot = new Robot(hardwareMap, telemetry);
+    }
     public void loop() {
         //basic directional movement cases
         if (state == CurrentStates.FORWARD) {
@@ -47,7 +56,11 @@ public class templet extends OpMode {
         }
         //basic Encoder movement cases
         else if (state == CurrentStates.ENCODERFORWARD) {
-            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+            isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, .6, encoderDistance);
+
+            if(!ifRepeat) {if (isDone) {ifRepeat = true; isDone = false;state = CurrentStates.LAUNCH;}}
+            else {if (isDone) {isDone = false;state = CurrentStates.ELSE;}}
+
         } else if (state == CurrentStates.ENCODERBACKWARD) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.ENCODERSTRAFELEFT) {
@@ -110,10 +123,22 @@ public class templet extends OpMode {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         //launch
         }else if (state == CurrentStates.LAUNCH) {
-            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+            robot.launch.launchControl(true);
+            robot.waitFor.Sleep(1);
+            robot.launch.launcherServoControl(true);
+            robot.waitFor.Sleep(1);
+            robot.launch.launchControl(false);
+            robot.launch.launchControl(true);
+            robot.waitFor.Sleep(1);
+            robot.launch.liftControl(false, false);
+            isDone = true;
+            encoderDistance = 10;
+            if (isDone) {isDone = false;state = CurrentStates.ENCODERFORWARD;}
         //delay
-        }else if (state == CurrentStates.DELAY) {
-            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+        } else if (state == CurrentStates.DELAY) {
+            robot.waitFor.Sleep(10);
+            isDone = true;
+            if (isDone) {isDone = false;state = CurrentStates.ENCODERFORWARD;}
         }
         //if state is ELSE
         else {

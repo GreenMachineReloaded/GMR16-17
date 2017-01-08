@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
 /**
  * Created by Payton on 12/2/2016
  */
+@Disabled
 @Autonomous(name="Long Shot Delay", group="Mecanum Bot")
 public class LongShotDelay extends OpMode {
 

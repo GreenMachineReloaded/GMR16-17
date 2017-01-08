@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.GMRDriveCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 /**
  * Created by Payton on 10/9/2016
  */
+@Disabled
 @Autonomous(name="Autonomous Test V4", group="Mecanum Bot")
 public class AutonomousTestCode extends OpMode {
 

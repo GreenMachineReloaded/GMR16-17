@@ -5,9 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
-
-@Autonomous(name="Prox Light", group ="Tests")
 @Disabled
+@Autonomous(name="Prox Light", group ="Tests")
 public class TestProxSensorsLight extends LinearOpMode{
     Continue c;
     Hardwaresetup hardwaresetup;
