@@ -66,5 +66,7 @@ public enum CurrentStates {
 
     LAUNCH,
 
+    DELAY,
+
     ELSE
 }
