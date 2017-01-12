@@ -17,16 +17,13 @@ public class Launch {
 // MOTOR V
     private DcMotor sweeperMotor;
     private DcMotor ballLiftMotor;
-    private DcMotor launchMotor;
+    public DcMotor launchMotor;
     private String sweeperMotorStringArg = "sweepermotor";
     private String ballLiftMotorStringArg = "balllift";
     private String launchMotorStringArg = "launchmotor";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SERVO V
-    private Servo hopperDoorServo;
-    private Servo ballLiftServo;
-
-    private String ballLiftServoStringArg = "ballliftservo";
+    public Servo hopperDoorServo;
     private String hopperDoorServoStringArg = "hopperdoorservo";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISC V
@@ -52,8 +49,6 @@ public class Launch {
             //setup for the ballLiftMotor
         this.ballLiftMotor = hardwareMap.dcMotor.get(ballLiftMotorStringArg);
         //setup for all the servos
-            //setup for the ball lifter servo
-        this.ballLiftServo = hardwareMap.servo.get(ballLiftServoStringArg);
             //setup for the door servo.
         this.hopperDoorServo = hardwareMap.servo.get(hopperDoorServoStringArg);
 
@@ -112,10 +107,10 @@ public class Launch {
     //could this be private?
     public void launcherServoControl(boolean x) {
         if (x) {
-            this.hopperDoorServo.setPosition(0.43);
+            this.hopperDoorServo.setPosition(0);
         }
         else {
-            this.hopperDoorServo.setPosition(0.95);
+            this.hopperDoorServo.setPosition(0.5);
         }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,10 +125,6 @@ public class Launch {
         else {
             this.ballLiftMotor.setPower(0);
         }
-    }
-    public void liftControl(boolean dPadUp, boolean dPadDown) {
-        if (dPadUp) {this.ballLiftServo.setPosition(0.07);}
-        else if (dPadDown) {this.ballLiftServo.setPosition(0.63);}
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SWEEPER

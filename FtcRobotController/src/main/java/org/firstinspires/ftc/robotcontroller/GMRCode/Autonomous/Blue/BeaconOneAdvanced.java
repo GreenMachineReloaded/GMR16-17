@@ -31,7 +31,6 @@ public class BeaconOneAdvanced extends OpMode {
     public void start() {
         telemetry.addData("Starting Servos", "");
         telemetry.update();
-        robot.launch.liftControl(false, true);
     }
 
     @Override

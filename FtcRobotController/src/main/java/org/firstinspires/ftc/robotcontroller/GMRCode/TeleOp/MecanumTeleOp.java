@@ -31,7 +31,6 @@ public class MecanumTeleOp extends OpMode {
     @Override
     public void start() {
         time.reset();
-        robot.launch.liftControl(false, true);
     }
 
     @Override
@@ -45,11 +44,11 @@ public class MecanumTeleOp extends OpMode {
         robot.launch.launchControl(gamepad1.left_bumper, gamepad1.x);
         robot.launch.sweeperControl(gamepad1.right_bumper, gamepad1.right_trigger);
         robot.launch.linearSlideControl(gamepad2.a, gamepad2.b);
-        robot.launch.liftControl(gamepad2.dpad_up, gamepad2.dpad_down);
         updateTelemetry(telemetry);
 
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", robot.driveTrain.getYaw());
+        telemetry.addData("Hopper Door position", robot.launch.hopperDoorServo.getPosition());
         telemetry.addData("Left Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
         telemetry.addData("Right Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDRIGHT));
         telemetry.addData("Beacon Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.BEACON));
