@@ -69,11 +69,11 @@ public class LongShot extends OpMode {
             encoderDistance = 10;
             if (isDone) {
                 isDone = false;
-                state = CurrentStates.ENCODERFORWARD;
+                state = CurrentStates.PROGRAMEND;
             }
         }
         //if state is ELSE
-        else {
+        else if (state == CurrentStates.PROGRAMEND) {
             robot.driveTrain.stop();
         }
     }

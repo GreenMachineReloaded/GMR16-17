@@ -16,9 +16,12 @@ public class Robot {
     public Telemetry telemtry;
     private int number = 0;
     public Robot(HardwareMap hwMap, Telemetry telemtry) {
+        telemtry.addData("Robot Startup", "Beginning");
+        telemtry.update();
         this.driveTrain = new DriveTrain(hwMap, telemtry);
         this.launch = new Launch(hwMap, telemtry);
         this.beaconNav = new BeaconNav(hwMap, telemtry);
+
         waitFor = new WaitFor();
         this.hwMap = hwMap;
         this.telemtry = telemtry;
@@ -29,6 +32,8 @@ public class Robot {
 //        if(writeToFile) {
 //            //start thread
 //        }
+        telemtry.addData("Robot Startup", "End");
+        telemtry.update();
 
     }
     public boolean colorDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor , BeaconNav.Color whichColor) {

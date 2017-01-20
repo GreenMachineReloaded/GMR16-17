@@ -17,7 +17,7 @@ public class HoffServo extends OpMode {
     @Override
     public void init() {
         hoffPosition = 0.5;
-        hoff = hardwareMap.servo.get("thehoff");
+        hoff = hardwareMap.servo.get("beaconServo");
     }
 
     @Override

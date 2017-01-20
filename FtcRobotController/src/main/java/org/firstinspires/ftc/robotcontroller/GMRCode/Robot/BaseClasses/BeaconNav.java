@@ -37,14 +37,19 @@ public class BeaconNav {
     private double colorFactor = 8;
 
     private Servo beaconServoColor;
-    private Servo beaconServo;
+    public Servo beaconServo;
 
     private String beaconServoColorName = "beaconServoColor";
     private String beaconServoName = "beaconServo";
+
+    private double beaconServoPosition = 0.39;
+    private double beaconServoPositionB = 0.63;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //constructors with all references
     public BeaconNav(HardwareMap hardwareMap, Telemetry telemetry) {
+        telemetry.addData("BeaconNav Startup", "Beginning");
+        telemetry.update();
         //setup for all color sensors
             //setup for the beacon
         colorSensorBeacon = hardwareMap.colorSensor.get(ColorSensorBeacon);
@@ -68,8 +73,11 @@ public class BeaconNav {
         beaconServoColor = hardwareMap.servo.get(beaconServoColorName);
         beaconServo = hardwareMap.servo.get(beaconServoName);
 
-        beaconServoColor.setPosition(.5);
-        beaconServo.setPosition(.5);
+        beaconServoColor.setPosition(0.63);
+        beaconServo.setPosition(0.39);
+
+        telemetry.addData("BeaconNav Startup", "End");
+        telemetry.update();
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // COLOR
@@ -120,6 +128,19 @@ public class BeaconNav {
         if(whichColorSensor == WhichGMRColorSensor.BEACON) {colorSensorBeacon.enableLed(ONOFF);}
         else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {colorSensorGroundLeft.enableLed(ONOFF);}
         else if(whichColorSensor == WhichGMRColorSensor.GROUNDRIGHT) {colorSensorGroundRight.enableLed(ONOFF);}
+    }
+    public void BeaconPusher(boolean up, boolean down) {
+
+        if (up && !down) {
+            beaconServo.setPosition(.41);
+            beaconServoColor.setPosition(0.59);
+        } else if (down && !up) {
+            beaconServo.setPosition(.17);
+            beaconServoColor.setPosition(0.83);
+        }
+        telemetry.addData("Current Position", beaconServoPosition);
+        telemetry.addData("Actual Position", beaconServo.getPosition());
+        telemetry.addData("Actual Position Color", beaconServoColor.getPosition());
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PROXS
