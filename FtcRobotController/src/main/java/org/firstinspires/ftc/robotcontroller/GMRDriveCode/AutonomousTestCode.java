@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensor;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
@@ -21,7 +20,6 @@ public class AutonomousTestCode extends OpMode {
     MoveMotors move = new MoveMotors();
     ElapsedTime time = new ElapsedTime();
     Hardwaresetup robot = new Hardwaresetup();
-    ColorSensor color = new ColorSensor();
     ColorSensors colorSensorsBeacon;
     ColorSensors colorSensorsGroundLeft;
     ProxSensors proxSensor;

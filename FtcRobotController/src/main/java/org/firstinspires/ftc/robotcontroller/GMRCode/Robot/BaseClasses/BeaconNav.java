@@ -116,22 +116,22 @@ public class BeaconNav {
         else {return false;}
     }
     //private methods for getting the value of the color sensor
-    public double getRed(WhichGMRColorSensor whichColorSensor) {
+    private double getRed(WhichGMRColorSensor whichColorSensor) {
         mostRecentCommand = "[getRed] whichColorSensor: "+whichColorSensor;
-        if(whichColorSensor == WhichGMRColorSensor.BEACON) {return (colorSensorGroundRight.red() * 8);}
-        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {return (colorSensorGroundRight.red() * 8);}
+        if(whichColorSensor == WhichGMRColorSensor.BEACON) {return (colorSensorBeacon.red() * 8);}
+        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {return (colorSensorGroundLeft.red() * 8);}
         else {return (colorSensorGroundRight.red() * 8);}
     }
     private double getBlue(WhichGMRColorSensor whichColorSensor) {
         mostRecentCommand = "[getBlue] whichColorSensor: "+whichColorSensor;
-        if(whichColorSensor == WhichGMRColorSensor.BEACON) {return (colorSensorGroundRight.blue() * 8);}
-        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {return (colorSensorGroundRight.blue() * 8);}
+        if(whichColorSensor == WhichGMRColorSensor.BEACON) {return (colorSensorBeacon.blue() * 8);}
+        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {return (colorSensorGroundLeft.blue() * 8);}
         else {return (colorSensorGroundRight.blue() * 8);}
     }
     private double getGreen(WhichGMRColorSensor whichColorSensor) {
         mostRecentCommand = "[getGreen] whichColorSensor: "+whichColorSensor;
-        if(whichColorSensor == WhichGMRColorSensor.BEACON) {return (colorSensorGroundRight.green() * 8);}
-        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {return (colorSensorGroundRight.green() * 8);}
+        if(whichColorSensor == WhichGMRColorSensor.BEACON) {return (colorSensorBeacon.green() * 8);}
+        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {return (colorSensorGroundLeft.green() * 8);}
         else {return (colorSensorGroundRight.green() * 8);}
     }
     //methods for altering the color sensors
