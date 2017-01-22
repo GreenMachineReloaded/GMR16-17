@@ -50,12 +50,12 @@ public class DebugThread extends Thread{
     public void run() {
         while(ON) {
             if(debug) {
-                telemetry.addData("drive", beaconNav.getDebugCommand());
-                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
-//                telemetry.addData("launch", beaconNav.getDebugCommand());
-//                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
-//                telemetry.addData("beacon", beaconNav.getDebugCommand());
-//                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
+                telemetry.addData("drive",  driveTrain.getDebugCommand());
+                this.allDebugCommands = (   beaconNav.getDebugCommand());
+                telemetry.addData("launch", launch.getDebugCommand());
+                this.allDebugCommands = (   launch.getDebugCommand());
+                telemetry.addData("beacon", beaconNav.getDebugCommand());
+                this.allDebugCommands = (   beaconNav.getDebugCommand());
                 telemetry.update();
             }
             if(fileDebug) {

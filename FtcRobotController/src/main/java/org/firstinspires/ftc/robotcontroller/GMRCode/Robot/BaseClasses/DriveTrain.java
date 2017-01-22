@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import static java.lang.Math.cos;
+import static java.lang.Math.pow;
 import static java.lang.Math.sin;
 
 public class DriveTrain {
@@ -59,6 +60,8 @@ public class DriveTrain {
     private double goalRightPosition;
 
     private double currentGyro;
+
+    private String mostRecentCommand;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of DriveTrain and passes a reference to the hardware map, telemetry, the 4 string names of the motors in the order left front, right front, left back, right back and the port reference to the gyro.
@@ -105,6 +108,7 @@ public class DriveTrain {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //     MOVE
     public void setMotorPower(double x, double y, double z){
+        mostRecentCommand = "[setMotorPower] x:"+ x + " y:"+ y + " z:" +z;
         /*
         Guide to motor Powers:
         Left Front: - (y + x + Z)
@@ -122,6 +126,7 @@ public class DriveTrain {
         this.rightRear.setPower(Range.clip((y+x-z), -1, 1));
     }
     public void Drive(Direction direction, double power){
+        mostRecentCommand = "[Drive] direction: "+direction+" power:"+power;
         switch (direction) {
             case FORWARD:
                 this.leftFront.setPower(-power);
@@ -186,13 +191,14 @@ public class DriveTrain {
         }
     }
     public void stop(){
+        mostRecentCommand = "[stop]";
         this.leftFront.setPower(0);
         this.leftRear.setPower(0);
         this.rightFront.setPower(0);
         this.rightRear.setPower(0);
     }
     public boolean encoderDrive(Direction direction, double power, double inches) {
-
+        mostRecentCommand = "[encoderDrive] direction:"+direction+" power:"+power+" inches:"+inches;
         double leftInput = -power;
         double rightInput = power;
 
@@ -269,6 +275,7 @@ public class DriveTrain {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //   GYRO
     public boolean gyroTurn(Direction direction, double power, float degrees){
+        mostRecentCommand = "[gyroTurn] direction:"+direction+" power"+power+" degrees:"+degrees;
         switch(direction) {
             case TURNLEFT:
                 if (goalDegrees == -1) {
@@ -304,11 +311,13 @@ public class DriveTrain {
         return false;
     }
     public float getYaw(){
+        mostRecentCommand = "[getYaw]";
         if(this.gyro.getYaw() < 0) {return (360 + this.gyro.getYaw());}
         else {return this.gyro.getYaw();}
     }
 
     public void experimentalDrive(double x, double y, double z){
+        mostRecentCommand = "[experimentalDrive] x:"+x+" y:"+y+" z:"+z;
         /*
         Guide to motor Powers:
         Left Front: - (y + x + Z)
@@ -345,6 +354,7 @@ public class DriveTrain {
     }
 
     public double currentDegrees(double x,double y) {
+        mostRecentCommand = "[currentDegrees] x:"+x+" y:"+y;
         //double magnitude = (Math.sqrt((x*x)+(-y*-y)));
         //return (Math.asin(x/magnitude)/0.0175);
 
@@ -357,14 +367,22 @@ public class DriveTrain {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENCODER
-    public int getLeftEncoder() {return -this.leftFront.getCurrentPosition();}
-    public int getRightEncoder() {return this.rightFront.getCurrentPosition();}
 //    countsPerMotorRev    = 1440 ;
 //    driveGearReduction    = 1.5 ;
 //    wheelDiameterInches   = 4.0 ;
-    public double encoderInchesRight() {return (this.getRightEncoder() / (1440 * 1.5) / (4 * Math.PI));}
-    public double encoderInchesLeft() {return (this.getLeftEncoder() / (1440 * 1.5) / (4 * Math.PI));}
+
+    public int getLeftEncoder()  {mostRecentCommand = "[getLeftEncoder]";   return -this.leftFront.getCurrentPosition();}
+    public int getRightEncoder() {mostRecentCommand = "[getRightEncoder]";  return this.rightFront.getCurrentPosition();}
+
+    public double encoderInchesLeft()  {mostRecentCommand = "[encoderInchesLeft]";  return (this.getLeftEncoder() / (1440 * 1.5) / (4 * Math.PI));}
+    public double encoderInchesRight() {mostRecentCommand = "[encoderInchesRight]"; return (this.getRightEncoder() / (1440 * 1.5) / (4 * Math.PI));}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENUMS
     public enum Direction{FORWARD,BACKWARD,STRAFELEFT,STRAFERIGHT,DRIGHTUP,DRIGHTDOWN,DLEFTUP,DLEFTDOWN,TURNLEFT,TURNRIGHT}
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// DEBUG
+    public String getDebugCommand() {
+        return mostRecentCommand;
+    }
 }

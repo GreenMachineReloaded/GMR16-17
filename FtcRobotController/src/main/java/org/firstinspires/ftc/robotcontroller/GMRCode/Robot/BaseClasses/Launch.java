@@ -1,17 +1,13 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-
 /**
  * Created by Payton on 12/15/2016
  */
 @SuppressWarnings("FieldCanBeLocal")
-
 public class Launch {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MOTOR V
@@ -36,6 +32,8 @@ public class Launch {
     private ElapsedTime launchTime = new ElapsedTime();
 
     Telemetry telemetry;
+
+    private String mostRecentCommand;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of Launch and passes a reference to the hardware map, telemetry and the 3 string names of the motors and servos in the order sweeper, launcher and door hopper.
@@ -60,13 +58,12 @@ public class Launch {
         goalPosition = -1;
         timeOfCompletion = 0;
         launchTime = new ElapsedTime();
-        telemetry.addData("Launch Startup", "End");
-        telemetry.update();
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LAUNCHING
     //could we just call the other method and give it an arbitrary value?
     public boolean launchControl(boolean leftBumper) {
+        mostRecentCommand = "[launchControl] leftBumper:"+leftBumper;
         if (leftBumper) {
             if (canLaunch){
                 goalPosition = (getLaunchEncoder() + 1680);
@@ -87,8 +84,8 @@ public class Launch {
             return true;
         }
     }
-
     public boolean launchControl(boolean leftBumper, boolean x) {
+        mostRecentCommand = "[launchControl] leftBumper:"+leftBumper+" x:"+x;
         if (leftBumper) {
             if (this.canLaunch){
                 this.goalPosition = (getLaunchEncoder() + 1680);
@@ -118,41 +115,38 @@ public class Launch {
             return true;
         }
     }
-    //could this be private?
     public void launcherServoControl(boolean x) {
-        if (x) {
-            this.hopperDoorServo.setPosition(0);
-        }
-        else {
-            this.hopperDoorServo.setPosition(0.5);
-        }
+        mostRecentCommand = "[launchServoControl] x:"+x;
+        if (x) {this.hopperDoorServo.setPosition(0);}
+        else {this.hopperDoorServo.setPosition(0.5);}
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LINEAR SLIDE
     public void linearSlideControl(boolean gamepad2A, boolean gamepad2B) {
-        if (gamepad2A && !gamepad2B) {
-            this.ballLiftMotor.setPower(0.8);
-        }
-        else if (!gamepad2A && gamepad2B) {
-            this.ballLiftMotor.setPower(-0.8);
-        }
-        else {
-            this.ballLiftMotor.setPower(0);
-        }
+        mostRecentCommand = "[linearSlideControl] gamepad2A"+gamepad2A+" gamepad2B"+gamepad2B;
+        if (gamepad2A && !gamepad2B) {this.ballLiftMotor.setPower(0.8);}
+        else if (!gamepad2A && gamepad2B) {this.ballLiftMotor.setPower(-0.8);}
+        else {this.ballLiftMotor.setPower(0);}
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SWEEPER
     public void sweeperControl(boolean rightBumper, double rightTrigger) {
+        mostRecentCommand = "[sweeperControl] rightBumper:"+rightBumper+" rightTrigger:"+rightTrigger;
         if(rightBumper) {this.sweeperMotor.setPower(1);}
         else if (rightTrigger > 0) {this.sweeperMotor.setPower(-1);}
         else {this.sweeperMotor.setPower(0);}
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ENCODER
-    public int getLaunchEncoder() {return this.launchMotor.getCurrentPosition();}
-
+    public int getLaunchEncoder() {mostRecentCommand = "[getLaunchEncoder]";return this.launchMotor.getCurrentPosition();}
     public void fixLauncher(float gamepad1LeftStick) {
+        mostRecentCommand = "[fixLauncher] gamepad1LeftStick"+gamepad1LeftStick;
         launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         launchMotor.setPower(gamepad1LeftStick/50);
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// DEBUG
+    public String getDebugCommand() {
+        return mostRecentCommand;
     }
 }
