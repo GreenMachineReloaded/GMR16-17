@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
 @Autonomous(name="Long Shot robot", group="Mecanum Bot")
 
-public class LongShotRobot extends OpMode {
+public class LongShotDelay extends OpMode {
     private Robot robot;
     private boolean isDone;
     private CurrentStates state;
@@ -16,7 +16,7 @@ public class LongShotRobot extends OpMode {
     private boolean ifRepeat;
     public void init() {
         isDone = false;
-        state = CurrentStates.ENCODERFORWARD;
+        state = CurrentStates.DELAY;
         encoderDistance = 20;
         ifRepeat = false;
     }
@@ -121,7 +121,7 @@ public class LongShotRobot extends OpMode {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PROXDIAGONALDOWNLEFT) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
-        //
+        //launch
         }else if (state == CurrentStates.LAUNCH) {
             robot.launch.launchControl(true);
             robot.waitFor.Sleep(1);
@@ -130,9 +130,13 @@ public class LongShotRobot extends OpMode {
             robot.launch.launchControl(false);
             robot.launch.launchControl(true);
             robot.waitFor.Sleep(1);
-            robot.launch.liftControl(false, false);
             isDone = true;
             encoderDistance = 10;
+            if (isDone) {isDone = false;state = CurrentStates.ENCODERFORWARD;}
+        //delay
+        } else if (state == CurrentStates.DELAY) {
+            robot.waitFor.Sleep(10);
+            isDone = true;
             if (isDone) {isDone = false;state = CurrentStates.ENCODERFORWARD;}
         }
         //if state is ELSE

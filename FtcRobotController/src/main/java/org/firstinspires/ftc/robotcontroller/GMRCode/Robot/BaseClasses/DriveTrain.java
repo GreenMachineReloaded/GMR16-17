@@ -55,10 +55,16 @@ public class DriveTrain {
     //object for reference (telemetry)
     private boolean encoderDrive;
     private double goalEncoderPosition;
+    private double goalLeftPosition;
+    private double goalRightPosition;
+
+    private double currentGyro;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of DriveTrain and passes a reference to the hardware map, telemetry, the 4 string names of the motors in the order left front, right front, left back, right back and the port reference to the gyro.
     public DriveTrain(HardwareMap hardwareMap, Telemetry telemetry) {
+        telemetry.addData("DriveTrain Startup", "Beginning");
+        telemetry.update();
         //setup for all the motors.
             //setup for all the front motors.
         this.leftFront = hardwareMap.dcMotor.get(LeftFront);
@@ -93,6 +99,8 @@ public class DriveTrain {
         //do we need this?
         this.encoderDrive = true;
         this.goalEncoderPosition = -1;
+        telemetry.addData("DriveTrain Startup", "End");
+        telemetry.update();
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //     MOVE
@@ -191,11 +199,13 @@ public class DriveTrain {
         int combinedEnValue = ((getLeftEncoder() + getRightEncoder()) / 2);
 
         if (encoderDrive){
+            currentGyro = getYaw();
             goalEncoderPosition = (combinedEnValue + (inches * countsPerInch));
+            goalLeftPosition = (getLeftEncoder() + (inches * countsPerInch));
+            goalRightPosition = (getRightEncoder() + (inches * countsPerInch));
             encoderDrive = false;
             return encoderDrive;
         } else {
-
             switch (direction) {
 
                 case FORWARD:
@@ -204,6 +214,7 @@ public class DriveTrain {
                         telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
                         encoderDrive = true;
+                        goalEncoderPosition = -1;
                         stop();
                         return encoderDrive;
                     }
@@ -214,6 +225,7 @@ public class DriveTrain {
                         telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
                         encoderDrive = true;
+                        goalEncoderPosition = -1;
                         stop();
                         return encoderDrive;
                     }
@@ -227,6 +239,21 @@ public class DriveTrain {
                 case DRIGHTDOWN:
                     return encoderDrive;
                 case DLEFTUP:
+                    if (getRightEncoder() < goalRightPosition) {
+                        Drive(direction, power);
+                        if (getYaw() < currentGyro) {
+                            leftFront.setPower(-power);
+                        } else {
+                            leftFront.setPower(0);
+                        }
+                        telemetry.addData("Current Right Encoder Value", getRightEncoder());
+                        telemetry.addData("Current Yaw", getYaw());
+                    } else {
+                        encoderDrive = true;
+                        goalEncoderPosition = -1;
+                        stop();
+                        return encoderDrive;
+                    }
                     return encoderDrive;
                 case DLEFTDOWN:
                     return encoderDrive;

@@ -4,6 +4,7 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.WaitFor;
+import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Debug.DebugThread;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Robot {
@@ -16,9 +17,12 @@ public class Robot {
     public Telemetry telemtry;
     private int number = 0;
     public Robot(HardwareMap hwMap, Telemetry telemtry) {
+        telemtry.addData("Robot Startup", "Beginning");
+        telemtry.update();
         this.driveTrain = new DriveTrain(hwMap, telemtry);
         this.launch = new Launch(hwMap, telemtry);
         this.beaconNav = new BeaconNav(hwMap, telemtry);
+
         waitFor = new WaitFor();
         this.hwMap = hwMap;
         this.telemtry = telemtry;
@@ -29,8 +33,14 @@ public class Robot {
 //        if(writeToFile) {
 //            //start thread
 //        }
-
+        telemtry.addData("Robot Startup", "End");
+        telemtry.update();
     }
+//    public void startDebug(boolean debug, boolean debugFile) {
+//        debugThread.whichDebug(debug, debugFile);
+//        debugThread.start();
+//    }
+//    public void stopDebug() {debugThread.setOn(false);}
     public boolean colorDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor , BeaconNav.Color whichColor) {
         this.driveTrain.Drive(direction, power);
         if(this.beaconNav.isColor(whichGMRColorSensor, whichColor)) {this.driveTrain.stop(); return true;}

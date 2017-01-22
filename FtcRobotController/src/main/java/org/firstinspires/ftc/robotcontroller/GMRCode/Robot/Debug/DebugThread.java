@@ -1,48 +1,78 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Debug;
-
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
+import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.WaitFor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-
+import java.io.BufferedWriter;
 import java.io.File;
-
+import java.io.FileWriter;
+import java.io.IOException;
 public class DebugThread extends Thread{
     BeaconNav beaconNav;
     DriveTrain driveTrain;
     Launch launch;
-    boolean debug;
-    boolean writeDebugFile;
     Telemetry telemetry;
-    public DebugThread(Telemetry telemetry, BeaconNav beaconNav, DriveTrain driveTrain, Launch launch, boolean debug, boolean writeDebugFile) {
+    WaitFor waitFor;
+
+    boolean debug;
+    boolean fileDebug;
+    boolean ON;
+    double secondInterval;
+    BufferedWriter bufferedWriter;
+
+    String allDebugCommands;
+    public DebugThread(Telemetry telemetry, DriveTrain driveTrain, Launch launch, BeaconNav beaconNav, WaitFor waitFor, String fileName, boolean debug, boolean fileDebug, double secondInterval) {
         this.beaconNav = beaconNav;
         this.driveTrain = driveTrain;
         this.launch = launch;
-        this.debug = debug;
-        this.writeDebugFile = writeDebugFile;
         this.telemetry = telemetry;
-        if(writeDebugFile) {
-            File file = new File("Debug0");
-            while(file.exists()) {
+        this.waitFor = waitFor;
 
+        int fileNumber = 0;
+        this.debug = debug;
+        this.fileDebug = fileDebug;
+        this.secondInterval = secondInterval;
+        this.allDebugCommands = "";
+        ON = true;
+
+        if(fileDebug) {
+            File file = new File("PATH"+fileName+""+fileNumber);
+            while(file.exists()) {fileNumber++; file = new File("PATH"+fileName+""+fileNumber);}
+            try {bufferedWriter = new BufferedWriter(new FileWriter(file));}
+            catch (IOException e) {
+                telemetry.addData("filewriter crashed", null);
+                e.printStackTrace();
             }
         }
+        this.run();
     }
     public void run() {
-        if(debug) {
-            telemetry.addData("RED GL", beaconNav.getColorValue(BeaconNav.Color.RED, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
-            telemetry.addData("BLUE GL", beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
-            telemetry.addData("GREEN GL", beaconNav.getColorValue(BeaconNav.Color.GREEN, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
-
-            telemetry.addData("RED B", beaconNav.getColorValue(BeaconNav.Color.RED, BeaconNav.WhichGMRColorSensor.BEACON));
-            telemetry.addData("BLUE B", beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.BEACON));
-            telemetry.addData("GREEN B", beaconNav.getColorValue(BeaconNav.Color.GREEN, BeaconNav.WhichGMRColorSensor.BEACON));
-
-            telemetry.addData("WHITE GL", beaconNav.getColorValue(BeaconNav.Color.RED, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
-            telemetry.addData("WHITE B", beaconNav.getColorValue(BeaconNav.Color.RED, BeaconNav.WhichGMRColorSensor.BEACON));
+        while(ON) {
+            if(debug) {
+                telemetry.addData("drive", beaconNav.getDebugCommand());
+                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
+//                telemetry.addData("launch", beaconNav.getDebugCommand());
+//                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
+//                telemetry.addData("beacon", beaconNav.getDebugCommand());
+//                this.allDebugCommands = (beaconNav.getDebugCommand()+"\n");
+                telemetry.update();
+            }
+            if(fileDebug) {
+                try {
+                    bufferedWriter.write("[DriveTrain].....: \n"+beaconNav.getDebugCommand());
+                    bufferedWriter.write("[Launch].........: \n"+beaconNav.getDebugCommand());
+                    bufferedWriter.write("[BeaconNav]......: \n"+beaconNav.getDebugCommand());
+                } catch (IOException e) {e.printStackTrace();}
+            }
+            waitFor.Sleep(secondInterval);
         }
-        if(writeDebugFile) {
 
+        if(debug) {
+            telemetry.clear();
+            telemetry.addData(this.allDebugCommands, null);
+            telemetry.update();
         }
     }
+    public void stopThread() {ON = false;}
 }

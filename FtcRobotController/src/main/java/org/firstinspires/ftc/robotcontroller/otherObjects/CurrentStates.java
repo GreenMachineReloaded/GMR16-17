@@ -68,5 +68,9 @@ public enum CurrentStates {
 
     DELAY,
 
-    ELSE
+    ELSE,
+
+    PROGRAMEND,
+
+    TEST
 }
