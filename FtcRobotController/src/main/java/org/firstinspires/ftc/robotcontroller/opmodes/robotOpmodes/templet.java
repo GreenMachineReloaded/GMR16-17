@@ -6,14 +6,14 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
 public class templet extends OpMode {
-    Robot robot;
-    boolean isDone;
-    CurrentStates state;
+    private Robot robot;
+    private boolean isDone;
+    private CurrentStates state;
     public void init() {
-        robot = new Robot(hardwareMap, telemetry);
         isDone = false;
-        state = CurrentStates.FORWARD;
+        state = CurrentStates.ENCODERFORWARD;
     }
+    public void start() {robot = new Robot(hardwareMap, telemetry);}
     public void loop() {
         //basic directional movement cases
         if (state == CurrentStates.FORWARD) {
@@ -107,6 +107,12 @@ public class templet extends OpMode {
         } else if (state == CurrentStates.PROXDIAGONALDOWNRIGHT) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PROXDIAGONALDOWNLEFT) {
+            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+        //launch
+        }else if (state == CurrentStates.LAUNCH) {
+            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+        //delay
+        }else if (state == CurrentStates.DELAY) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         }
         //if state is ELSE

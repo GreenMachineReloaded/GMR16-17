@@ -17,11 +17,14 @@ public class Launch {
 // MOTOR V
     private DcMotor sweeperMotor;
     private DcMotor ballLiftMotor;
-    private DcMotor launchMotor;
+    public DcMotor launchMotor;
+    private String sweeperMotorStringArg = "sweepermotor";
+    private String ballLiftMotorStringArg = "balllift";
+    private String launchMotorStringArg = "launchmotor";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SERVO V
-    private Servo hopperDoorServo;
-    private Servo ballLiftServo;
+    public Servo hopperDoorServo;
+    private String hopperDoorServoStringArg = "hopperdoorservo";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISC V
     private boolean canLaunch = true;
@@ -36,9 +39,7 @@ public class Launch {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of Launch and passes a reference to the hardware map, telemetry and the 3 string names of the motors and servos in the order sweeper, launcher and door hopper.
-    public Launch(HardwareMap hardwareMap, Telemetry telemetry){new Launch(hardwareMap,telemetry,"sweepermotor","balllift","launchmotor","ballliftservo","hopperdoorservo");}
-    //sets up all the references to the launching motors and servos.
-    public Launch(HardwareMap hardwareMap, Telemetry telemetry, String sweeperMotorStringArg, String ballLiftMotorStringArg, String launchMotorStringArg, String ballLiftServoStringArg,String hopperDoorServoStringArg) {
+    public Launch(HardwareMap hardwareMap, Telemetry telemetry){
         this.telemetry = telemetry;
         //setup for the sweeper
         this.sweeperMotor = hardwareMap.dcMotor.get(sweeperMotorStringArg);
@@ -48,8 +49,6 @@ public class Launch {
             //setup for the ballLiftMotor
         this.ballLiftMotor = hardwareMap.dcMotor.get(ballLiftMotorStringArg);
         //setup for all the servos
-            //setup for the ball lifter servo
-        this.ballLiftServo = hardwareMap.servo.get(ballLiftServoStringArg);
             //setup for the door servo.
         this.hopperDoorServo = hardwareMap.servo.get(hopperDoorServoStringArg);
 
@@ -61,66 +60,85 @@ public class Launch {
         goalPosition = -1;
         timeOfCompletion = 0;
         launchTime = new ElapsedTime();
+        telemetry.addData("Launch Startup", "End");
+        telemetry.update();
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LAUNCHING
     //could we just call the other method and give it an arbitrary value?
-    public void launchControl(boolean leftBumper) {
+    public boolean launchControl(boolean leftBumper) {
         if (leftBumper) {
             if (canLaunch){
                 goalPosition = (getLaunchEncoder() + 1680);
                 canLaunch = false;
                 this.launchMotor.setPower(1);
                 this.launchMotor.setTargetPosition(goalPosition);
+                return false;
             }
         }
         if (this.launchMotor.getCurrentPosition() < goalPosition - 20) {
             launcherServoControl(false);
             timeOfCompletion = (launchTime.seconds() + 0.7);
+            return false;
         } else {
             if (launchTime.seconds() < timeOfCompletion) {launcherServoControl(true);}
             else {launcherServoControl(false);}
             canLaunch = true;
+            return true;
         }
     }
 
-    public void launchControl(boolean leftBumper, boolean x) {
+    public boolean launchControl(boolean leftBumper, boolean x) {
         if (leftBumper) {
             if (this.canLaunch){
                 this.goalPosition = (getLaunchEncoder() + 1680);
                 this.canLaunch = false;
                 this.launchMotor.setPower(1);
                 this.launchMotor.setTargetPosition(goalPosition);
+                return false;
             }
         }
         if (this.launchMotor.getCurrentPosition() < goalPosition - 20) {
             this.launcherServoControl(false);
             this.timeOfCompletion = (this.launchTime.seconds() + 0.7);
+            return false;
         }else {
-            if (this.launchTime.seconds() < this.timeOfCompletion) {launcherServoControl(true);}
-            else {
-                if(x){this.launcherServoControl(true); }
-                else {this.launcherServoControl(false);}
+            if (this.launchTime.seconds() < this.timeOfCompletion) {
+                launcherServoControl(true);
+                return false;
+            } else {
+                if(x){
+                    this.launcherServoControl(true);
+                }
+                else {
+                    this.launcherServoControl(false);
+                }
             }
             this.canLaunch = true;
+            return true;
         }
     }
     //could this be private?
     public void launcherServoControl(boolean x) {
-        if (x) {this.hopperDoorServo.setPosition(0.43);}
-        else {this.hopperDoorServo.setPosition(0.95);}
+        if (x) {
+            this.hopperDoorServo.setPosition(0);
+        }
+        else {
+            this.hopperDoorServo.setPosition(0.5);
+        }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LINEAR SLIDE
     public void linearSlideControl(boolean gamepad2A, boolean gamepad2B) {
-        if (gamepad2A && !gamepad2B) {this.ballLiftMotor.setPower(0.8);}
-        else if (!gamepad2A && gamepad2B) {this.ballLiftMotor.setPower(-0.8);}
-        else {this.ballLiftMotor.setPower(0);}
-    }
-    public void liftControl(boolean dPadUp, boolean dPadDown) {
-        this.telemetry.addData("Lift Control Starting", "");
-        if (dPadUp) {this.ballLiftServo.setPosition(0.07);}
-        else if (dPadDown) {this.ballLiftServo.setPosition(0.63);}
+        if (gamepad2A && !gamepad2B) {
+            this.ballLiftMotor.setPower(0.8);
+        }
+        else if (!gamepad2A && gamepad2B) {
+            this.ballLiftMotor.setPower(-0.8);
+        }
+        else {
+            this.ballLiftMotor.setPower(0);
+        }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SWEEPER
@@ -132,4 +150,9 @@ public class Launch {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ENCODER
     public int getLaunchEncoder() {return this.launchMotor.getCurrentPosition();}
+
+    public void fixLauncher(float gamepad1LeftStick) {
+        launchMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        launchMotor.setPower(gamepad1LeftStick/50);
+    }
 }

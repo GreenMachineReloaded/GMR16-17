@@ -8,17 +8,33 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Debug.DebugThread;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Robot {
+
     public DriveTrain driveTrain;
     public Launch launch;
     public BeaconNav beaconNav;
     public WaitFor waitFor;
-//    DebugThread debugThread;
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry) {
-        this.driveTrain = new DriveTrain(hardwareMap, telemetry);
-        this.launch = new Launch(hardwareMap, telemetry);
-        this.beaconNav = new BeaconNav(hardwareMap, telemetry);
-        this.waitFor = new WaitFor();
-//        debugThread = new DebugThread(telemetry, driveTrain, launch, beaconNav);
+    public HardwareMap hwMap;
+    public Telemetry telemtry;
+    private int number = 0;
+    public Robot(HardwareMap hwMap, Telemetry telemtry) {
+        telemtry.addData("Robot Startup", "Beginning");
+        telemtry.update();
+        this.driveTrain = new DriveTrain(hwMap, telemtry);
+        this.launch = new Launch(hwMap, telemtry);
+        this.beaconNav = new BeaconNav(hwMap, telemtry);
+
+        waitFor = new WaitFor();
+        this.hwMap = hwMap;
+        this.telemtry = telemtry;
+
+//        if(writeDebug) {
+//            //start thread
+//        }
+//        if(writeToFile) {
+//            //start thread
+//        }
+        telemtry.addData("Robot Startup", "End");
+        telemtry.update();
     }
 //    public void startDebug(boolean debug, boolean debugFile) {
 //        debugThread.whichDebug(debug, debugFile);
@@ -49,5 +65,36 @@ public class Robot {
         this.driveTrain.Drive(direction, power);
         if(this.beaconNav.getRawDistance() > prox) {this.driveTrain.stop(); return true;}
         else {return false;}
+    }
+
+    public DriveTrain getDriveTrain() {
+        if (this.driveTrain == null) {
+            this.driveTrain = new DriveTrain(hwMap, telemtry);
+        }
+        return this.driveTrain;
+    }
+
+    public Launch getLaunch() {
+        if (this.launch == null) {
+            this.launch = new Launch(hwMap, telemtry);
+        }
+        return this.launch;
+    }
+
+    public BeaconNav getBeaconNav() {
+        if (this.beaconNav == null) {
+            this.beaconNav = new BeaconNav(hwMap, telemtry);
+        }
+        return this.beaconNav;
+    }
+
+    public void printObjects() {
+        telemtry.addData("Drive Train", driveTrain);
+        telemtry.addData("Launch", launch);
+        telemtry.addData("Beacon Nav", beaconNav);
+    }
+
+    public int number() {
+        return number += 1;
     }
 }

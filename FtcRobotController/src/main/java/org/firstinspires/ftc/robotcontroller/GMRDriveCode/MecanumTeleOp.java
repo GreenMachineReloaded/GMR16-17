@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @TeleOp(name="Mecanum Drive: Version Three", group="Mecanum Bot")
+//@Disabled
 public class MecanumTeleOp extends OpMode {
 
     MoveMotors move = new MoveMotors();

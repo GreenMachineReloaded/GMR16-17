@@ -4,9 +4,11 @@ import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import static org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions.Forward;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 public class DriveTrain {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,27 +43,38 @@ public class DriveTrain {
     private static final double     wheelDiameterInches   = 4.0 ;
     private static final double     countsPerInch         = (countsPerMotorRev * driveGearReduction) / (wheelDiameterInches * Math.PI);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// SETUP V
+    private String LeftFront = "leftfront";
+    private String RightFront = "rightfront";
+    private String LeftRear = "leftrear";
+    private String RightRear = "rightrear";
+    private final int gyroPort = 0;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
     private Telemetry telemetry;        //do we need this?
     //object for reference (telemetry)
     private boolean encoderDrive;
     private double goalEncoderPosition;
+    private double goalLeftPosition;
+    private double goalRightPosition;
+
+    private double currentGyro;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of DriveTrain and passes a reference to the hardware map, telemetry, the 4 string names of the motors in the order left front, right front, left back, right back and the port reference to the gyro.
-    public DriveTrain(HardwareMap hardwareMap, Telemetry telemetry) {new DriveTrain(hardwareMap, telemetry, "leftfront", "rightfront", "leftrear", "rightrear", 0);}
-    //sets up all the motors and the gyro.
-    public DriveTrain(HardwareMap hardwareMap, Telemetry telemetry, String leftFrontMotorStringArg, String rightFrontMotorStringArg, String leftRearMotorStringArg, String rightRearMotorStringArg, int gyroPort) {
+    public DriveTrain(HardwareMap hardwareMap, Telemetry telemetry) {
+        telemetry.addData("DriveTrain Startup", "Beginning");
+        telemetry.update();
         //setup for all the motors.
             //setup for all the front motors.
-        this.leftFront = hardwareMap.dcMotor.get(leftFrontMotorStringArg);
+        this.leftFront = hardwareMap.dcMotor.get(LeftFront);
                 //setup for the left front motor.
-        this.rightFront = hardwareMap.dcMotor.get(rightFrontMotorStringArg);
+        this.rightFront = hardwareMap.dcMotor.get(RightFront);
                 //setup for the right front motor.
             //setup for all the back motors.
-        this.leftRear = hardwareMap.dcMotor.get(leftRearMotorStringArg);
+        this.leftRear = hardwareMap.dcMotor.get(LeftRear);
                 //setup for the left back motor.
-        this.rightRear = hardwareMap.dcMotor.get(rightRearMotorStringArg);
+        this.rightRear = hardwareMap.dcMotor.get(RightRear);
                 //setup for the right back motor.
         //sets all the motors power to zero.
         //do we need this?
@@ -84,9 +97,10 @@ public class DriveTrain {
 
         this.telemetry = telemetry;
         //do we need this?
-
         this.encoderDrive = true;
         this.goalEncoderPosition = -1;
+        telemetry.addData("DriveTrain Startup", "End");
+        telemetry.update();
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //     MOVE
@@ -185,11 +199,13 @@ public class DriveTrain {
         int combinedEnValue = ((getLeftEncoder() + getRightEncoder()) / 2);
 
         if (encoderDrive){
+            currentGyro = getYaw();
             goalEncoderPosition = (combinedEnValue + (inches * countsPerInch));
+            goalLeftPosition = (getLeftEncoder() + (inches * countsPerInch));
+            goalRightPosition = (getRightEncoder() + (inches * countsPerInch));
             encoderDrive = false;
             return encoderDrive;
         } else {
-
             switch (direction) {
 
                 case FORWARD:
@@ -198,6 +214,7 @@ public class DriveTrain {
                         telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
                         encoderDrive = true;
+                        goalEncoderPosition = -1;
                         stop();
                         return encoderDrive;
                     }
@@ -208,6 +225,7 @@ public class DriveTrain {
                         telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
                         encoderDrive = true;
+                        goalEncoderPosition = -1;
                         stop();
                         return encoderDrive;
                     }
@@ -221,6 +239,21 @@ public class DriveTrain {
                 case DRIGHTDOWN:
                     return encoderDrive;
                 case DLEFTUP:
+                    if (getRightEncoder() < goalRightPosition) {
+                        Drive(direction, power);
+                        if (getYaw() < currentGyro) {
+                            leftFront.setPower(-power);
+                        } else {
+                            leftFront.setPower(0);
+                        }
+                        telemetry.addData("Current Right Encoder Value", getRightEncoder());
+                        telemetry.addData("Current Yaw", getYaw());
+                    } else {
+                        encoderDrive = true;
+                        goalEncoderPosition = -1;
+                        stop();
+                        return encoderDrive;
+                    }
                     return encoderDrive;
                 case DLEFTDOWN:
                     return encoderDrive;
@@ -244,7 +277,7 @@ public class DriveTrain {
                         goalDegrees = (goalDegrees + 360);
                     }
                 }
-                if (!(this.getYaw() > (goalDegrees - goalDegrees) && this.getYaw() < (goalDegrees + goalDegrees))) {
+                if (!(this.getYaw() > (goalDegrees - gyroRange) && this.getYaw() < (goalDegrees + gyroRange))) {
                     Drive(direction, power);
                     return false;
                 } else {
@@ -274,6 +307,43 @@ public class DriveTrain {
         if(this.gyro.getYaw() < 0) {return (360 + this.gyro.getYaw());}
         else {return this.gyro.getYaw();}
     }
+
+    public void experimentalDrive(double x, double y, double z){
+        /*
+        Guide to motor Powers:
+        Left Front: - (y + x + Z)
+        Right Front: y - x - z
+        Left Rear: y + x - z
+        Right Rear: - (y - x + z)
+         */
+//        double LFpower = Range.clip(-(y+x+z),-1,1);
+//        double RFpower = Range.clip((y-x-z),-1,1);
+//        double LRpower = Range.clip(-(y-x+z),-1,1);
+//        double RRpower = Range.clip((y+x-z), -1, 1);
+
+        double forwrd = x; /* Invert stick X axis */
+        double strafe = y;
+
+        double pi = Math.PI;
+
+/* Adjust Joystick X/Y inputs by navX MXP yaw angle */
+
+        double gyro_radians = getYaw() * pi/180;
+        double temp = forwrd * cos(gyro_radians) +
+                strafe * sin(gyro_radians);
+        strafe = -forwrd * sin(gyro_radians) +
+                strafe * cos(gyro_radians);
+        forwrd = temp;
+
+/* At this point, Joystick X/Y (strafe/forwrd) vectors have been */
+/* rotated by the gyro angle, and can be sent to drive system */
+
+        this.leftFront.setPower(Range.clip(-(forwrd+strafe+z),-1,1));
+        this.rightFront.setPower(Range.clip((forwrd-strafe-z),-1,1));
+        this.leftRear.setPower(Range.clip(-(forwrd-strafe+z),-1,1));
+        this.rightRear.setPower(Range.clip((forwrd+strafe-z), -1, 1));
+    }
+
     public double currentDegrees(double x,double y) {
         //double magnitude = (Math.sqrt((x*x)+(-y*-y)));
         //return (Math.asin(x/magnitude)/0.0175);

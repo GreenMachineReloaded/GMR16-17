@@ -1,18 +1,27 @@
-package org.firstinspires.ftc.robotcontroller.opmodes.robotOpmodes;
+package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
-import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
-public class LongShotRobot extends OpMode {
-    Robot robot;
-    boolean isDone;
-    CurrentStates state;
+
+@Autonomous(name="Long Shot robot", group="Mecanum Bot")
+
+public class LongShotDelay extends OpMode {
+    private Robot robot;
+    private boolean isDone;
+    private CurrentStates state;
+    private double encoderDistance;
+    private boolean ifRepeat;
     public void init() {
-        robot = new Robot(hardwareMap, telemetry);
         isDone = false;
-        state = CurrentStates.ENCODERFORWARD;
+        state = CurrentStates.DELAY;
+        encoderDistance = 20;
+        ifRepeat = false;
+    }
+    public void start() {
+        robot = new Robot(hardwareMap, telemetry);
     }
     public void loop() {
         //basic directional movement cases
@@ -47,10 +56,10 @@ public class LongShotRobot extends OpMode {
         }
         //basic Encoder movement cases
         else if (state == CurrentStates.ENCODERFORWARD) {
+            isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, .6, encoderDistance);
 
-            isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 20);
-
-            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+            if(!ifRepeat) {if (isDone) {ifRepeat = true; isDone = false;state = CurrentStates.LAUNCH;}}
+            else {if (isDone) {isDone = false;state = CurrentStates.ELSE;}}
 
         } else if (state == CurrentStates.ENCODERBACKWARD) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
@@ -112,7 +121,7 @@ public class LongShotRobot extends OpMode {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PROXDIAGONALDOWNLEFT) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
-        //
+        //launch
         }else if (state == CurrentStates.LAUNCH) {
             robot.launch.launchControl(true);
             robot.waitFor.Sleep(1);
@@ -121,9 +130,14 @@ public class LongShotRobot extends OpMode {
             robot.launch.launchControl(false);
             robot.launch.launchControl(true);
             robot.waitFor.Sleep(1);
-            robot.launch.liftControl(false, false);
-
-            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+            isDone = true;
+            encoderDistance = 10;
+            if (isDone) {isDone = false;state = CurrentStates.ENCODERFORWARD;}
+        //delay
+        } else if (state == CurrentStates.DELAY) {
+            robot.waitFor.Sleep(10);
+            isDone = true;
+            if (isDone) {isDone = false;state = CurrentStates.ENCODERFORWARD;}
         }
         //if state is ELSE
         else {

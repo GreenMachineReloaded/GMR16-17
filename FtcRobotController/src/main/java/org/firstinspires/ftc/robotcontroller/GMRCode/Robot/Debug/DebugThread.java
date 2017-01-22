@@ -22,16 +22,13 @@ public class DebugThread extends Thread{
     BufferedWriter bufferedWriter;
 
     String allDebugCommands;
-    public DebugThread(Telemetry telemetry, DriveTrain driveTrain, Launch launch, BeaconNav beaconNav, WaitFor waitFor) {
+    public DebugThread(Telemetry telemetry, DriveTrain driveTrain, Launch launch, BeaconNav beaconNav, WaitFor waitFor, String fileName, boolean debug, boolean fileDebug, double secondInterval) {
         this.beaconNav = beaconNav;
         this.driveTrain = driveTrain;
         this.launch = launch;
         this.telemetry = telemetry;
         this.waitFor = waitFor;
-    }
-    public void begin(boolean debug, boolean fileDebug) {this.begin("debugInfo", debug, fileDebug, .5);}
-    public void begin(String fileName, boolean debug, boolean fileDebug) {this.begin(fileName, debug, fileDebug, .5);}
-    public void begin(String fileName, boolean debug, boolean fileDebug, double secondInterval) {
+
         int fileNumber = 0;
         this.debug = debug;
         this.fileDebug = fileDebug;
@@ -70,6 +67,7 @@ public class DebugThread extends Thread{
             }
             waitFor.Sleep(secondInterval);
         }
+
         if(debug) {
             telemetry.clear();
             telemetry.addData(this.allDebugCommands, null);

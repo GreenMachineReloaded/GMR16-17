@@ -66,5 +66,11 @@ public enum CurrentStates {
 
     LAUNCH,
 
-    ELSE
+    DELAY,
+
+    ELSE,
+
+    PROGRAMEND,
+
+    TEST
 }

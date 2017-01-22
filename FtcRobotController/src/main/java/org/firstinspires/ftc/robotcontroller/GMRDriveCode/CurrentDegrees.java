@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.robotcontroller.GMRDriveCode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
  * Created by Payton on 10/16/2016
  */
+@Disabled
 @TeleOp(name="Degrees Test", group="Mecanum Bot")
 public class CurrentDegrees extends OpMode {
 

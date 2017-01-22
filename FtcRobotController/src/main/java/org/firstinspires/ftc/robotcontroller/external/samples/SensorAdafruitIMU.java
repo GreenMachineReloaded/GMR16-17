@@ -112,7 +112,7 @@ public class SensorAdafruitIMU extends LinearOpMode
     }
 
     //----------------------------------------------------------------------------------------------
-    // Telemetry Configuration
+    // telemtry Configuration
     //----------------------------------------------------------------------------------------------
 
     void composeTelemetry() {

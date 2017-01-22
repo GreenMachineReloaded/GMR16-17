@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
 /**
  * Created by Payton on 12/2/2016
  */
+@Disabled
 @Autonomous(name="Short Shot", group="Mecanum Bot")
 public class ShortShot extends OpMode {
 
