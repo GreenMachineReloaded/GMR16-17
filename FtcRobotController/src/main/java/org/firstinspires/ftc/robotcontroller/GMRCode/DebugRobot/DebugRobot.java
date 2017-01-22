@@ -2,7 +2,7 @@ package org.firstinspires.ftc.robotcontroller.GMRCode.DebugRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
-import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
+
 @Autonomous(name="debugrobot")
 public class DebugRobot extends OpMode {
     Continue aContinue;
