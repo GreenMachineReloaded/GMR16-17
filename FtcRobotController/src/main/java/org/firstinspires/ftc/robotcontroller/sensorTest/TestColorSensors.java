@@ -1,13 +1,9 @@
 package org.firstinspires.ftc.robotcontroller.sensorTest;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
-import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
-import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
 @Autonomous(name = "TEST COLOR SENSORS", group = "Tests")
 public class TestColorSensors extends LinearOpMode{
