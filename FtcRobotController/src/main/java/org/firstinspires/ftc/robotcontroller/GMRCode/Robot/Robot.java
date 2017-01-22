@@ -38,8 +38,12 @@ public class Robot {
     }
     public boolean colorDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor , BeaconNav.Color whichColor) {
         this.driveTrain.Drive(direction, power);
-        if(this.beaconNav.isColor(whichGMRColorSensor, whichColor)) {this.driveTrain.stop(); return true;}
-        else {return false;}
+        if (this.beaconNav.isColor(whichGMRColorSensor, whichColor)) {
+            this.driveTrain.stop();
+            return true;
+        } else {
+            return false;
+        }
     }
     public boolean whiteDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor) {
         this.driveTrain.Drive(direction, power);

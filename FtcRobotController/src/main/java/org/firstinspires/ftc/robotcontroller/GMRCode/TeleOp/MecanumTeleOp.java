@@ -51,11 +51,6 @@ public class MecanumTeleOp extends OpMode {
 
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", robot.driveTrain.getYaw());
-        //telemetry.addData("Servo Pusher Position", robot.beaconNav.beaconServo.getPosition());
-        //telemetry.addData("Hopper Door position", robot.launch.hopperDoorServo.getPosition());
-        //telemetry.addData("Left Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
-        //telemetry.addData("Right Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDRIGHT));
-        //telemetry.addData("Beacon Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.BEACON));
 
         //robot.launch.fixLauncher(gamepad2.left_stick_y);
 
