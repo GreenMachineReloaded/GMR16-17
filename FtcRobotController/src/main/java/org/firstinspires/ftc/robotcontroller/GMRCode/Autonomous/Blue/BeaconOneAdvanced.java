@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
+import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
 /**
  * Created by Payton on 11/26/2016
@@ -14,10 +15,8 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 public class BeaconOneAdvanced extends OpMode {
 
     private Robot robot;
-    private currentState state = currentState.stateOne;
+    private CurrentStates state = CurrentStates.STATEONE;
     private boolean isFinished = false;
-
-    private Continue sleep = new Continue();
 
     @Override
     public void init() {
@@ -34,24 +33,24 @@ public class BeaconOneAdvanced extends OpMode {
     @Override
     public void loop() {
         telemetry.addData("Program Start", "");
-        if (state == currentState.stateOne) {
+        if (state == CurrentStates.STATEONE) {
             if (!isFinished) {
                 isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 11.5);
             } else {
-                state = currentState.stateTwo;
+                state = CurrentStates.STATETWO;
                 isFinished = false;
             }
-        } else if (state == currentState.stateTwo) {
+        } else if (state == CurrentStates.STATETWO) {
             robot.launch.launchControl(true);
-            sleep.Sleep(1000);
+            robot.waitFor.Sleep(1);
             robot.launch.launchControl(true);
-            sleep.Sleep(1000);
+            robot.waitFor.Sleep(1);
             robot.launch.launchControl(false);
-            sleep.Sleep(5);
+            robot.waitFor.Sleep(.005);
             robot.launch.launchControl(true);
-            sleep.Sleep(1000);
-            state = currentState.stateFour;
-        } else if (state == currentState.stateThree) {
+            robot.waitFor.Sleep(1);
+            state = CurrentStates.STATEFOUR;
+        } else if (state == CurrentStates.STATETHREE) {
 
 //            if (!isFinished) {
 //                isFinished = move.encoderDrive(Directions.Forward, 0.6, 3);
@@ -61,74 +60,74 @@ public class BeaconOneAdvanced extends OpMode {
 //            }
 
 
-        } else if (state == currentState.stateFour) {
+        } else if (state == CurrentStates.STATEFOUR) {
             if (!isFinished) {
                 isFinished = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.4, 70);
             } else {
-                state = currentState.stateFive;
+                state = CurrentStates.STATEFIVE;
                 isFinished = false;
             }
 
 
-        } else if (state == currentState.stateFive) {
+        } else if (state == CurrentStates.STATEFIVE) {
             if (!isFinished) {
                 isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 15);
             } else {
-                state = currentState.stateSix;
+                state = CurrentStates.STATESIX;
                 isFinished = false;
             }
-        }else if(state == currentState.stateSix) {
+        }else if(state == CurrentStates.STATESIX) {
             if (!isFinished) {
                 isFinished = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNLEFT, 0.3, 70);
             } else {
-                state = currentState.stateSeven;
+                state = CurrentStates.STATESEVEN;
                 isFinished = false;
             }
-        } else if (state == currentState.stateSeven) {
+        } else if (state == CurrentStates.STATESEVEN) {
             if (!isFinished) {
                 isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.12, BeaconNav.WhichGMRColorSensor.GROUNDLEFT);
             } else {
-                state = currentState.stateEight;
+                state = CurrentStates.STATEEIGHT;
                 isFinished = false;
             }
-        } else if(state == currentState.stateEight) {
+        } else if(state == CurrentStates.STATEEIGHT) {
             if (!isFinished) {
                 isFinished = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.3, 70);
             } else {
-                state = currentState.stateNine;
+                state = CurrentStates.STATENINE;
                 isFinished = false;
             }
         }
 
-        else if(state == currentState.stateNine) {
+        else if(state == CurrentStates.STATENINE) {
             if (!isFinished) {
                 isFinished = robot.ProxDrive(DriveTrain.Direction.FORWARD, 0.2, 0.2);
             } else {
-                state = currentState.stateTen;
+                state = CurrentStates.STATETEN;
                 isFinished = false;
             }
-        } else if(state == currentState.stateTen) {
+        } else if(state == CurrentStates.STATETEN) {
             robot.driveTrain.Drive(DriveTrain.Direction.STRAFELEFT, 0.25);
-            sleep.Sleep(200);
+            robot.waitFor.Sleep(.2);
             robot.driveTrain.stop();
-            state = currentState.stateEleven;
-        } else if(state == currentState.stateEleven) {
+            state = CurrentStates.STATEELEVEN;
+        } else if(state == CurrentStates.STATEELEVEN) {
             robot.driveTrain.Drive(DriveTrain.Direction.FORWARD, 0.25);
-            sleep.Sleep(150);
+            robot.waitFor.Sleep(.150);
             robot.driveTrain.stop();
             robot.driveTrain.Drive(DriveTrain.Direction.BACKWARD, 0.25);
-            sleep.Sleep(50);
+            robot.waitFor.Sleep(.05);
             robot.driveTrain.stop();
-            state = currentState.stateTwelve;
-        } else if(state == currentState.stateTwelve) {
-            sleep.Sleep(4000);
+            state = CurrentStates.STATETWELVE;
+        } else if(state == CurrentStates.STATETWELVE) {
+            robot.waitFor.Sleep(4);
             if(robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT) < (robot.beaconNav.getColorValue(BeaconNav.Color.RED, BeaconNav.WhichGMRColorSensor.GROUNDLEFT))) {
                 telemetry.addData("Hitting Beacon","");
                 robot.driveTrain.Drive(DriveTrain.Direction.FORWARD, 0.25);
-                sleep.Sleep(150);
+                robot.waitFor.Sleep(.150);
                 robot.driveTrain.stop();
                 robot.driveTrain.Drive(DriveTrain.Direction.BACKWARD, 0.25);
-                sleep.Sleep(50);
+                robot.waitFor.Sleep(.05);
                 robot.driveTrain.stop();
             } else {
                 telemetry.addData("Done Hitting Beacon","");
