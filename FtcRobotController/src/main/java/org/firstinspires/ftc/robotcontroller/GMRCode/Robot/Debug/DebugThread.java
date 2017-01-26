@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Debug;
+import android.os.Environment;
+
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
@@ -8,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 public class DebugThread extends Thread{
     BeaconNav beaconNav;
     DriveTrain driveTrain;
@@ -37,8 +40,8 @@ public class DebugThread extends Thread{
         ON = true;
 
         if(fileDebug) {
-            File file = new File("PATH"+fileName+""+fileNumber);
-            while(file.exists()) {fileNumber++; file = new File("PATH"+fileName+""+fileNumber);}
+            File file = new File(Environment.getExternalStorageDirectory(), ""+fileName+fileNumber);
+            while(file.exists()) {fileNumber++; file = new File(Environment.getExternalStorageDirectory(), ""+fileName+fileNumber);}
             try {bufferedWriter = new BufferedWriter(new FileWriter(file));}
             catch (IOException e) {
                 telemetry.addData("filewriter crashed", null);
@@ -48,7 +51,11 @@ public class DebugThread extends Thread{
         this.run();
     }
     public void run() {
-        while(ON) {
+        int debugThreadLoupCount = 0;
+
+
+        while(ON || debugThreadLoupCount <= 10000) {
+            debugThreadLoupCount++;
             if(debug) {
                 telemetry.addData("drive",  driveTrain.getDebugCommand());
                 this.allDebugCommands = (   beaconNav.getDebugCommand());
@@ -60,13 +67,15 @@ public class DebugThread extends Thread{
             }
             if(fileDebug) {
                 try {
-                    bufferedWriter.write("[DriveTrain].....: \n"+beaconNav.getDebugCommand());
-                    bufferedWriter.write("[Launch].........: \n"+beaconNav.getDebugCommand());
+                    bufferedWriter.write("[DriveTrain].....: \n"+driveTrain.getDebugCommand());
+                    bufferedWriter.write("[Launch].........: \n"+launch.getDebugCommand());
                     bufferedWriter.write("[BeaconNav]......: \n"+beaconNav.getDebugCommand());
                 } catch (IOException e) {e.printStackTrace();}
             }
             waitFor.Sleep(secondInterval);
         }
+
+
 
         if(debug) {
             telemetry.clear();
