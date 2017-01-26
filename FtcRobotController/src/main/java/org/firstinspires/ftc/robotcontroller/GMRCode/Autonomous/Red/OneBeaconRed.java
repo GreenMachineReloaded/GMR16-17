@@ -17,9 +17,6 @@ public class OneBeaconRed extends OpMode {
     private Robot robot;
     private CurrentStates state = CurrentStates.ENCODERFORWARD;
     private boolean isFinished = false;
-
-    private Continue sleep = new Continue();
-
     private int launchNumber = 0;
 
     @Override

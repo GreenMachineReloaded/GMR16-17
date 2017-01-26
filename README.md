@@ -8,7 +8,11 @@ The FTC Driver Station app is available through Google Play.
 To use this SDK, download/clone the entire project to your local computer.
 Use Android Studio to import the folder  ("Import project (Eclipse ADT, Gradle, etc.)").
 
-Documentation for the FTC SDK are included with this repository.  There is a subfolder called "doc" which contains several subfolders:
+The Javadoc reference documentation for the FTC SDK is now available online.  Visit the following URL to view the FTC SDK documentation as a live website:
+
+http://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
+
+Documentation for the FTC SDK is also included with this repository.  There is a subfolder called "doc" which contains several subfolders:
 
  * The folder "apk" contains the .apk files for the FTC Driver Station and FTC Robot Controller apps.
  * The folder "javadoc" contains the JavaDoc user documentation for the FTC SDK.
@@ -18,13 +22,79 @@ For technical questions regarding the SDK, please visit the FTC Technology forum
 
   http://ftcforum.usfirst.org/forumdisplay.php?156-FTC-Technology
 
+
+**************************************************************************************
+
+Version 2.4 (released on 16.11.13)
+  * Fix to avoid crashing for nonexistent resources.
+  * Blocks Programming mode changes:
+     - Added blocks to support OpenGLMatrix, MatrixF, and VectorF.
+     - Added blocks to support AngleUnit, AxesOrder, AxesReference, CameraDirection, CameraMonitorFeedback, DistanceUnit, and TempUnit.
+     - Added blocks to support Acceleration.
+     - Added blocks to support LinearOpMode.getRuntime.
+     - Added blocks to support MagneticFlux and Position.
+     - Fixed typos.
+     - Made blocks for ElapsedTime more consistent with other objects.
+     - Added blocks to support Quaternion, Velocity, Orientation, AngularVelocity.
+     - Added blocks to support VuforiaTrackables, VuforiaTrackable, VuforiaLocalizer, VuforiaTrackableDefaultListener.
+     - Fixed a few blocks.
+     - Added type checking to new blocks.
+     - Updated to latest blockly.
+     - Added default variable blocks to navigation and matrix blocks.
+     - Fixed toolbox entry for openGLMatrix_rotation_withAxesArgs.
+     - When user downloads Blocks-generated op mode, only the .blk file is downloaded.
+     - When user uploads Blocks-generated op mode (.blk file), Javascript code is auto generated.
+     - Added DbgLog support.
+     - Added logging when a blocks file is read/written.
+     - Fixed bug to properly render blocks even if missing devices from configuration file.
+     - Added support for additional characters (not just alphanumeric) for the block file names (for download and upload).
+     - Added support for OpMode flavor (“Autonomous” or “TeleOp”) and group.
+  * Changes to Samples to prevent tutorial issues.
+  * Incorporated suggested changes from public pull 216 (“Replace .. paths”).
+  * Remove Servo Glitches when robot stopped.
+  * if user hits “Cancels” when editing a configuration file, clears the unsaved changes and reverts to original unmodified configuration.
+  * Added log info to help diagnose why the Robot Controller app was terminated (for example, by watch dog function).
+  * Added ability to transfer log from the controller.
+  * Fixed inconsistency for AngularVelocity
+  * Limit unbounded growth of data for telemetry.  If user does not call telemetry.update() for LinearOpMode in a timely manner, data added for telemetry might get lost if size limit is exceeded.
+
+**************************************************************************************
+
+Version 2.35 (released on 16.10.06)
+  * Blockly programming mode - Removed unnecesary idle() call from blocks for new project.
+
+**************************************************************************************
+
+Version 2.30 (released on 16.10.05)
+  * Blockly programming mode:
+     - Mechanism added to save Blockly op modes from Programming Mode Server onto local device
+     - To avoid clutter, blocks are displayed in categorized folders
+     - Added support for DigitalChannel
+     - Added support for ModernRoboticsI2cCompassSensor
+     - Added support for ModernRoboticsI2cRangeSensor
+     - Added support for VoltageSensor
+     - Added support for AnalogInput
+     - Added support for AnalogOutput
+     - Fix for CompassSensor setMode block
+  * Vuforia
+     - Fix deadlock / make camera data available while Vuforia is running.
+     - Update to Vuforia 6.0.117 (recommended by Vuforia and Google to close security loophole). 
+  * Fix for autonomous 30 second timer bug (where timer was in effect, even though it appeared to have timed out).
+  * opModeIsActive changes to allow cleanup after op mode is stopped (with enforced 2 second safety timeout).
+  * Fix to avoid reading i2c twice.
+  * Updated sample Op Modes.
+  * Improved logging and fixed intermittent freezing.
+  * Added digital I/O sample.
+  * Cleaned up device names in sample op modes to be consistent with Pushbot guide.
+  * Fix to allow use of IrSeekerSensorV3.
+
 **************************************************************************************
 
 Version 2.20 (released on 16.09.08)
   * Support for Modern Robotics Compass Sensor.
   * Support for Modern Robotics Range Sensor.
   * Revise device names for Pushbot templates to match the names used in Pushbot guide.
-  * Fixed bug so that IrSeekerSensorV3 device is accessible as IrSeekerSensor in hwMap.
+  * Fixed bug so that IrSeekerSensorV3 device is accessible as IrSeekerSensor in hardwareMap.
   * Modified computer vision code to require an individual Vuforia license (per legal requirement from PTC).
   * Minor fixes.
   * Blockly enhancements:
@@ -81,7 +151,7 @@ Version 2.00 (released on 16.08.19)
  * Swap mechanism added to FTC Robot Controller configuration activity.  For example, if you have two motor controllers on a robot, and you misidentified them in your configuration file, you can use the Swap button to swap the devices within the configuration file (so you do not have to manually re-enter in the configuration info for the two devices).
  * Fix mechanism added to all user to replace an electronic module easily.  For example, suppose a servo controller dies on your robot. You replace the broken module with a new module, which has a different serial number from the original servo controller.  You can use the Fix button to automatically reconfigure your configuration file to use the serial number of the new module.
  * Improvements made to fix resiliency and responsiveness of the system.
- * For LinearOpMode the user now must for a telemtry.update() to update the telemtry data on the driver station.  This update() mechanism ensures that the driver station gets the updated data properly and at the same time.
+ * For LinearOpMode the user now must for a telemetry.update() to update the telemetry data on the driver station.  This update() mechanism ensures that the driver station gets the updated data properly and at the same time.
  * The Auto Configure function of the Robot Controller is now template based.  If there is a commonly used robot configuration, a template can be created so that the Auto Configure mechanism can be used to quickly configure a robot of this type.
  * The logic to detect a runaway op mode (both in the LinearOpMode and OpMode types) and to abort the run, then auto recover has been improved/implemented.
  * Fix has been incorporated so that Logitech F310 gamepad mappings will be correct for Marshmallow users.
@@ -170,7 +240,7 @@ Release 16.01.04
  * LED.getDeviceName and .getConnectionInfo() return null
  * apps check for ROBOCOL_VERSION mismatch
  * Fix for Telemetry also has off-by-one errors in its data string sizing / short size limitations error
- * User telemtry output is sorted.
+ * User telemetry output is sorted.
  * added formatting variants to DbgLog and RobotLog APIs
  * code modified to allow for a long list of op mode names.
  * changes to improve thread safety of RobocolDatagramSocket

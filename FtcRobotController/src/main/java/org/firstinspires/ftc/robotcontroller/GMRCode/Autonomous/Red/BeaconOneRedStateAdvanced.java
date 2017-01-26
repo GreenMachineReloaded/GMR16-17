@@ -17,7 +17,7 @@ public class BeaconOneRedStateAdvanced extends OpMode {
     MoveMotors move = new MoveMotors();
     Hardwaresetup robot = new Hardwaresetup();
     ColorSensors colorSensors;
-    currentState state = currentState.stateOne;
+    CurrentState state = currentState.stateOne;
     boolean isFinished = false;
 
     Continue sleep = new Continue();
