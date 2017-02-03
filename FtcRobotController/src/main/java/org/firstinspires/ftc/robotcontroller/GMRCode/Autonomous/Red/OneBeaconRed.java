@@ -44,7 +44,7 @@ public class OneBeaconRed extends OpMode {
         telemetry.addData("Program Start", "");
         if (state == CurrentStates.ENCODERFORWARD) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 11);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 10.5);
                 robot.launch.launcherServoControl(false);
             } else if (!isStraight) {
                 isStraight = robot.driveTrain.straighten(startingOrientation);
@@ -64,7 +64,7 @@ public class OneBeaconRed extends OpMode {
             state = CurrentStates.STRAFELEFT;
         } else if (state == CurrentStates.STRAFELEFT) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 1, 3);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 1, 7);
             } else {
                 state = CurrentStates.COLORFORWARD;
                 isFinished = false;
@@ -78,7 +78,8 @@ public class OneBeaconRed extends OpMode {
             }
         } else if (state == CurrentStates.PROGRAMEND) {
             robot.driveTrain.stop();
-            telemetry.addData("Program End", "");
+            telemetry.addData("Current Blue", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
+            //telemetry.addData("Program End", "");
         }
     }
 }

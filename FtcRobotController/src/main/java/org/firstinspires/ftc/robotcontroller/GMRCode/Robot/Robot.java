@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
@@ -38,6 +40,7 @@ public class Robot {
     }
     public boolean colorDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor , BeaconNav.Color whichColor) {
         this.driveTrain.Drive(direction, power);
+        telemtry.addData("Current Blue", beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
         if (this.beaconNav.isColor(whichGMRColorSensor, whichColor)) {
             this.driveTrain.stop();
             return true;
