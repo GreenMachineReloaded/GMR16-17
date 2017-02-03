@@ -20,6 +20,8 @@ public class OneBeaconRed extends OpMode {
     private boolean isFinished = false;
     private boolean isStraight = false;
 
+    private int launches = 0;
+
     private double startingOrientation;
 
     private Continue sleep = new Continue();
@@ -44,37 +46,65 @@ public class OneBeaconRed extends OpMode {
         telemetry.addData("Program Start", "");
         if (state == CurrentStates.ENCODERFORWARD) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 10.5);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 10);
                 robot.launch.launcherServoControl(false);
+            } else {
+                state = CurrentStates.ENCODERBACKWARD;
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.LAUNCH) {
+            if (launches == 1 && isFinished) {
+                robot.launch.launchControl(false);
+                state = CurrentStates.ENCODERBACKWARD;
+            } else if (!isFinished) {
+                isFinished = robot.launch.launchControl(true);
+                sleep.Sleep(1.5);
+            } else {
+                launches += 1;
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.ENCODERBACKWARD) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.5, 3);
+            } else {
+                state = CurrentStates.STRAFELEFT;
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.STRAFELEFT) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.75, 18);
             } else if (!isStraight) {
                 isStraight = robot.driveTrain.straighten(startingOrientation);
             } else {
-                state = CurrentStates.LAUNCH;
+                state = CurrentStates.COLORFORWARD;
                 isFinished = false;
                 isStraight = false;
             }
-        } else if (state == CurrentStates.LAUNCH) {
-            robot.launch.launchControl(true);
-            robot.waitFor.Sleep(1);
-            robot.launch.launcherServoControl(true);
-            robot.waitFor.Sleep(1);
-            robot.launch.launchControl(false);
-            robot.launch.launchControl(true);
-            robot.waitFor.Sleep(1);
-            state = CurrentStates.STRAFELEFT;
-        } else if (state == CurrentStates.STRAFELEFT) {
-            if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 1, 7);
-            } else {
-                state = CurrentStates.COLORFORWARD;
-                isFinished = false;
-            }
         } else if (state == CurrentStates.COLORFORWARD) {
             if (!isFinished) {
-                isFinished = robot.colorDrive(DriveTrain.Direction.FORWARD, 0.5, BeaconNav.WhichGMRColorSensor.GROUNDLEFT, BeaconNav.Color.BLUE);
+                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.1, BeaconNav.WhichGMRColorSensor.GROUNDLEFT);
+            } else {
+                state = CurrentStates.ENCODERBACKWARD2;
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.ENCODERBACKWARD2) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.8, 0.2);
+            } else if (!isStraight) {
+                isStraight = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.1, 15);
+            } else {
+                state = CurrentStates.STRAFELEFT2;
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.STRAFELEFT2) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.6, 12);
+            } else if (!isStraight) {
+                isStraight = robot.driveTrain.straighten(startingOrientation);
             } else {
                 state = CurrentStates.PROGRAMEND;
                 isFinished = false;
+                isStraight = false;
             }
         } else if (state == CurrentStates.PROGRAMEND) {
             robot.driveTrain.stop();

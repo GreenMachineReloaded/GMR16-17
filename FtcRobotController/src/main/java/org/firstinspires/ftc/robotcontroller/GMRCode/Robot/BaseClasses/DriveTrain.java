@@ -55,6 +55,7 @@ public class DriveTrain {
     //object for reference (telemetry)
     private boolean encoderDrive;
     private double goalEncoderPosition;
+    private double goalBackwardPosition;
     private double goalLeftPosition;
     private double goalRightPosition;
 
@@ -93,12 +94,13 @@ public class DriveTrain {
         // ???
         this.goalPosition = -1;
         // ???
-        this.gyroRange = 4;
+        this.gyroRange = 3;
 
         this.telemetry = telemetry;
         //do we need this?
         this.encoderDrive = true;
         this.goalEncoderPosition = -1;
+        goalBackwardPosition = -1;
         telemetry.addData("DriveTrain Startup", "End");
         telemetry.update();
     }
@@ -204,6 +206,7 @@ public class DriveTrain {
         if (encoderDrive){
             currentGyro = getYaw();
             goalEncoderPosition = (combinedEnValue + (inches * countsPerInch));
+            goalBackwardPosition = (combinedEnValue - (inches * countsPerInch));
             goalLeftPosition = (getLeftEncoder() + (inches * countsPerInch));
             goalRightPosition = (getRightEncoder() + (inches * countsPerInch));
             encoderDrive = false;
@@ -223,7 +226,7 @@ public class DriveTrain {
                     }
                     break;
                 case BACKWARD:
-                    if ((combinedEnValue) > goalEncoderPosition) {
+                    if ((combinedEnValue) > goalBackwardPosition) {
                         Drive(direction, power);
                         telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
@@ -347,7 +350,7 @@ public class DriveTrain {
 
     public boolean straighten(double goalposition) {
         if (!(this.getYaw() > (goalposition - gyroRange) && this.getYaw() < (goalposition + gyroRange))) {
-            Drive(Direction.TURNRIGHT, .05);
+            Drive(Direction.TURNRIGHT, .15);
             return false;
         } else {
             this.stop();
