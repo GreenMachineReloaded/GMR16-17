@@ -53,16 +53,16 @@ public class OneBeaconRed extends OpMode {
                 isFinished = false;
             }
         } else if (state == CurrentStates.LAUNCH) {
-            if (launches == 1 && isFinished) {
-                robot.launch.launchControl(false);
-                state = CurrentStates.ENCODERBACKWARD;
-            } else if (!isFinished) {
-                isFinished = robot.launch.launchControl(true);
-                sleep.Sleep(1.5);
-            } else {
-                launches += 1;
-                isFinished = false;
-            }
+            //if (launches == 1 && isFinished) {
+            //   robot.launch.launchControl(false);
+            state = CurrentStates.ENCODERBACKWARD;
+            //} else if (!isFinished) {
+            //   isFinished = robot.launch.launchControl(true);
+            //   sleep.Sleep(1.5);
+            //} else {
+            // launches += 1;
+            isFinished = false;
+            //}
         } else if (state == CurrentStates.ENCODERBACKWARD) {
             if (!isFinished) {
                 isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.5, 3);

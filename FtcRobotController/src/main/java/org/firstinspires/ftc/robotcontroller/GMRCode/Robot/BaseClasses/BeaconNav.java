@@ -36,11 +36,11 @@ public class BeaconNav {
     private Telemetry telemetry;
     private double colorFactor = 8;
 
-    private Servo beaconServoColor;
-    public Servo beaconServo;
+    private Servo leftBeaconButtonPusher;
+    private Servo rightBeaconButtonPusher;
 
-    private String beaconServoColorName = "beaconServoColor";
-    private String beaconServoName = "beaconServo";
+    private String leftBeaconButtonPusherStringArg = "leftBeaconPusher";
+    private String rightBeaconButtonPusherStringArg = "rightBeaconPusher";
 
     private double beaconServoPosition = 0.39;
     private double beaconServoPositionB = 0.63;
@@ -70,11 +70,11 @@ public class BeaconNav {
         this.telemetry = telemetry;
         this.colorFactor = colorFactor;
 
-        beaconServoColor = hardwareMap.servo.get(beaconServoColorName);
-        beaconServo = hardwareMap.servo.get(beaconServoName);
+        leftBeaconButtonPusher = hardwareMap.servo.get(leftBeaconButtonPusherStringArg);
+        rightBeaconButtonPusher = hardwareMap.servo.get(rightBeaconButtonPusherStringArg);
 
-        beaconServoColor.setPosition(0.63);
-        beaconServo.setPosition(0.39);
+        leftBeaconButtonPusher.setPosition(0.63);
+        rightBeaconButtonPusher.setPosition(0.39);
 
         telemetry.addData("BeaconNav Startup", "End");
         telemetry.update();
@@ -129,18 +129,31 @@ public class BeaconNav {
         else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {colorSensorGroundLeft.enableLed(ONOFF);}
         else if(whichColorSensor == WhichGMRColorSensor.GROUNDRIGHT) {colorSensorGroundLeft.enableLed(ONOFF);}
     }
-    public void BeaconPusher(boolean up, boolean down) {
-
-        if (up && !down) {
-            beaconServo.setPosition(.41);
-            beaconServoColor.setPosition(0.59);
-        } else if (down && !up) {
-            beaconServo.setPosition(.17);
-            beaconServoColor.setPosition(0.83);
+    public void BeaconPusher(WhichBeaconPusherPosition whichBeaconPusherPosition) {
+        if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER) {
+            leftBeaconButtonPusher.setPosition(.59);
         }
-        telemetry.addData("Current Position", beaconServoPosition);
-        telemetry.addData("Actual Position", beaconServo.getPosition());
-        telemetry.addData("Actual Position Color", beaconServoColor.getPosition());
+        else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER) {
+            rightBeaconButtonPusher.setPosition(.83);
+        }
+        else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDBOTHPUSHERS) {
+            leftBeaconButtonPusher.setPosition(.59);
+            rightBeaconButtonPusher.setPosition(.83);
+        }
+        else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.RETRACTBOTHPUSHERS) {
+            leftBeaconButtonPusher.setPosition(.17);
+            rightBeaconButtonPusher.setPosition(.41);
+        }
+//        if (up && !down) {
+//            beaconServo.setPosition(.41);
+//            beaconServoColor.setPosition(0.59);
+//        } else if (down && !up) {
+//            beaconServo.setPosition(.17);
+//            beaconServoColor.setPosition(0.83);
+//        }
+//        telemetry.addData("Current Position", beaconServoPosition);
+//        telemetry.addData("Actual Position", beaconServo.getPosition());
+//        telemetry.addData("Actual Position Color", beaconServoColor.getPosition());
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PROXS
@@ -152,4 +165,5 @@ public class BeaconNav {
 // ENUMS
     public enum Color {BLUE, RED, GREEN, EQUAL}
     public enum WhichGMRColorSensor{GROUNDLEFT, GROUNDRIGHT, BEACON}
+    public enum WhichBeaconPusherPosition {EXTENDLEFTBEACONPUSHER, EXTENDRIGHTBEACONPUSHER, EXTENDBOTHPUSHERS, RETRACTBOTHPUSHERS}
 }

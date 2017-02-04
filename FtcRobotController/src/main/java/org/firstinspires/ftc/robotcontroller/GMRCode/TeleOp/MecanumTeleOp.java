@@ -54,6 +54,6 @@ public class MecanumTeleOp extends OpMode {
 
         //robot.launch.fixLauncher(gamepad2.left_stick_y);
 
-        robot.beaconNav.BeaconPusher(gamepad2.dpad_up, gamepad2.dpad_down);
+        //robot.beaconNav.BeaconPusher(gamepad2.dpad_up, gamepad2.dpad_down);
     }
 }

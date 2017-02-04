@@ -74,5 +74,7 @@ public enum CurrentStates {
 
     PROGRAMEND,
 
-    TEST
+    TEST,
+
+    PUSHBEACON
 }
