@@ -17,13 +17,11 @@ public class DebugThread extends Thread{
     Launch launch;
     Telemetry telemetry;
     WaitFor waitFor;
-
     boolean debug;
     boolean fileDebug;
     boolean ON;
     double secondInterval;
     BufferedWriter bufferedWriter;
-
     String allDebugCommands;
     public DebugThread(Telemetry telemetry, DriveTrain driveTrain, Launch launch, BeaconNav beaconNav, WaitFor waitFor, String fileName, boolean debug, boolean fileDebug, double secondInterval) {
         this.beaconNav = beaconNav;
@@ -31,14 +29,12 @@ public class DebugThread extends Thread{
         this.launch = launch;
         this.telemetry = telemetry;
         this.waitFor = waitFor;
-
         int fileNumber = 0;
         this.debug = debug;
         this.fileDebug = fileDebug;
         this.secondInterval = secondInterval;
         this.allDebugCommands = "";
         ON = true;
-
         if(fileDebug) {
             File file = new File(Environment.getExternalStorageDirectory(), ""+fileName+fileNumber);
             while(file.exists()) {fileNumber++; file = new File(Environment.getExternalStorageDirectory(), ""+fileName+fileNumber);}
@@ -52,8 +48,6 @@ public class DebugThread extends Thread{
     }
     public void run() {
         int debugThreadLoupCount = 0;
-
-
         while(ON || debugThreadLoupCount <= 10000) {
             debugThreadLoupCount++;
             if(debug) {
@@ -67,16 +61,13 @@ public class DebugThread extends Thread{
             }
             if(fileDebug) {
                 try {
-                    bufferedWriter.write("[DriveTrain].....: \n"+driveTrain.getDebugCommand());
-                    bufferedWriter.write("[Launch].........: \n"+launch.getDebugCommand());
-                    bufferedWriter.write("[BeaconNav]......: \n"+beaconNav.getDebugCommand());
+                    bufferedWriter.write("[DriveTrain].....:"+driveTrain.getDebugCommand() +"\n");
+                    bufferedWriter.write("[Launch].........:"+launch.getDebugCommand()     +"\n");
+                    bufferedWriter.write("[BeaconNav]......:"+beaconNav.getDebugCommand()  +"\n");
                 } catch (IOException e) {e.printStackTrace();}
             }
             waitFor.Sleep(secondInterval);
         }
-
-
-
         if(debug) {
             telemetry.clear();
             telemetry.addData(this.allDebugCommands, null);
