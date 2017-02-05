@@ -1,31 +1,24 @@
-package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous;
+package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Red;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
-@Autonomous(name="Long Shot robot", group="Mecanum Bot")
-
-public class LongShotDelay extends OpMode {
+@Autonomous(name="One Beacon Red First Beacon", group="Beacon Programs")
+public class FixForEndOneBeaconRed extends OpMode {
     private Robot robot;
-    private GMRColorSensor colorSensor;
     private boolean isDone;
     private CurrentStates state;
-    private double encoderDistance;
-    private boolean ifRepeat;
+    private GMRColorSensor colorSensor;
     public void init() {
         isDone = false;
-        state = CurrentStates.DELAY;
-        encoderDistance = 20;
-        ifRepeat = false;
+        state = CurrentStates.PUSHBEACON;
     }
-    public void start() {
-        robot = new Robot(hardwareMap, telemetry);
-        colorSensor = new GMRColorSensor(hardwareMap, telemetry);
-    }
+    public void start() {robot = new Robot(hardwareMap, telemetry); colorSensor = new GMRColorSensor(hardwareMap, telemetry);}
     public void loop() {
         //basic directional movement cases
         if (state == CurrentStates.FORWARD) {
@@ -33,7 +26,12 @@ public class LongShotDelay extends OpMode {
         } else if (state == CurrentStates.BACKWARD) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.STRAFELEFT) {
-            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+            isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, .6, 7 );
+            if (isDone) {
+                isDone = false;
+                state = CurrentStates.PUSHBEACON;
+                robot.driveTrain.stop();
+            }
         } else if (state == CurrentStates.STRAFERIGHT) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.TURNLEFT) {
@@ -59,13 +57,14 @@ public class LongShotDelay extends OpMode {
         }
         //basic Encoder movement cases
         else if (state == CurrentStates.ENCODERFORWARD) {
-            isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, .6, encoderDistance);
-
-            if(!ifRepeat) {if (isDone) {ifRepeat = true; isDone = false;state = CurrentStates.LAUNCH;}}
-            else {if (isDone) {isDone = false;state = CurrentStates.ELSE;}}
-
-        } else if (state == CurrentStates.ENCODERBACKWARD) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+        } else if (state == CurrentStates.ENCODERBACKWARD) {
+            isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.5, 0.1);
+            if (isDone) {
+                isDone = false;
+                state = CurrentStates.STRAFELEFT;
+                robot.driveTrain.stop();
+            }
         } else if (state == CurrentStates.ENCODERSTRAFELEFT) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.ENCODERSTRAFERIGHT) {
@@ -85,7 +84,11 @@ public class LongShotDelay extends OpMode {
         }
         //basic color directional movement
         else if (state == CurrentStates.COLORFORWARD) {
-            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+            isDone = robot.whiteDrive(DriveTrain.Direction.FORWARD, .05, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
+            if (isDone) {
+                isDone = false;
+                state = CurrentStates.PROXSTRAFELEFT;
+            }
         } else if (state == CurrentStates.COLORBACKWARD) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.COLORSTRAFELEFT) {
@@ -109,7 +112,11 @@ public class LongShotDelay extends OpMode {
         else if (state == CurrentStates.PROXFORWARD) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PROXSTRAFELEFT) {
-            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+            isDone = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.6, 0.5);
+            if (isDone) {
+                isDone = false;
+                state = CurrentStates.PUSHBEACON;
+            }
         } else if (state == CurrentStates.PROXSTRAFERIGHT) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PROXTURNLEFT) {
@@ -124,23 +131,21 @@ public class LongShotDelay extends OpMode {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PROXDIAGONALDOWNLEFT) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
-        //launch
+            //launch
         }else if (state == CurrentStates.LAUNCH) {
-            robot.launch.launchControl(true);
-            robot.waitFor.Sleep(1);
-            robot.launch.launcherServoControl(true);
-            robot.waitFor.Sleep(1);
-            robot.launch.launchControl(false);
-            robot.launch.launchControl(true);
-            robot.waitFor.Sleep(1);
-            isDone = true;
-            encoderDistance = 10;
-            if (isDone) {isDone = false;state = CurrentStates.ENCODERFORWARD;}
-        //delay
-        } else if (state == CurrentStates.DELAY) {
-            robot.waitFor.Sleep(10);
-            isDone = true;
-            if (isDone) {isDone = false;state = CurrentStates.ENCODERFORWARD;}
+            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+            //delay
+        }else if (state == CurrentStates.DELAY) {
+            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+        } else if (state == CurrentStates.PUSHBEACON) {
+            if(colorSensor.isColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED)) {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
+            }
+            else {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
+            }
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+            state = CurrentStates.ELSE;
         }
         //if state is ELSE
         else {

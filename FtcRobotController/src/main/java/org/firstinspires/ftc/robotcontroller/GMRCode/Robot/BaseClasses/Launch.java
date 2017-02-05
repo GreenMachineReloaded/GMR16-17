@@ -116,9 +116,18 @@ public class Launch {
         }
     }
     public void launcherServoControl(boolean x) {
+<<<<<<< HEAD
         mostRecentCommand = "[launchServoControl] x:"+x;
         if (x) {this.hopperDoorServo.setPosition(0);}
         else {this.hopperDoorServo.setPosition(0.5);}
+=======
+        if (x) {
+            this.hopperDoorServo.setPosition(0.25);
+        }
+        else {
+            this.hopperDoorServo.setPosition(0.75);
+        }
+>>>>>>> refs/remotes/origin/m-Automaintenence
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LINEAR SLIDE

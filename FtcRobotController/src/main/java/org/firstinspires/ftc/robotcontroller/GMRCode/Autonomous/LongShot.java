@@ -5,13 +5,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
 @Autonomous(name="Long Shot", group="Mecanum Bot")
 
 public class LongShot extends OpMode {
     private Robot robot;
-
+    private GMRColorSensor colorSensor;
     private boolean isDone;
 
     private CurrentStates state;
@@ -36,6 +37,7 @@ public class LongShot extends OpMode {
 
     public void start() {
         robot = new Robot(hardwareMap, telemetry);
+        colorSensor = new GMRColorSensor(hardwareMap, telemetry);
         sleepTime = (time.seconds() + 15);
     }
 

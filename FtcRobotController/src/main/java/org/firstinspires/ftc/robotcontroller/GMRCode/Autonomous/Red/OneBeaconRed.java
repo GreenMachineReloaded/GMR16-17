@@ -6,6 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
+<<<<<<< HEAD
+=======
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
+import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
+>>>>>>> refs/remotes/origin/m-Automaintenence
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
 /**
@@ -15,14 +20,28 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 public class OneBeaconRed extends OpMode {
 
     private Robot robot;
+    private GMRColorSensor colorSensor;
     private CurrentStates state = CurrentStates.ENCODERFORWARD;
     private boolean isFinished = false;
+<<<<<<< HEAD
+=======
+    private boolean isStraight = false;
+
+    private int launches = 0;
+
+    private double startingOrientation;
+
+    private Continue sleep = new Continue();
+
+>>>>>>> refs/remotes/origin/m-Automaintenence
     private int launchNumber = 0;
 
     @Override
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
+        colorSensor = new GMRColorSensor(hardwareMap, telemetry);
         telemetry.addData("Starting Robot", "");
+        startingOrientation = robot.driveTrain.getYaw();
     }
 
     @Override
@@ -36,33 +55,80 @@ public class OneBeaconRed extends OpMode {
         telemetry.addData("Program Start", "");
         if (state == CurrentStates.ENCODERFORWARD) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 12);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 9);
+                robot.launch.launcherServoControl(false);
             } else {
-                state = CurrentStates.LAUNCH;
+                state = CurrentStates.STRAFELEFT;
                 isFinished = false;
             }
         } else if (state == CurrentStates.LAUNCH) {
-            robot.launch.launchControl(true);
-            robot.waitFor.Sleep(1);
-            robot.launch.launcherServoControl(true);
-            robot.waitFor.Sleep(1);
-            robot.launch.launchControl(false);
-            robot.launch.launchControl(true);
-            robot.waitFor.Sleep(1);
-            state = CurrentStates.DIAGONALUPLEFT;
-        } else if (state == CurrentStates.DIAGONALUPLEFT) {
+            //if (launches == 1 && isFinished) {
+            //   robot.launch.launchControl(false);
+            state = CurrentStates.ENCODERBACKWARD;
+            //} else if (!isFinished) {
+            //   isFinished = robot.launch.launchControl(true);
+            //   sleep.Sleep(1.5);
+            //} else {
+            // launches += 1;
+            isFinished = false;
+            //}
+        } else if (state == CurrentStates.ENCODERBACKWARD) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.DLEFTUP, 0.6, 51);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.5, 3);
             } else {
-                state = CurrentStates.TEST;
+                state = CurrentStates.STRAFELEFT;
                 isFinished = false;
             }
-        } else if (state == CurrentStates.TEST) {
-            telemetry.addData("Color Sensor Data", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
-            telemetry.addData("Color Sensor Data", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDRIGHT));
-            telemetry.addData("Color Sensor Data", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.BEACON));
+        } else if (state == CurrentStates.STRAFELEFT) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.75, 18);
+            } else if (!isStraight) {
+                isStraight = robot.driveTrain.straighten(startingOrientation);
+            } else {
+                state = CurrentStates.COLORFORWARD;
+                isFinished = false;
+                isStraight = false;
+            }
+        } else if (state == CurrentStates.COLORFORWARD) {
+            if (!isFinished) {
+                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.1, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
+            } else {
+                state = CurrentStates.ENCODERBACKWARD2;
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.ENCODERBACKWARD2) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.5, 0.2);
+            }
+//            else if (!isStraight) {
+//                isStraight = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.1, 15);
+//            }
+            else {
+                state = CurrentStates.STRAFELEFT2;
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.STRAFELEFT2) {
+            if (!isFinished) {
+                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.6, .7);
+            }
+//            else if (!isStraight) {
+//                isStraight = robot.driveTrain.straighten(startingOrientation);
+//            }
+            else {
+                state = CurrentStates.PUSHBEACON;
+                isFinished = false;
+                isStraight = false;
+            }
+        } else if(state == CurrentStates.PUSHBEACON) {
+            if (!isFinished) {
+                isFinished = robot.beaconNav.pushRed();
+            } else {
+                state = CurrentStates.PROGRAMEND;
+                isFinished = false;
+            }
         } else if (state == CurrentStates.PROGRAMEND) {
             robot.driveTrain.stop();
+            telemetry.addData("Program End", "");
         }
     }
 }

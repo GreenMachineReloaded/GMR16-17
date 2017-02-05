@@ -4,25 +4,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+<<<<<<< HEAD
+=======
+
+import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
+>>>>>>> refs/remotes/origin/m-Automaintenence
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class BeaconNav {
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// COLOR V
-    //All color sensor
-        //sensor for detecting the beacon
-    private ColorSensor colorSensorBeacon;
-        //sensor for detecting the ground on the left side of the robot
-    private ColorSensor colorSensorGroundLeft;
-        //sensor for detecting the ground on the right side of the robot
-    private ColorSensor colorSensorGroundRight;
-
-    private String ColorSensorBeacon = "CSBeacon";
-    private String ColorSensorGroundLeft = "CSGroundLeft";
-    private String ColorSensorGroundRight = "CSGroundRight";
-
-    boolean beaconLightOn = false;
-    boolean groundLeftLightOn = true;
-    boolean groundRightLightOn = true;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PROX V
     //sensor for detecting the wall
@@ -35,51 +24,49 @@ public class BeaconNav {
 
     private double colorFactor = 8;
 
-    private Servo beaconServoColor;
-    public Servo beaconServo;
+    private Servo leftBeaconButtonPusher;
+    private Servo rightBeaconButtonPusher;
 
-    private String beaconServoColorName = "beaconServoColor";
-    private String beaconServoName = "beaconServo";
+    private String leftBeaconButtonPusherStringArg = "leftBeaconPusher";
+    private String rightBeaconButtonPusherStringArg = "rightBeaconPusher";
 
+<<<<<<< HEAD
     private double beaconServoPosition = 0.39;
     private double beaconServoPositionB = 0.63;
 
     private String mostRecentCommand;
+=======
+    private double testBeaconServoPosition = 0.5;
+    private double testBeaconServoPositionB = 0.5;
+
+    GMRColorSensor colorSensors;
+
+    private boolean hasPushed = false;
+>>>>>>> refs/remotes/origin/m-Automaintenence
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //constructors with all references
     public BeaconNav(HardwareMap hardwareMap, Telemetry telemetry) {
+        colorSensors = new GMRColorSensor(hardwareMap, telemetry);
         telemetry.addData("BeaconNav Startup", "Beginning");
         telemetry.update();
         //setup for all color sensors
             //setup for the beacon
-        colorSensorBeacon = hardwareMap.colorSensor.get(ColorSensorBeacon);
-        colorSensorBeacon.setI2cAddress(I2cAddr.create7bit(0x26));
-            //setup for the bottom left color sensor
-        colorSensorGroundLeft = hardwareMap.colorSensor.get(ColorSensorGroundLeft);
-        colorSensorGroundLeft.setI2cAddress(I2cAddr.create7bit(0x16));
-            //setup for the bottom right color sensor
-        colorSensorGroundRight = hardwareMap.colorSensor.get(ColorSensorGroundRight);
-        //setup for the prox sensor
-        proxSensor = hardwareMap.opticalDistanceSensor.get(ProxSensor);
-        //turns lights on or off
-        colorSensorBeacon.enableLed(beaconLightOn);
-        colorSensorGroundLeft.enableLed(groundLeftLightOn);
-        colorSensorGroundRight.enableLed(groundRightLightOn);
         proxSensor.enableLed(proxLightOnOff);
         //setup for all miscellaneous variable
         this.telemetry = telemetry;
         this.colorFactor = colorFactor;
 
-        beaconServoColor = hardwareMap.servo.get(beaconServoColorName);
-        beaconServo = hardwareMap.servo.get(beaconServoName);
+        leftBeaconButtonPusher = hardwareMap.servo.get(leftBeaconButtonPusherStringArg);
+        rightBeaconButtonPusher = hardwareMap.servo.get(rightBeaconButtonPusherStringArg);
 
-        beaconServoColor.setPosition(0.63);
-        beaconServo.setPosition(0.39);
+        leftBeaconButtonPusher.setPosition(0.63);
+        rightBeaconButtonPusher.setPosition(0.39);
 
         telemetry.addData("BeaconNav Startup", "End");
         telemetry.update();
     }
+<<<<<<< HEAD
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // COLOR
     //get raw value of the color sensor
@@ -138,19 +125,86 @@ public class BeaconNav {
         if(whichColorSensor == WhichGMRColorSensor.BEACON) {colorSensorBeacon.enableLed(ONOFF);}
         else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {colorSensorGroundLeft.enableLed(ONOFF);}
         else if(whichColorSensor == WhichGMRColorSensor.GROUNDRIGHT) {colorSensorGroundRight.enableLed(ONOFF);}
-    }
-    public void BeaconPusher(boolean up, boolean down) {
+=======
 
-        if (up && !down) {
-            beaconServo.setPosition(.41);
-            beaconServoColor.setPosition(0.59);
-        } else if (down && !up) {
-            beaconServo.setPosition(.17);
-            beaconServoColor.setPosition(0.83);
+    public void BeaconPusher(WhichBeaconPusherPosition whichBeaconPusherPosition) {
+        if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER) {
+            leftBeaconButtonPusher.setPosition(.9);
         }
-        telemetry.addData("Current Position", beaconServoPosition);
-        telemetry.addData("Actual Position", beaconServo.getPosition());
-        telemetry.addData("Actual Position Color", beaconServoColor.getPosition());
+        else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER) {
+            rightBeaconButtonPusher.setPosition(.17);
+        }
+        else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDBOTHPUSHERS) {
+            leftBeaconButtonPusher.setPosition(.9);
+            rightBeaconButtonPusher.setPosition(.17);
+        }
+        else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.RETRACTBOTHPUSHERS) {
+            leftBeaconButtonPusher.setPosition(.63);
+            rightBeaconButtonPusher.setPosition(.41);
+        }
+    }
+
+    public void teleOpBeaconPush(boolean x) {
+        if (x) {
+            leftBeaconButtonPusher.setPosition(.9);
+            rightBeaconButtonPusher.setPosition(.17);
+        } else {
+            leftBeaconButtonPusher.setPosition(.63);
+            rightBeaconButtonPusher.setPosition(.41);
+        }
+    }
+
+    public void beaconServos(boolean a, boolean b) {
+        if (a) {
+            testBeaconServoPosition -= 0.001;
+            testBeaconServoPositionB += 0.001;
+        } else if (b) {
+            testBeaconServoPosition += 0.001;
+            testBeaconServoPositionB -= 0.001;
+        }
+        leftBeaconButtonPusher.setPosition(testBeaconServoPosition);
+        rightBeaconButtonPusher.setPosition(testBeaconServoPositionB);
+        telemetry.addData("Current Left Position", leftBeaconButtonPusher.getPosition());
+        telemetry.addData("Current Right Position", rightBeaconButtonPusher.getPosition());
+    }
+
+    public boolean pushRed() {
+        if (!hasPushed) {
+            if (colorSensors.isColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED)) {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
+                if (rightBeaconButtonPusher.getPosition() == .83) {
+                    hasPushed = true;
+                }
+            } else {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
+                if (leftBeaconButtonPusher.getPosition() == .59) {
+                    hasPushed = true;
+                }
+            }
+            return false;
+        } else {
+            return true;
+        }
+>>>>>>> refs/remotes/origin/m-Automaintenence
+    }
+
+    public boolean pushBlue() {
+        if (!hasPushed) {
+            if (colorSensors.isColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.BLUE)) {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
+                if (leftBeaconButtonPusher.getPosition() == .59) {
+                    hasPushed = true;
+                }
+            } else {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
+                if (rightBeaconButtonPusher.getPosition() == .83) {
+                    hasPushed = true;
+                }
+            }
+            return false;
+        } else {
+            return true;
+        }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PROXS
@@ -162,9 +216,13 @@ public class BeaconNav {
 // ENUMS
     public enum Color {BLUE, RED, GREEN, EQUAL}
     public enum WhichGMRColorSensor{GROUNDLEFT, GROUNDRIGHT, BEACON}
+<<<<<<< HEAD
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DEBUG
     public String getDebugCommand() {
         return mostRecentCommand;
     }
+=======
+    public enum WhichBeaconPusherPosition {EXTENDLEFTBEACONPUSHER, EXTENDRIGHTBEACONPUSHER, EXTENDBOTHPUSHERS, RETRACTBOTHPUSHERS}
+>>>>>>> refs/remotes/origin/m-Automaintenence
 }

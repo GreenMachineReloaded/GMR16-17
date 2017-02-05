@@ -6,7 +6,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
+<<<<<<< HEAD
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
+=======
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
+import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
+import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
+>>>>>>> refs/remotes/origin/m-Automaintenence
 
 /**
  * Created by Payton on 11/26/2016
@@ -15,12 +21,23 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 public class BeaconOneAdvanced extends OpMode {
 
     private Robot robot;
+<<<<<<< HEAD
     private CurrentStates state = CurrentStates.STATEONE;
     private boolean isFinished = false;
 
+=======
+    private GMRColorSensor colorSensor;
+    private currentState state = currentState.stateOne;
+    private boolean isFinished = false;
+
+
+    private Continue sleep = new Continue();
+
+>>>>>>> refs/remotes/origin/m-Automaintenence
     @Override
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
+        colorSensor = new GMRColorSensor(hardwareMap, telemetry);
         telemetry.addData("Starting Robot", "");
     }
 
@@ -85,7 +102,7 @@ public class BeaconOneAdvanced extends OpMode {
             }
         } else if (state == CurrentStates.STATESEVEN) {
             if (!isFinished) {
-                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.12, BeaconNav.WhichGMRColorSensor.GROUNDLEFT);
+                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.12, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
             } else {
                 state = CurrentStates.STATEEIGHT;
                 isFinished = false;
@@ -118,10 +135,17 @@ public class BeaconOneAdvanced extends OpMode {
             robot.driveTrain.Drive(DriveTrain.Direction.BACKWARD, 0.25);
             robot.waitFor.Sleep(.05);
             robot.driveTrain.stop();
+<<<<<<< HEAD
             state = CurrentStates.STATETWELVE;
         } else if(state == CurrentStates.STATETWELVE) {
             robot.waitFor.Sleep(4);
             if(robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT) < (robot.beaconNav.getColorValue(BeaconNav.Color.RED, BeaconNav.WhichGMRColorSensor.GROUNDLEFT))) {
+=======
+            state = currentState.stateTwelve;
+        } else if(state == currentState.stateTwelve) {
+            sleep.Sleep(4000);
+            if(colorSensor.getBlue(GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT) < (colorSensor.getRed(GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT))) {
+>>>>>>> refs/remotes/origin/m-Automaintenence
                 telemetry.addData("Hitting Beacon","");
                 robot.driveTrain.Drive(DriveTrain.Direction.FORWARD, 0.25);
                 robot.waitFor.Sleep(.150);
