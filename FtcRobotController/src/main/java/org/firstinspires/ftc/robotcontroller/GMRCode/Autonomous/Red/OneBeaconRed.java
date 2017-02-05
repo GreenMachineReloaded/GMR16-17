@@ -94,9 +94,9 @@ public class OneBeaconRed extends OpMode {
             if (!isFinished) {
                 isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.5, 0.2);
             }
-            else if (!isStraight) {
-                isStraight = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.1, 15);
-            }
+//            else if (!isStraight) {
+//                isStraight = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.1, 15);
+//            }
             else {
                 state = CurrentStates.STRAFELEFT2;
                 isFinished = false;

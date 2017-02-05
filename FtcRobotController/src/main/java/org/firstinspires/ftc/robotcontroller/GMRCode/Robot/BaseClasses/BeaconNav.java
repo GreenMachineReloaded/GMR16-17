@@ -27,8 +27,8 @@ public class BeaconNav {
     private String leftBeaconButtonPusherStringArg = "leftBeaconPusher";
     private String rightBeaconButtonPusherStringArg = "rightBeaconPusher";
 
-    private double beaconServoPosition = 0.39;
-    private double beaconServoPositionB = 0.63;
+    private double testBeaconServoPosition = 0.5;
+    private double testBeaconServoPositionB = 0.5;
 
     GMRColorSensor colorSensors;
 
@@ -59,19 +59,43 @@ public class BeaconNav {
 
     public void BeaconPusher(WhichBeaconPusherPosition whichBeaconPusherPosition) {
         if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER) {
-            leftBeaconButtonPusher.setPosition(.59);
+            leftBeaconButtonPusher.setPosition(.9);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER) {
-            rightBeaconButtonPusher.setPosition(.83);
+            rightBeaconButtonPusher.setPosition(.17);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDBOTHPUSHERS) {
-            leftBeaconButtonPusher.setPosition(.59);
-            rightBeaconButtonPusher.setPosition(.83);
+            leftBeaconButtonPusher.setPosition(.9);
+            rightBeaconButtonPusher.setPosition(.17);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.RETRACTBOTHPUSHERS) {
-            leftBeaconButtonPusher.setPosition(.17);
+            leftBeaconButtonPusher.setPosition(.63);
             rightBeaconButtonPusher.setPosition(.41);
         }
+    }
+
+    public void teleOpBeaconPush(boolean x) {
+        if (x) {
+            leftBeaconButtonPusher.setPosition(.9);
+            rightBeaconButtonPusher.setPosition(.17);
+        } else {
+            leftBeaconButtonPusher.setPosition(.63);
+            rightBeaconButtonPusher.setPosition(.41);
+        }
+    }
+
+    public void beaconServos(boolean a, boolean b) {
+        if (a) {
+            testBeaconServoPosition -= 0.001;
+            testBeaconServoPositionB += 0.001;
+        } else if (b) {
+            testBeaconServoPosition += 0.001;
+            testBeaconServoPositionB -= 0.001;
+        }
+        leftBeaconButtonPusher.setPosition(testBeaconServoPosition);
+        rightBeaconButtonPusher.setPosition(testBeaconServoPositionB);
+        telemetry.addData("Current Left Position", leftBeaconButtonPusher.getPosition());
+        telemetry.addData("Current Right Position", rightBeaconButtonPusher.getPosition());
     }
 
     public boolean pushRed() {

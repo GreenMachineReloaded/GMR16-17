@@ -77,6 +77,12 @@ public class DriveTrain {
                 //setup for the left back motor.
         this.rightRear = hardwareMap.dcMotor.get(RightRear);
                 //setup for the right back motor.
+
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         //sets all the motors power to zero.
         //do we need this?
         this.leftFront.setPower(0);

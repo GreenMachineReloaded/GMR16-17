@@ -49,11 +49,16 @@ public class MecanumTeleOp extends OpMode {
         robot.launch.linearSlideControl(gamepad2.a, gamepad2.b);
         updateTelemetry(telemetry);
 
+        if (gamepad2.y) {
+            robot.beaconNav.pushRed();
+        } else {
+            robot.beaconNav.teleOpBeaconPush(gamepad2.x);
+        }
+
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", robot.driveTrain.getYaw());
 
         //robot.launch.fixLauncher(gamepad2.left_stick_y);
-
-        //robot.beaconNav.BeaconPusher(gamepad2.dpad_up, gamepad2.dpad_down);
+        //robot.beaconNav.beaconServos(gamepad2.a, gamepad2.b);
     }
 }
