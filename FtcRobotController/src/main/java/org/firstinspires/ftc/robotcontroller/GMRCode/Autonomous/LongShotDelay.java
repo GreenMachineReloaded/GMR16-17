@@ -4,12 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
 @Autonomous(name="Long Shot robot", group="Mecanum Bot")
 
 public class LongShotDelay extends OpMode {
     private Robot robot;
+    private GMRColorSensor colorSensor;
     private boolean isDone;
     private CurrentStates state;
     private double encoderDistance;
@@ -22,6 +24,7 @@ public class LongShotDelay extends OpMode {
     }
     public void start() {
         robot = new Robot(hardwareMap, telemetry);
+        colorSensor = new GMRColorSensor(hardwareMap, telemetry);
     }
     public void loop() {
         //basic directional movement cases

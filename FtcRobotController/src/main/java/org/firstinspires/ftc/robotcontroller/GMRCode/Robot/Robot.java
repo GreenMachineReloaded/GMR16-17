@@ -6,6 +6,7 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.WaitFor;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Robot {
@@ -14,10 +15,12 @@ public class Robot {
     public Launch launch;
     public BeaconNav beaconNav;
     public WaitFor waitFor;
+    public GMRColorSensor colorSensor;
     public HardwareMap hwMap;
     public Telemetry telemtry;
     private int number = 0;
     public Robot(HardwareMap hwMap, Telemetry telemtry) {
+        colorSensor = new GMRColorSensor(hwMap, telemtry);
         telemtry.addData("Robot Startup", "Beginning");
         telemtry.update();
         this.driveTrain = new DriveTrain(hwMap, telemtry);
@@ -38,19 +41,19 @@ public class Robot {
         telemtry.update();
 
     }
-    public boolean colorDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor , BeaconNav.Color whichColor) {
+    public boolean colorDrive(DriveTrain.Direction direction, double power, GMRColorSensor.WhichGMRColorSensor whichGMRColorSensor , GMRColorSensor.Color whichColor) {
         this.driveTrain.Drive(direction, power);
-        telemtry.addData("Current Blue", beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
-        if (this.beaconNav.isColor(whichGMRColorSensor, whichColor)) {
+        telemtry.addData("Current Blue", colorSensor.getColorValue(GMRColorSensor.Color.BLUE, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT));
+        if (this.colorSensor.isColor(whichGMRColorSensor, whichColor)) {
             this.driveTrain.stop();
             return true;
         } else {
             return false;
         }
     }
-    public boolean whiteDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor) {
+    public boolean whiteDrive(DriveTrain.Direction direction, double power, GMRColorSensor.WhichGMRColorSensor whichGMRColorSensor) {
         this.driveTrain.Drive(direction, power);
-        if(beaconNav.isWhite(whichGMRColorSensor)) {driveTrain.stop(); return true;}
+        if(this.colorSensor.isWhite(whichGMRColorSensor)) {driveTrain.stop(); return true;}
         else {return false;}
     }
     public boolean ProxDrive(DriveTrain.Direction direction, double power) {

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
 @Autonomous(name="One Beacon Red First Beacon", group="Beacon Programs")
@@ -12,11 +13,12 @@ public class FixForEndOneBeaconRed extends OpMode {
     private Robot robot;
     private boolean isDone;
     private CurrentStates state;
+    private GMRColorSensor colorSensor;
     public void init() {
         isDone = false;
-        state = CurrentStates.ENCODERBACKWARD;
+        state = CurrentStates.PUSHBEACON;
     }
-    public void start() {robot = new Robot(hardwareMap, telemetry);}
+    public void start() {robot = new Robot(hardwareMap, telemetry); colorSensor = new GMRColorSensor(hardwareMap, telemetry);}
     public void loop() {
         //basic directional movement cases
         if (state == CurrentStates.FORWARD) {
@@ -82,7 +84,7 @@ public class FixForEndOneBeaconRed extends OpMode {
         }
         //basic color directional movement
         else if (state == CurrentStates.COLORFORWARD) {
-            isDone = robot.whiteDrive(DriveTrain.Direction.FORWARD, .05, BeaconNav.WhichGMRColorSensor.GROUNDLEFT);
+            isDone = robot.whiteDrive(DriveTrain.Direction.FORWARD, .05, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
             if (isDone) {
                 isDone = false;
                 state = CurrentStates.PROXSTRAFELEFT;
@@ -136,7 +138,7 @@ public class FixForEndOneBeaconRed extends OpMode {
         }else if (state == CurrentStates.DELAY) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PUSHBEACON) {
-            if(robot.beaconNav.isColor(BeaconNav.WhichGMRColorSensor.BEACON, BeaconNav.Color.RED)) {
+            if(colorSensor.isColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED)) {
                 robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
             }
             else {

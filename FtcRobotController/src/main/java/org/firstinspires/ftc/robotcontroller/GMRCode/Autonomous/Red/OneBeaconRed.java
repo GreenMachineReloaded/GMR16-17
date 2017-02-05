@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
@@ -16,6 +17,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 public class OneBeaconRed extends OpMode {
 
     private Robot robot;
+    private GMRColorSensor colorSensor;
     private CurrentStates state = CurrentStates.ENCODERFORWARD;
     private boolean isFinished = false;
     private boolean isStraight = false;
@@ -31,6 +33,7 @@ public class OneBeaconRed extends OpMode {
     @Override
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
+        colorSensor = new GMRColorSensor(hardwareMap, telemetry);
         telemetry.addData("Starting Robot", "");
         startingOrientation = robot.driveTrain.getYaw();
     }
@@ -82,7 +85,7 @@ public class OneBeaconRed extends OpMode {
             }
         } else if (state == CurrentStates.COLORFORWARD) {
             if (!isFinished) {
-                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.1, BeaconNav.WhichGMRColorSensor.GROUNDLEFT);
+                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.1, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
             } else {
                 state = CurrentStates.ENCODERBACKWARD2;
                 isFinished = false;

@@ -4,24 +4,27 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
+import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 
-@Autonomous(name = "TEST COLOR SENSORS", group = "Tests")
+import static org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor.*;
+
+@Autonomous(name = "TEST GMR COLOR SENSOR", group = "Tests")
 @Disabled
 public class TestColorSensors extends LinearOpMode{
-    ColorSensor colorSensor;
-    ColorSensors colorSensors;
+    GMRColorSensor colorSensor;
+    Robot robot;
     Continue c;
     public void runOpMode() throws InterruptedException{
-        colorSensor = hardwareMap.colorSensor.get("colorSensor");
-        colorSensors = new ColorSensors(colorSensor, false);
+        colorSensor = new GMRColorSensor(hardwareMap, telemetry);
         c = new Continue();
         waitForStart();
         while(true) {
-            telemetry.addData("RED", colorSensors.getRed());
-            telemetry.addData("BLUE", colorSensors.getBlue());
-            telemetry.addData("GREATER", colorSensors.greaterColor());
+            telemetry.addData("RED", colorSensor.getRed(WhichGMRColorSensor.GROUNDLEFT));
+            telemetry.addData("BLUE", colorSensor.getBlue(WhichGMRColorSensor.GROUNDLEFT));
+            telemetry.addData("GREATER", colorSensor.whichGreaterColor(WhichGMRColorSensor.GROUNDLEFT, Color.BLUE, Color.RED));
             telemetry.update();
             c.Sleep(100);
         }
