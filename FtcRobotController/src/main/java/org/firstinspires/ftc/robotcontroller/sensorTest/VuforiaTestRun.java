@@ -19,7 +19,7 @@ public class VuforiaTestRun extends LinearOpMode{
 
         vuforiaParameters = new VuforiaLocalizer.Parameters(R.id.cameraMonitorViewId);
         vuforiaParameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-        vuforiaParameters.vuforiaLicenseKey = "";
+        vuforiaParameters.vuforiaLicenseKey = "AQVy9oH/////AAAAGehUO9FzLEfnt02jSN2/SZVPiYtmWEEfswg7kcmS2Bdb2PpepDN0Ah6lo3hTNv+z5b1CXSRLridjv2ZQLfN/mIE+cTxR1tJRqx87/ymlIlx3dpdhULKJir44ksGhz5NZpuiRU/CnBjsxnYEYkEFzqLd4kN9gd6LxeZDrvnzpArX3CNis9Do/nYGT/9r4J6kmI5iam32J/lBUUCqMIX7MQPjZGaLcTF0IeNHAM4yMe18S7Ud+bOkQa/T66ckt1oZwjS+uil9yWAfpYUsASpVsrIQOeyPe6NDhjMcJRgaV7gvHf8sscHO3b2OsobYcUsD5bq5o16utq+MV6SKNt8IkZcdNqpa2pznxewGh4sOHZYNe";
         vuforiaParameters.cameraMonitorFeedback = VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES;
 
         vuforiaLocalizer = ClassFactory.createVuforiaLocalizer(vuforiaParameters);
