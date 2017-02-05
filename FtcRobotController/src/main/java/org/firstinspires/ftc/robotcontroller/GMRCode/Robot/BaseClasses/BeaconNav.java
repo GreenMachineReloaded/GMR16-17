@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses;
 
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class BeaconNav {
@@ -14,7 +11,7 @@ public class BeaconNav {
 // PROX V
     //sensor for detecting the wall
     private OpticalDistanceSensor proxSensor;
-    private String ProxSensor = "proxSensor";
+    private String proxSensorName = "proxSensor";
     boolean proxLightOnOff = true;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
@@ -37,15 +34,19 @@ public class BeaconNav {
 // CONSTRUCT
     //constructors with all references
     public BeaconNav(HardwareMap hardwareMap, Telemetry telemetry) {
-        colorSensors = new GMRColorSensor(hardwareMap, telemetry);
-        telemetry.addData("BeaconNav Startup", "Beginning");
-        telemetry.update();
+        try {
+            colorSensors = new GMRColorSensor(hardwareMap, telemetry);
+        } catch(NullPointerException e) {
+            telemetry.addData("Color Sensors Failed", "");
+        }
+        //telemetry.addData("BeaconNav Startup", "Beginning");
         //setup for all color sensors
             //setup for the beacon
+        proxSensor = hardwareMap.opticalDistanceSensor.get(proxSensorName);
         proxSensor.enableLed(proxLightOnOff);
         //setup for all miscellaneous variable
         this.telemetry = telemetry;
-        this.colorFactor = colorFactor;
+        //this.colorFactor = colorFactor;
 
         leftBeaconButtonPusher = hardwareMap.servo.get(leftBeaconButtonPusherStringArg);
         rightBeaconButtonPusher = hardwareMap.servo.get(rightBeaconButtonPusherStringArg);
@@ -53,7 +54,7 @@ public class BeaconNav {
         leftBeaconButtonPusher.setPosition(0.63);
         rightBeaconButtonPusher.setPosition(0.39);
 
-        telemetry.addData("BeaconNav Startup", "End");
+        //telemetry.addData("BeaconNav Startup", "End");
         telemetry.update();
     }
 
@@ -84,7 +85,7 @@ public class BeaconNav {
         }
     }
 
-    public void beaconServos(boolean a, boolean b) {
+    public void fixBeaconServos(boolean a, boolean b) {
         if (a) {
             testBeaconServoPosition -= 0.001;
             testBeaconServoPositionB += 0.001;

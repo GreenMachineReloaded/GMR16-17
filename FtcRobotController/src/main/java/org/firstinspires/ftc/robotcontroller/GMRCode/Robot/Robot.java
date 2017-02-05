@@ -23,9 +23,22 @@ public class Robot {
         colorSensor = new GMRColorSensor(hwMap, telemtry);
         telemtry.addData("Robot Startup", "Beginning");
         telemtry.update();
-        this.driveTrain = new DriveTrain(hwMap, telemtry);
-        this.launch = new Launch(hwMap, telemtry);
-        this.beaconNav = new BeaconNav(hwMap, telemtry);
+
+        try {
+            this.driveTrain = new DriveTrain(hwMap, telemtry);
+        } catch(NullPointerException e) {
+            telemtry.addData("Drive Train Failed", "");
+        }
+        try {
+            this.launch = new Launch(hwMap, telemtry);
+        } catch(NullPointerException e) {
+            telemtry.addData("Launch Failed", "");
+        }
+        try {
+            this.beaconNav = new BeaconNav(hwMap, telemtry);
+        } catch(NullPointerException e) {
+            telemtry.addData("Beacon Nav Failed", "");
+        }
 
         waitFor = new WaitFor();
         this.hwMap = hwMap;
@@ -37,7 +50,6 @@ public class Robot {
 //        if(writeToFile) {
 //            //start thread
 //        }
-        telemtry.addData("Robot Startup", "End");
         telemtry.update();
 
     }

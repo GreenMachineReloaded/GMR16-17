@@ -3,7 +3,6 @@ package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Red;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
@@ -32,10 +31,22 @@ public class OneBeaconRed extends OpMode {
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry);
-        colorSensor = new GMRColorSensor(hardwareMap, telemetry);
-        telemetry.addData("Starting Robot", "");
-        startingOrientation = robot.driveTrain.getYaw();
+        try {
+            robot = new Robot(hardwareMap, telemetry);
+        } catch(NullPointerException e) {
+            telemetry.addData("Robot Failed", "");
+        }
+        try {
+            colorSensor = new GMRColorSensor(hardwareMap, telemetry);
+        } catch(NullPointerException e) {
+            telemetry.addData("ColorSensor Failed", "");
+        }
+        //telemetry.addData("Starting Robot", "");
+        try {
+            startingOrientation = robot.driveTrain.getYaw();
+        } catch(NullPointerException e) {
+            telemetry.addData("Robot Failed Again", "");
+        }
     }
 
     @Override
@@ -46,39 +57,33 @@ public class OneBeaconRed extends OpMode {
 
     @Override
     public void loop() {
-        telemetry.addData("Program Start", "");
         if (state == CurrentStates.ENCODERFORWARD) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 9);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.5, 10);
                 robot.launch.launcherServoControl(false);
             } else {
-                state = CurrentStates.STRAFELEFT;
+                state = CurrentStates.LAUNCH;
                 isFinished = false;
             }
         } else if (state == CurrentStates.LAUNCH) {
-            //if (launches == 1 && isFinished) {
-            //   robot.launch.launchControl(false);
-            state = CurrentStates.ENCODERBACKWARD;
-            //} else if (!isFinished) {
-            //   isFinished = robot.launch.launchControl(true);
-            //   sleep.Sleep(1.5);
-            //} else {
-            // launches += 1;
-            isFinished = false;
-            //}
-        } else if (state == CurrentStates.ENCODERBACKWARD) {
-            if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.5, 3);
-            } else {
+            if ((launches >= 1) && isFinished) {
+                robot.launch.launchControl(false);
                 state = CurrentStates.STRAFELEFT;
+                isFinished = false;
+            } else if (!isFinished) {
+               isFinished = robot.launch.launchControl(true);
+            } else {
+                launches += 1;
                 isFinished = false;
             }
         } else if (state == CurrentStates.STRAFELEFT) {
             if (!isFinished) {
                 isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.75, 18);
-            } else if (!isStraight) {
-                isStraight = robot.driveTrain.straighten(startingOrientation);
-            } else {
+            }
+//            else if (!isStraight) {
+//                isStraight = robot.driveTrain.straighten(startingOrientation);
+//            }
+            else {
                 state = CurrentStates.COLORFORWARD;
                 isFinished = false;
                 isStraight = false;
@@ -124,5 +129,6 @@ public class OneBeaconRed extends OpMode {
             robot.driveTrain.stop();
             telemetry.addData("Program End", "");
         }
+        telemetry.addData("Current State", state);
     }
 }

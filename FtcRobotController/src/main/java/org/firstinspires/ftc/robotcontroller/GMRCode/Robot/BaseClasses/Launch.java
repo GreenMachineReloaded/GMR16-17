@@ -83,10 +83,15 @@ public class Launch {
             timeOfCompletion = (launchTime.seconds() + 0.7);
             return false;
         } else {
-            if (launchTime.seconds() < timeOfCompletion) {launcherServoControl(true);}
-            else {launcherServoControl(false);}
-            canLaunch = true;
-            return true;
+            if (launchTime.seconds() < timeOfCompletion) {
+                launcherServoControl(true);
+                canLaunch = false;
+                return false;
+            } else {
+                launcherServoControl(false);
+                canLaunch = true;
+                return true;
+            }
         }
     }
 
