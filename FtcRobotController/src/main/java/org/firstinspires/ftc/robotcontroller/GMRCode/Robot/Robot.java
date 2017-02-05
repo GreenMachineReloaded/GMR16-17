@@ -65,8 +65,12 @@ public class Robot {
     }
     public boolean ProxRawDrive(DriveTrain.Direction direction, double power, double prox) {
         this.driveTrain.Drive(direction, power);
-        if(this.beaconNav.getRawDistance() > prox) {this.driveTrain.stop(); return true;}
-        else {return false;}
+        if (this.beaconNav.getRawDistance() > prox) {
+            this.driveTrain.stop();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public DriveTrain getDriveTrain() {

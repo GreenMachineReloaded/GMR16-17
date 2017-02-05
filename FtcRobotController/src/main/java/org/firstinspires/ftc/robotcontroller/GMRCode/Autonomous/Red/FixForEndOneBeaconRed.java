@@ -1,18 +1,20 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Red;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
-import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
+
+@Autonomous(name="One Beacon Red First Beacon", group="Beacon Programs")
 public class FixForEndOneBeaconRed extends OpMode {
     private Robot robot;
     private boolean isDone;
     private CurrentStates state;
     public void init() {
         isDone = false;
-        state = CurrentStates.COLORFORWARD;
+        state = CurrentStates.ENCODERBACKWARD;
     }
     public void start() {robot = new Robot(hardwareMap, telemetry);}
     public void loop() {
@@ -22,7 +24,7 @@ public class FixForEndOneBeaconRed extends OpMode {
         } else if (state == CurrentStates.BACKWARD) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.STRAFELEFT) {
-            isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, .05, 11 );
+            isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, .6, 7 );
             if (isDone) {
                 isDone = false;
                 state = CurrentStates.PUSHBEACON;
@@ -55,7 +57,12 @@ public class FixForEndOneBeaconRed extends OpMode {
         else if (state == CurrentStates.ENCODERFORWARD) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.ENCODERBACKWARD) {
-            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+            isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.5, 0.1);
+            if (isDone) {
+                isDone = false;
+                state = CurrentStates.STRAFELEFT;
+                robot.driveTrain.stop();
+            }
         } else if (state == CurrentStates.ENCODERSTRAFELEFT) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.ENCODERSTRAFERIGHT) {
@@ -78,7 +85,7 @@ public class FixForEndOneBeaconRed extends OpMode {
             isDone = robot.whiteDrive(DriveTrain.Direction.FORWARD, .05, BeaconNav.WhichGMRColorSensor.GROUNDLEFT);
             if (isDone) {
                 isDone = false;
-                state = CurrentStates.STRAFELEFT;
+                state = CurrentStates.PROXSTRAFELEFT;
             }
         } else if (state == CurrentStates.COLORBACKWARD) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
@@ -103,7 +110,11 @@ public class FixForEndOneBeaconRed extends OpMode {
         else if (state == CurrentStates.PROXFORWARD) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PROXSTRAFELEFT) {
-            if (isDone) {isDone = false;state = CurrentStates.ELSE;}
+            isDone = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.6, 0.5);
+            if (isDone) {
+                isDone = false;
+                state = CurrentStates.PUSHBEACON;
+            }
         } else if (state == CurrentStates.PROXSTRAFERIGHT) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PROXTURNLEFT) {

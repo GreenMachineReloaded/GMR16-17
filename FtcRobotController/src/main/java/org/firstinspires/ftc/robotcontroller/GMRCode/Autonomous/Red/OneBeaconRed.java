@@ -46,10 +46,10 @@ public class OneBeaconRed extends OpMode {
         telemetry.addData("Program Start", "");
         if (state == CurrentStates.ENCODERFORWARD) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 10);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.6, 9);
                 robot.launch.launcherServoControl(false);
             } else {
-                state = CurrentStates.ENCODERBACKWARD;
+                state = CurrentStates.STRAFELEFT;
                 isFinished = false;
             }
         } else if (state == CurrentStates.LAUNCH) {
@@ -89,27 +89,37 @@ public class OneBeaconRed extends OpMode {
             }
         } else if (state == CurrentStates.ENCODERBACKWARD2) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.8, 0.2);
-            } else if (!isStraight) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.5, 0.2);
+            }
+            else if (!isStraight) {
                 isStraight = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.1, 15);
-            } else {
+            }
+            else {
                 state = CurrentStates.STRAFELEFT2;
                 isFinished = false;
             }
         } else if (state == CurrentStates.STRAFELEFT2) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.6, 12);
-            } else if (!isStraight) {
-                isStraight = robot.driveTrain.straighten(startingOrientation);
-            } else {
-                state = CurrentStates.PROGRAMEND;
+                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.6, .7);
+            }
+//            else if (!isStraight) {
+//                isStraight = robot.driveTrain.straighten(startingOrientation);
+//            }
+            else {
+                state = CurrentStates.PUSHBEACON;
                 isFinished = false;
                 isStraight = false;
             }
+        } else if(state == CurrentStates.PUSHBEACON) {
+            if (!isFinished) {
+                isFinished = robot.beaconNav.pushRed();
+            } else {
+                state = CurrentStates.PROGRAMEND;
+                isFinished = false;
+            }
         } else if (state == CurrentStates.PROGRAMEND) {
             robot.driveTrain.stop();
-            telemetry.addData("Current Blue", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
-            //telemetry.addData("Program End", "");
+            telemetry.addData("Program End", "");
         }
     }
 }

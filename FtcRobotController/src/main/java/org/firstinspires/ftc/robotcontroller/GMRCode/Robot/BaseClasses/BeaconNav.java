@@ -44,6 +44,8 @@ public class BeaconNav {
 
     private double beaconServoPosition = 0.39;
     private double beaconServoPositionB = 0.63;
+
+    private boolean hasPushed = false;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //constructors with all references
@@ -89,9 +91,15 @@ public class BeaconNav {
     }
     //logic methods
     public Color whichGreaterColor(WhichGMRColorSensor whichColorSensor) {
-        if (getColorValue(Color.RED, whichColorSensor) > getColorValue(Color.BLUE, whichColorSensor)) {return Color.RED; }
-        else if (getColorValue(Color.RED, whichColorSensor) == getColorValue(Color.BLUE, whichColorSensor)) {return Color.EQUAL; }
-        else {return Color.BLUE;}
+        if (getColorValue(Color.RED, whichColorSensor) > getColorValue(Color.BLUE, whichColorSensor)) {
+            return Color.RED;
+        }
+        else if (getColorValue(Color.RED, whichColorSensor) == getColorValue(Color.BLUE, whichColorSensor)) {
+            return Color.EQUAL;
+        }
+        else {
+            return Color.BLUE;
+        }
     }
     public Color whichGreaterColor(WhichGMRColorSensor whichColorSensor, Color firstColor, Color secondColor) {
         if (getColorValue(firstColor, whichColorSensor) > getColorValue(secondColor, whichColorSensor)) {return firstColor; }
@@ -124,10 +132,10 @@ public class BeaconNav {
         else {return (colorSensorGroundRight.green() * 8);}
     }
     //methods for altering the color sensors
-    public void turnOnLightColor(boolean ONOFF, WhichGMRColorSensor whichColorSensor) {
-        if(whichColorSensor == WhichGMRColorSensor.BEACON) {colorSensorBeacon.enableLed(ONOFF);}
-        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {colorSensorGroundLeft.enableLed(ONOFF);}
-        else if(whichColorSensor == WhichGMRColorSensor.GROUNDRIGHT) {colorSensorGroundLeft.enableLed(ONOFF);}
+    public void turnOnLightColor(boolean OnOff, WhichGMRColorSensor whichColorSensor) {
+        if(whichColorSensor == WhichGMRColorSensor.BEACON) {colorSensorBeacon.enableLed(OnOff);}
+        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {colorSensorGroundLeft.enableLed(OnOff);}
+        else if(whichColorSensor == WhichGMRColorSensor.GROUNDRIGHT) {colorSensorGroundLeft.enableLed(OnOff);}
     }
     public void BeaconPusher(WhichBeaconPusherPosition whichBeaconPusherPosition) {
         if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER) {
@@ -144,16 +152,44 @@ public class BeaconNav {
             leftBeaconButtonPusher.setPosition(.17);
             rightBeaconButtonPusher.setPosition(.41);
         }
-//        if (up && !down) {
-//            beaconServo.setPosition(.41);
-//            beaconServoColor.setPosition(0.59);
-//        } else if (down && !up) {
-//            beaconServo.setPosition(.17);
-//            beaconServoColor.setPosition(0.83);
-//        }
-//        telemetry.addData("Current Position", beaconServoPosition);
-//        telemetry.addData("Actual Position", beaconServo.getPosition());
-//        telemetry.addData("Actual Position Color", beaconServoColor.getPosition());
+    }
+
+    public boolean pushRed() {
+        if (!hasPushed) {
+            if (whichGreaterColor(WhichGMRColorSensor.BEACON) == Color.BLUE) {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
+                if (rightBeaconButtonPusher.getPosition() == .83) {
+                    hasPushed = true;
+                }
+            } else {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
+                if (leftBeaconButtonPusher.getPosition() == .59) {
+                    hasPushed = true;
+                }
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean pushBlue() {
+        if (!hasPushed) {
+            if (whichGreaterColor(WhichGMRColorSensor.BEACON) == Color.BLUE) {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
+                if (leftBeaconButtonPusher.getPosition() == .59) {
+                    hasPushed = true;
+                }
+            } else {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
+                if (rightBeaconButtonPusher.getPosition() == .83) {
+                    hasPushed = true;
+                }
+            }
+            return false;
+        } else {
+            return true;
+        }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PROXS
