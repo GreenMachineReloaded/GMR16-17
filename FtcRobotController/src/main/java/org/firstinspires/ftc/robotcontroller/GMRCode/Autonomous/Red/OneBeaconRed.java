@@ -6,11 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
-<<<<<<< HEAD
-=======
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
-import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
->>>>>>> refs/remotes/origin/m-Automaintenence
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
 /**
@@ -23,19 +19,9 @@ public class OneBeaconRed extends OpMode {
     private GMRColorSensor colorSensor;
     private CurrentStates state = CurrentStates.ENCODERFORWARD;
     private boolean isFinished = false;
-<<<<<<< HEAD
-=======
     private boolean isStraight = false;
-
     private int launches = 0;
-
     private double startingOrientation;
-
-    private Continue sleep = new Continue();
-
->>>>>>> refs/remotes/origin/m-Automaintenence
-    private int launchNumber = 0;
-
     @Override
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
