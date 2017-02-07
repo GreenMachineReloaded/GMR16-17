@@ -101,14 +101,16 @@ public class BeaconNav {
 
     public boolean pushRed() {
         if (!hasPushed) {
-            if (colorSensors.isColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED)) {
-                BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
-                if (rightBeaconButtonPusher.getPosition() == .83) {
+            if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
+                rightBeaconButtonPusher.setPosition(.41);
+                if (leftBeaconButtonPusher.getPosition() == .59) {
                     hasPushed = true;
                 }
             } else {
-                BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
-                if (leftBeaconButtonPusher.getPosition() == .59) {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
+                leftBeaconButtonPusher.setPosition(.63);
+                if (rightBeaconButtonPusher.getPosition() == .83) {
                     hasPushed = true;
                 }
             }
@@ -120,14 +122,16 @@ public class BeaconNav {
 
     public boolean pushBlue() {
         if (!hasPushed) {
-            if (colorSensors.isColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.BLUE)) {
-                BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
-                if (leftBeaconButtonPusher.getPosition() == .59) {
+            if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
+                if (rightBeaconButtonPusher.getPosition() == .83) {
                     hasPushed = true;
                 }
             } else {
-                BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
-                if (rightBeaconButtonPusher.getPosition() == .83) {
+                BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
+                leftBeaconButtonPusher.setPosition(.63);
+                rightBeaconButtonPusher.setPosition(.41);
+                if (leftBeaconButtonPusher.getPosition() == .59) {
                     hasPushed = true;
                 }
             }
@@ -135,6 +139,10 @@ public class BeaconNav {
         } else {
             return true;
         }
+    }
+
+    public void stopBeaconNav(){
+        BeaconPusher(WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PROXS

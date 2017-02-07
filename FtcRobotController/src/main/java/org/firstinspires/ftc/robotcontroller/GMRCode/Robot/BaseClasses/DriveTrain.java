@@ -322,6 +322,8 @@ public class DriveTrain {
                 }
                 if (!(this.getYaw() > (goalDegrees - gyroRange) && this.getYaw() < (goalDegrees + gyroRange))) {
                     Drive(direction, power);
+                    telemetry.addData("Goal Degrees", goalDegrees);
+                    telemetry.addData("Current Degrees", getYaw());
                     return false;
                 } else {
                     this.stop();
@@ -337,6 +339,8 @@ public class DriveTrain {
                 }
                 if (!(this.getYaw() > (goalDegrees - gyroRange) && this.getYaw() < (goalDegrees + gyroRange))) {
                     Drive(direction, power);
+                    telemetry.addData("Goal Degrees", goalDegrees);
+                    telemetry.addData("Current Degrees", getYaw());
                     return false;
                 } else {
                     this.stop();
@@ -407,6 +411,18 @@ public class DriveTrain {
         //return degrees;
         if (((Math.atan2(y, x)) * (180/Math.PI))<0) {return (360 + ((Math.atan2(y, x)) * (180/Math.PI)));}
         else {return ((Math.atan2(y, x)) * (180/Math.PI));}
+    }
+
+    public void resetEncoders() {
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENCODER

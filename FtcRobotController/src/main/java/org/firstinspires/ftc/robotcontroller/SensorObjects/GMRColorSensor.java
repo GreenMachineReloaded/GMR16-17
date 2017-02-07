@@ -72,7 +72,7 @@ public class GMRColorSensor {
         else {return secondColor;}
     }
     //returns true or false to indicate if this is the correct color
-    public boolean isColor(WhichGMRColorSensor whichColorSensor, Color desiredColor) {
+    public boolean whichGreaterColor(WhichGMRColorSensor whichColorSensor, Color desiredColor) {
         if(getColorValue(desiredColor, whichColorSensor) > 6) {return true;}
         else {return false;}
     }

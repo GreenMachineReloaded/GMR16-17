@@ -138,7 +138,7 @@ public class FixForEndOneBeaconRed extends OpMode {
         }else if (state == CurrentStates.DELAY) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PUSHBEACON) {
-            if(colorSensor.isColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED)) {
+            if(colorSensor.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED)) {
                 robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
             }
             else {

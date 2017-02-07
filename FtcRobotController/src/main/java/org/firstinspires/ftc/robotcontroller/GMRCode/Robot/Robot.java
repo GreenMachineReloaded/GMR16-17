@@ -56,7 +56,7 @@ public class Robot {
     public boolean colorDrive(DriveTrain.Direction direction, double power, GMRColorSensor.WhichGMRColorSensor whichGMRColorSensor , GMRColorSensor.Color whichColor) {
         this.driveTrain.Drive(direction, power);
         telemtry.addData("Current Blue", colorSensor.getColorValue(GMRColorSensor.Color.BLUE, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT));
-        if (this.colorSensor.isColor(whichGMRColorSensor, whichColor)) {
+        if (this.colorSensor.whichGreaterColor(whichGMRColorSensor, whichColor)) {
             this.driveTrain.stop();
             return true;
         } else {
@@ -117,5 +117,11 @@ public class Robot {
 
     public int number() {
         return number += 1;
+    }
+
+    public void stopRobot(){
+        driveTrain.stop();
+        beaconNav.stopBeaconNav();
+        launch.stopLaunch();
     }
 }

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
@@ -29,8 +30,12 @@ public class OneBeaconRed extends OpMode {
 
     private int launchNumber = 0;
 
+    private ElapsedTime beaconTime = new ElapsedTime();
+    private double beaconServoTime;
+
     @Override
     public void init() {
+        beaconTime.reset();
         try {
             robot = new Robot(hardwareMap, telemetry);
         } catch(NullPointerException e) {
@@ -53,13 +58,14 @@ public class OneBeaconRed extends OpMode {
     public void start() {
         telemetry.addData("Starting Servos", "");
         telemetry.update();
+        beaconTime.reset();
     }
 
     @Override
     public void loop() {
         if (state == CurrentStates.ENCODERFORWARD) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.5, 10);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.3, 13);
                 robot.launch.launcherServoControl(false);
             } else {
                 state = CurrentStates.LAUNCH;
@@ -78,12 +84,8 @@ public class OneBeaconRed extends OpMode {
             }
         } else if (state == CurrentStates.STRAFELEFT) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.75, 18);
-            }
-//            else if (!isStraight) {
-//                isStraight = robot.driveTrain.straighten(startingOrientation);
-//            }
-            else {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.5, 17);
+            } else {
                 state = CurrentStates.COLORFORWARD;
                 isFinished = false;
                 isStraight = false;
@@ -92,41 +94,35 @@ public class OneBeaconRed extends OpMode {
             if (!isFinished) {
                 isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.1, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
             } else {
-                state = CurrentStates.ENCODERBACKWARD2;
+                state = CurrentStates.STRAFELEFT2;
                 isFinished = false;
             }
         } else if (state == CurrentStates.ENCODERBACKWARD2) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.5, 0.2);
-            }
-//            else if (!isStraight) {
-//                isStraight = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.1, 15);
-//            }
-            else {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.3, 0.2);
+            } else {
                 state = CurrentStates.STRAFELEFT2;
                 isFinished = false;
             }
         } else if (state == CurrentStates.STRAFELEFT2) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.6, .7);
-            }
-//            else if (!isStraight) {
-//                isStraight = robot.driveTrain.straighten(startingOrientation);
-//            }
-            else {
+                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.3, .7);
+            } else {
                 state = CurrentStates.PUSHBEACON;
                 isFinished = false;
                 isStraight = false;
+                beaconServoTime = (beaconTime.seconds() + 2);
             }
         } else if(state == CurrentStates.PUSHBEACON) {
-            if (!isFinished) {
+            if (!isFinished && (beaconServoTime > beaconTime.seconds())) {
                 isFinished = robot.beaconNav.pushRed();
+                telemetry.addData("Pushing Beacon", "");
             } else {
                 state = CurrentStates.PROGRAMEND;
                 isFinished = false;
             }
         } else if (state == CurrentStates.PROGRAMEND) {
-            robot.driveTrain.stop();
+            robot.stopRobot();
             telemetry.addData("Program End", "");
         }
         telemetry.addData("Current State", state);
