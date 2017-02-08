@@ -97,13 +97,6 @@ public class OneBeaconRed extends OpMode {
                 state = CurrentStates.STRAFELEFT2;
                 isFinished = false;
             }
-        } else if (state == CurrentStates.ENCODERBACKWARD2) {
-            if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.BACKWARD, 0.3, 0.2);
-            } else {
-                state = CurrentStates.STRAFELEFT2;
-                isFinished = false;
-            }
         } else if (state == CurrentStates.STRAFELEFT2) {
             if (!isFinished) {
                 isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.3, .7);

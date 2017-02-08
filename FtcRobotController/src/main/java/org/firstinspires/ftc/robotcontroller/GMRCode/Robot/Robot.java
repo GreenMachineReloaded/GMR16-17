@@ -69,6 +69,7 @@ public class Robot {
         else {return false;}
     }
     public boolean ProxDrive(DriveTrain.Direction direction, double power) {
+        telemtry.addData("Current Distance", beaconNav.getDistance());
         this.driveTrain.Drive(direction, power);
         if(this.beaconNav.getDistance() > 400) {this.driveTrain.stop(); return true;}
         else {return false;}

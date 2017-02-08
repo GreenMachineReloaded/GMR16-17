@@ -26,6 +26,7 @@ public class OneBeaconBlue extends OpMode {
     private ElapsedTime beaconTime = new ElapsedTime();
     private double beaconServoTime;
 
+    private int iterations = 0;
 
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
@@ -71,7 +72,7 @@ public class OneBeaconBlue extends OpMode {
             }
         } else if (state == CurrentStates.STRAFELEFT) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.5, 17);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.5, 20);
             } else {
                 state = CurrentStates.COLORFORWARD;
                 isFinished = false;
@@ -82,20 +83,22 @@ public class OneBeaconBlue extends OpMode {
                 isFinished = robot.whiteDrive(DriveTrain.Direction.BACKWARD, 0.1, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
             } else {
                 state = CurrentStates.STRAFELEFT2;
+                robot.driveTrain.resetEncoders();
                 isFinished = false;
             }
         } else if (state == CurrentStates.STRAFELEFT2) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.3, .7);
+                //isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.3, 20);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.5, 4.25);
             } else {
                 state = CurrentStates.PUSHBEACON;
+                iterations += 1;
                 isFinished = false;
-                isStraight = false;
                 beaconServoTime = (beaconTime.seconds() + 2);
             }
         } else if(state == CurrentStates.PUSHBEACON) {
             if (!isFinished && (beaconServoTime > beaconTime.seconds())) {
-                isFinished = robot.beaconNav.pushRed();
+                isFinished = robot.beaconNav.pushBlue();
                 telemetry.addData("Pushing Beacon", "");
             } else {
                 state = CurrentStates.PROGRAMEND;
@@ -106,5 +109,6 @@ public class OneBeaconBlue extends OpMode {
             telemetry.addData("Program End", "");
         }
         telemetry.addData("Current State", state);
+        telemetry.addData("Strafe Left Two Iterations", iterations);
     }
 }

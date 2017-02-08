@@ -124,12 +124,12 @@ public class BeaconNav {
         if (!hasPushed) {
             if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
+                leftBeaconButtonPusher.setPosition(.63);
                 if (rightBeaconButtonPusher.getPosition() == .83) {
                     hasPushed = true;
                 }
             } else {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
-                leftBeaconButtonPusher.setPosition(.63);
                 rightBeaconButtonPusher.setPosition(.41);
                 if (leftBeaconButtonPusher.getPosition() == .59) {
                     hasPushed = true;
