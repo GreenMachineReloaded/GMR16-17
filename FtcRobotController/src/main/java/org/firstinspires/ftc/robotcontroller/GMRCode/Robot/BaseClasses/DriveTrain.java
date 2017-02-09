@@ -3,6 +3,7 @@ package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses;
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -26,6 +27,9 @@ public class DriveTrain {
     private DcMotor rightRear;
             //object for controlling the right rear motor
 
+    private DcMotor liftMotor;
+    private Servo liftServo;
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // GYRO V
     private AHRS gyro;
@@ -48,6 +52,8 @@ public class DriveTrain {
     private String RightFront = "rightfront";
     private String LeftRear = "leftrear";
     private String RightRear = "rightrear";
+    private String LiftMotor = "liftmotor";
+    private String LiftServo = "liftservo";
     private final int gyroPort = 0;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
@@ -58,6 +64,8 @@ public class DriveTrain {
     private double goalBackwardPosition;
     private double goalLeftPosition;
     private double goalRightPosition;
+
+    private double testLiftPosition = 0.5;
 
     private double currentGyro;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,11 +85,15 @@ public class DriveTrain {
                 //setup for the left back motor.
         this.rightRear = hardwareMap.dcMotor.get(RightRear);
                 //setup for the right back motor.
+        liftMotor = hardwareMap.dcMotor.get(LiftMotor);
+        liftServo = hardwareMap.servo.get(LiftServo);
 
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //sets all the motors power to zero.
         //do we need this?
@@ -402,15 +414,32 @@ public class DriveTrain {
     }
 
     public double currentDegrees(double x,double y) {
-        //double magnitude = (Math.sqrt((x*x)+(-y*-y)));
-        //return (Math.asin(x/magnitude)/0.0175);
+        if (((Math.atan2(y, x)) * (180/Math.PI))<0) {
+            return (360 + ((Math.atan2(y, x)) * (180/Math.PI)));
+        } else {
+            return ((Math.atan2(y, x)) * (180/Math.PI));
+        }
+    }
 
-        //double currentRadians = (Math.atan2(y, x));
-        //double degrees = (currentRadians * (180/Math.PI));
-        //if (degrees<0) {degrees = 360 + degrees;}
-        //return degrees;
-        if (((Math.atan2(y, x)) * (180/Math.PI))<0) {return (360 + ((Math.atan2(y, x)) * (180/Math.PI)));}
-        else {return ((Math.atan2(y, x)) * (180/Math.PI));}
+    public void setLiftServo(boolean dpadUp, boolean dpadDown) {
+        if (dpadUp) {
+            testLiftPosition += 0.05;
+        } else if (dpadDown) {
+            testLiftPosition -= 0.05;
+        }
+        liftServo.setPosition(testLiftPosition);
+        telemetry.addData("Current Lift Servo Position", testLiftPosition);
+        telemetry.addData("CUrrent Recorded Position", liftServo.getPosition());
+    }
+
+    public void setLiftMotor(boolean bumper, double trigger) {
+        if (bumper) {
+            liftMotor.setPower(1);
+        } else if (trigger > 0) {
+            liftMotor.setPower(-.4);
+        } else {
+            liftMotor.setPower(0);
+        }
     }
 
     public void resetEncoders() {
