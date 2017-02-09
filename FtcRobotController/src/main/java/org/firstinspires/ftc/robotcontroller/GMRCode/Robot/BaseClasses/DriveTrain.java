@@ -65,7 +65,7 @@ public class DriveTrain {
     private double goalLeftPosition;
     private double goalRightPosition;
 
-    private double testLiftPosition = 0.5;
+    private double testLiftPosition = 1;
 
     private double currentGyro;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -94,6 +94,7 @@ public class DriveTrain {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftServo.setPosition(testLiftPosition);
 
         //sets all the motors power to zero.
         //do we need this?
@@ -423,9 +424,9 @@ public class DriveTrain {
 
     public void setLiftServo(boolean dpadUp, boolean dpadDown) {
         if (dpadUp) {
-            testLiftPosition += 0.05;
+            testLiftPosition += 0.0008;
         } else if (dpadDown) {
-            testLiftPosition -= 0.05;
+            testLiftPosition -= 0.0008;
         }
         liftServo.setPosition(testLiftPosition);
         telemetry.addData("Current Lift Servo Position", testLiftPosition);

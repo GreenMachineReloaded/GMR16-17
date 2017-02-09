@@ -88,8 +88,8 @@ public class OneBeaconBlue extends OpMode {
             }
         } else if (state == CurrentStates.STRAFELEFT2) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.3, 1);
-                //isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.5, 4.25);
+                //isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 2.5, 0.001);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.3, 4.2);
             } else {
                 state = CurrentStates.PUSHBEACON;
                 iterations += 1;
