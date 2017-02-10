@@ -50,6 +50,8 @@ public class Launch {
             //setup for the door servo.
         this.hopperDoorServo = hardwareMap.servo.get(hopperDoorServoStringArg);
 
+        hopperDoorServo.setPosition(0.75);
+
         //is this required?
         this.sweeperMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //setups the encoder of the launching motor.

@@ -368,16 +368,6 @@ public class DriveTrain {
         else {return this.gyro.getYaw();}
     }
 
-    public boolean straighten(double goalposition) {
-        if (!(this.getYaw() > (goalposition - gyroRange) && this.getYaw() < (goalposition + gyroRange))) {
-            Drive(Direction.TURNRIGHT, .15);
-            return false;
-        } else {
-            this.stop();
-            return true;
-        }
-    }
-
     public void experimentalDrive(double x, double y, double z){
         /*
         Guide to motor Powers:
@@ -453,6 +443,23 @@ public class DriveTrain {
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public boolean straighten(double goal) {
+        if (this.getYaw() > (goalDegrees - 2) && this.getYaw() < (goalDegrees + 2)) {
+            if (this.getYaw() > (goalDegrees - 2)) {
+                Drive(Direction.TURNLEFT, 0.2);
+            } else if (this.getYaw() < (goalDegrees + 2)) {
+                Drive(Direction.TURNRIGHT, 0.2);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean checkGyro() {
+        return gyro.isCalibrating();
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENCODER

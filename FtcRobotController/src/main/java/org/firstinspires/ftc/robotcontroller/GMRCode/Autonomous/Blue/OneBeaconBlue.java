@@ -34,6 +34,7 @@ public class OneBeaconBlue extends OpMode {
         telemetry.addData("Starting Robot", "");
         startingOrientation = robot.driveTrain.getYaw();
         beaconTime.reset();
+        telemetry.addData("Gyro Done Calibrating", robot.driveTrain.checkGyro());
     }
 
     public void start() {
