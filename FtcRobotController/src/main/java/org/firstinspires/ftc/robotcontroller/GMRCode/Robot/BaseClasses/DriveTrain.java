@@ -414,9 +414,9 @@ public class DriveTrain {
 
     public void setLiftServo(boolean dpadUp, boolean dpadDown) {
         if (dpadUp) {
-            testLiftPosition += 0.0008;
+            testLiftPosition += 0.08;
         } else if (dpadDown) {
-            testLiftPosition -= 0.0008;
+            testLiftPosition -= 0.08;
         }
         liftServo.setPosition(testLiftPosition);
         telemetry.addData("Current Lift Servo Position", testLiftPosition);
