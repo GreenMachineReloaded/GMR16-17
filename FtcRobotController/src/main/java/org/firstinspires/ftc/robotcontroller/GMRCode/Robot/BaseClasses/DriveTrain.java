@@ -420,7 +420,7 @@ public class DriveTrain {
         } else if (dpadDown > 0) {
             testLiftPosition -= 0.08;
         }
-        clipRange(testLiftPosition, 0, 1);
+        testLiftPosition = clipRange(testLiftPosition, 0, 1);
         liftServo.setPosition(testLiftPosition);
         telemetry.addData("Current Lift Servo Position", testLiftPosition);
         telemetry.addData("CUrrent Recorded Position", liftServo.getPosition());
