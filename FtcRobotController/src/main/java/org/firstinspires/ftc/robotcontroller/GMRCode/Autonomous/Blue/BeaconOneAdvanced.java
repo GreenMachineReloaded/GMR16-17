@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
  * Created by Payton on 11/26/2016
  */
 @Autonomous(name="Hit Beacon Blue", group="Mecanum Bot")
+@Disabled
 public class BeaconOneAdvanced extends OpMode {
 
     private Robot robot;

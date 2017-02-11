@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Blue;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -11,7 +12,7 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
 @Autonomous(name="Two Beacon Blue", group="Beacon Programs")
-
+@Disabled
 public class TwoBeaconBlue extends OpMode {
 
     private Robot robot;
