@@ -17,7 +17,7 @@ public class TestRobotEyes extends LinearOpMode{
         robotEyes = new RobotEyes();
         waitForStart();
         while(opModeIsActive()) {
-            telemetry.addData("image", robotEyes.imageInFrontCamera());
+            telemetry.addData("image", robotEyes.getArrayXYZ());
             telemetry.update();
         }
     }
