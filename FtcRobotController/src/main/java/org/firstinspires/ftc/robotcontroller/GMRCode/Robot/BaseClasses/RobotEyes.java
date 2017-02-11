@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 public class RobotEyes{
     //Vuforia v;  //dose nothing, I think it is like are hierarchy system but they have not made all the others subclasses of it
     VuforiaLocalizer vuforiaLocalizer;  //sets up things like image location, camera info and the view
-        VuforiaLocalizer.Parameters vuforiaParameters; //sets up the camera direction and the license key
+    VuforiaLocalizer.Parameters vuforiaParameters; //sets up the camera direction and the license key
     VuforiaTrackables beacons;  //the main class for finding stuff
     public RobotEyes() {
         vuforiaParameters = new VuforiaLocalizer.Parameters(R.id.cameraMonitorViewId);
