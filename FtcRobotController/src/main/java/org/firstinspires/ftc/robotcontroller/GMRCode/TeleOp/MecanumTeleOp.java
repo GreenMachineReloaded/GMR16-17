@@ -47,9 +47,8 @@ public class MecanumTeleOp extends OpMode {
         robot.launch.launchControl(gamepad1.left_bumper, gamepad1.x);
         robot.launch.sweeperControl(gamepad1.right_bumper, gamepad1.right_trigger);
         robot.beaconNav.teleOpBeaconPush(gamepad2.x);
-
         robot.driveTrain.setLiftMotor(gamepad2.right_bumper, gamepad2.right_trigger);
-        robot.driveTrain.setLiftServo(gamepad2.dpad_up, gamepad2.dpad_down);
+        robot.driveTrain.setLiftServo(gamepad2.left_bumper, gamepad2.left_trigger);
 
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", robot.driveTrain.getYaw());

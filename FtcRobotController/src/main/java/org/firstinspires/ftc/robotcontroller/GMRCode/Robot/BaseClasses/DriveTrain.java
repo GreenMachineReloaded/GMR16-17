@@ -414,12 +414,13 @@ public class DriveTrain {
         }
     }
 
-    public void setLiftServo(boolean dpadUp, boolean dpadDown) {
+    public void setLiftServo(boolean dpadUp, float dpadDown) {
         if (dpadUp) {
             testLiftPosition += 0.08;
-        } else if (dpadDown) {
+        } else if (dpadDown > 0) {
             testLiftPosition -= 0.08;
         }
+        clipRange(testLiftPosition, 0, 1);
         liftServo.setPosition(testLiftPosition);
         telemetry.addData("Current Lift Servo Position", testLiftPosition);
         telemetry.addData("CUrrent Recorded Position", liftServo.getPosition());
@@ -463,6 +464,16 @@ public class DriveTrain {
 
     public boolean checkGyro() {
         return gyro.isCalibrating();
+    }
+
+    public double clipRange(double number, double min, double max) {
+        if (number < min) {
+            return min;
+        } else if (number > max) {
+            return max;
+        } else {
+            return number;
+        }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENCODER
