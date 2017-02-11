@@ -27,9 +27,22 @@ public class Robot {
         colorSensor = new GMRColorSensor(hwMap, telemtry);
         telemtry.addData("Robot Startup", "Beginning");
         telemtry.update();
-        this.driveTrain = new DriveTrain(hwMap, telemtry);
-        this.launch = new Launch(hwMap, telemtry);
-        this.beaconNav = new BeaconNav(hwMap, telemtry);
+
+        try {
+            this.driveTrain = new DriveTrain(hwMap, telemtry);
+        } catch(NullPointerException e) {
+            telemtry.addData("Drive Train Failed", "");
+        }
+        try {
+            this.launch = new Launch(hwMap, telemtry);
+        } catch(NullPointerException e) {
+            telemtry.addData("Launch Failed", "");
+        }
+        try {
+            this.beaconNav = new BeaconNav(hwMap, telemtry);
+        } catch(NullPointerException e) {
+            telemtry.addData("Beacon Nav Failed", "");
+        }
 
         waitFor = new WaitFor();
         this.hwMap = hwMap;
@@ -41,7 +54,6 @@ public class Robot {
 //        if(writeToFile) {
 //            //start thread
 //        }
-        telemtry.addData("Robot Startup", "End");
         telemtry.update();
     }
 <<<<<<< HEAD
@@ -56,7 +68,7 @@ public class Robot {
 >>>>>>> refs/remotes/origin/m-Automaintenence
         this.driveTrain.Drive(direction, power);
         telemtry.addData("Current Blue", colorSensor.getColorValue(GMRColorSensor.Color.BLUE, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT));
-        if (this.colorSensor.isColor(whichGMRColorSensor, whichColor)) {
+        if (this.colorSensor.whichGreaterColor(whichGMRColorSensor, whichColor)) {
             this.driveTrain.stop();
             return true;
         } else {
@@ -69,13 +81,14 @@ public class Robot {
         else {return false;}
     }
     public boolean ProxDrive(DriveTrain.Direction direction, double power) {
+        telemtry.addData("Current Distance", beaconNav.getDistance());
         this.driveTrain.Drive(direction, power);
         if(this.beaconNav.getDistance() > 400) {this.driveTrain.stop(); return true;}
         else {return false;}
     }
     public boolean ProxDrive(DriveTrain.Direction direction, double power, double prox) {
         this.driveTrain.Drive(direction, power);
-        if(this.beaconNav.getDistance() > prox) {this.driveTrain.stop(); return true;}
+        if(this.beaconNav.getDistance() >= prox) {this.driveTrain.stop(); return true;}
         else {return false;}
     }
     public boolean ProxRawDrive(DriveTrain.Direction direction, double power, double prox) {
@@ -117,5 +130,11 @@ public class Robot {
 
     public int number() {
         return number += 1;
+    }
+
+    public void stopRobot(){
+        driveTrain.stop();
+        beaconNav.stopBeaconNav();
+        launch.stopLaunch();
     }
 }

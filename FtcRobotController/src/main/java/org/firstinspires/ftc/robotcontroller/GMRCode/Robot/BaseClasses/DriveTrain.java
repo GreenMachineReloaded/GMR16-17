@@ -3,6 +3,7 @@ package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses;
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -27,6 +28,9 @@ public class DriveTrain {
     private DcMotor rightRear;
             //object for controlling the right rear motor
 
+    private DcMotor liftMotor;
+    private Servo liftServo;
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // GYRO V
     private AHRS gyro;
@@ -49,16 +53,20 @@ public class DriveTrain {
     private String RightFront = "rightfront";
     private String LeftRear = "leftrear";
     private String RightRear = "rightrear";
+    private String LiftMotor = "liftmotor";
+    private String LiftServo = "liftservo";
     private final int gyroPort = 0;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
     private Telemetry telemetry;        //do we need this?
     //object for reference (telemetry)
-    private boolean encoderDrive;
+    private boolean encodersCanRun;
     private double goalEncoderPosition;
     private double goalBackwardPosition;
     private double goalLeftPosition;
     private double goalRightPosition;
+
+    private double testLiftPosition = 1;
 
     private double currentGyro;
 
@@ -80,11 +88,16 @@ public class DriveTrain {
                 //setup for the left back motor.
         this.rightRear = hardwareMap.dcMotor.get(RightRear);
                 //setup for the right back motor.
+        liftMotor = hardwareMap.dcMotor.get(LiftMotor);
+        liftServo = hardwareMap.servo.get(LiftServo);
 
         leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftServo.setPosition(testLiftPosition);
 
         //sets all the motors power to zero.
         //do we need this?
@@ -107,7 +120,7 @@ public class DriveTrain {
 
         this.telemetry = telemetry;
         //do we need this?
-        this.encoderDrive = true;
+        this.encodersCanRun = true;
         this.goalEncoderPosition = -1;
         goalBackwardPosition = -1;
         telemetry.addData("DriveTrain Startup", "End");
@@ -207,22 +220,25 @@ public class DriveTrain {
         this.rightRear.setPower(0);
     }
     public boolean encoderDrive(Direction direction, double power, double inches) {
+<<<<<<< HEAD
         mostRecentCommand = "[encoderDrive] direction:"+direction+" power:"+power+" inches:"+inches;
         double leftInput = -power;
         double rightInput = power;
+=======
+>>>>>>> refs/remotes/origin/m-Automaintenence
 
         int combinedEnValue = ((getLeftEncoder() + getRightEncoder()) / 2);
         int leftStrafeValue = ((-getLeftEncoder() + getRightEncoder()) / 2);
         int rightStrafeValue = ((getLeftEncoder() + -getRightEncoder()) / 2);
 
-        if (encoderDrive){
+        if (encodersCanRun){
             currentGyro = getYaw();
             goalEncoderPosition = (combinedEnValue + (inches * countsPerInch));
             goalBackwardPosition = (combinedEnValue - (inches * countsPerInch));
             goalLeftPosition = (getLeftEncoder() + (inches * countsPerInch));
             goalRightPosition = (getRightEncoder() + (inches * countsPerInch));
-            encoderDrive = false;
-            return encoderDrive;
+            encodersCanRun = false;
+            return encodersCanRun;
         } else {
             switch (direction) {
 
@@ -231,10 +247,10 @@ public class DriveTrain {
                         Drive(direction, power);
                         telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
-                        encoderDrive = true;
+                        encodersCanRun = true;
                         goalEncoderPosition = -1;
                         stop();
-                        return encoderDrive;
+                        return encodersCanRun;
                     }
                     break;
                 case BACKWARD:
@@ -242,10 +258,10 @@ public class DriveTrain {
                         Drive(direction, power);
                         telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
-                        encoderDrive = true;
+                        encodersCanRun = true;
                         goalEncoderPosition = -1;
                         stop();
-                        return encoderDrive;
+                        return encodersCanRun;
                     }
                     break;
                 case STRAFELEFT:
@@ -254,10 +270,10 @@ public class DriveTrain {
                         telemetry.addData("Current Combined Value", combinedEnValue);
                         telemetry.addData("Goal Value", goalEncoderPosition);
                     } else {
-                        encoderDrive = true;
+                        encodersCanRun = true;
                         goalEncoderPosition = -1;
                         stop();
-                        return encoderDrive;
+                        return encodersCanRun;
                     }
                     break;
                 case STRAFERIGHT:
@@ -265,10 +281,10 @@ public class DriveTrain {
                         Drive(direction, power);
                         telemetry.addData("Current Combined Value", combinedEnValue);
                     } else {
-                        encoderDrive = true;
+                        encodersCanRun = true;
                         goalEncoderPosition = -1;
                         stop();
-                        return encoderDrive;
+                        return encodersCanRun;
                     }
                     break;
                 case DRIGHTUP:
@@ -282,10 +298,10 @@ public class DriveTrain {
                         telemetry.addData("Current Right Encoder Value", getLeftEncoder());
                         telemetry.addData("Current Yaw", getYaw());
                     } else {
-                        encoderDrive = true;
+                        encodersCanRun = true;
                         goalEncoderPosition = -1;
                         stop();
-                        return encoderDrive;
+                        return encodersCanRun;
                     }
                     break;
                 case DRIGHTDOWN:
@@ -301,10 +317,10 @@ public class DriveTrain {
                         telemetry.addData("Current Right Encoder Value", getRightEncoder());
                         telemetry.addData("Current Yaw", getYaw());
                     } else {
-                        encoderDrive = true;
+                        encodersCanRun = true;
                         goalEncoderPosition = -1;
                         stop();
-                        return encoderDrive;
+                        return encodersCanRun;
                     }
                     break;
                 case DLEFTDOWN:
@@ -314,7 +330,7 @@ public class DriveTrain {
                 case TURNRIGHT:
                     break;
             }
-            return encoderDrive;
+            return encodersCanRun;
         }
     }
 
@@ -332,6 +348,8 @@ public class DriveTrain {
                 }
                 if (!(this.getYaw() > (goalDegrees - gyroRange) && this.getYaw() < (goalDegrees + gyroRange))) {
                     Drive(direction, power);
+                    telemetry.addData("Goal Degrees", goalDegrees);
+                    telemetry.addData("Current Degrees", getYaw());
                     return false;
                 } else {
                     this.stop();
@@ -347,6 +365,8 @@ public class DriveTrain {
                 }
                 if (!(this.getYaw() > (goalDegrees - gyroRange) && this.getYaw() < (goalDegrees + gyroRange))) {
                     Drive(direction, power);
+                    telemetry.addData("Goal Degrees", goalDegrees);
+                    telemetry.addData("Current Degrees", getYaw());
                     return false;
                 } else {
                     this.stop();
@@ -360,16 +380,6 @@ public class DriveTrain {
         mostRecentCommand = "[getYaw]";
         if(this.gyro.getYaw() < 0) {return (360 + this.gyro.getYaw());}
         else {return this.gyro.getYaw();}
-    }
-
-    public boolean straighten(double goalposition) {
-        if (!(this.getYaw() > (goalposition - gyroRange) && this.getYaw() < (goalposition + gyroRange))) {
-            Drive(Direction.TURNRIGHT, .15);
-            return false;
-        } else {
-            this.stop();
-            return true;
-        }
     }
 
     public void experimentalDrive(double x, double y, double z){
@@ -410,6 +420,7 @@ public class DriveTrain {
     }
 
     public double currentDegrees(double x,double y) {
+<<<<<<< HEAD
         mostRecentCommand = "[currentDegrees] x:"+x+" y:"+y;
         //double magnitude = (Math.sqrt((x*x)+(-y*-y)));
         //return (Math.asin(x/magnitude)/0.0175);
@@ -420,6 +431,63 @@ public class DriveTrain {
         //return degrees;
         if (((Math.atan2(y, x)) * (180/Math.PI))<0) {return (360 + ((Math.atan2(y, x)) * (180/Math.PI)));}
         else {return ((Math.atan2(y, x)) * (180/Math.PI));}
+=======
+        if (((Math.atan2(y, x)) * (180/Math.PI))<0) {
+            return (360 + ((Math.atan2(y, x)) * (180/Math.PI)));
+        } else {
+            return ((Math.atan2(y, x)) * (180/Math.PI));
+        }
+    }
+
+    public void setLiftServo(boolean dpadUp, boolean dpadDown) {
+        if (dpadUp) {
+            testLiftPosition += 0.0008;
+        } else if (dpadDown) {
+            testLiftPosition -= 0.0008;
+        }
+        liftServo.setPosition(testLiftPosition);
+        telemetry.addData("Current Lift Servo Position", testLiftPosition);
+        telemetry.addData("CUrrent Recorded Position", liftServo.getPosition());
+    }
+
+    public void setLiftMotor(boolean bumper, double trigger) {
+        if (bumper) {
+            liftMotor.setPower(1);
+        } else if (trigger > 0) {
+            liftMotor.setPower(-.4);
+        } else {
+            liftMotor.setPower(0);
+        }
+    }
+
+    public void resetEncoders() {
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public boolean straighten(double goal) {
+        if (this.getYaw() > (goalDegrees - 2) && this.getYaw() < (goalDegrees + 2)) {
+            if (this.getYaw() > (goalDegrees - 2)) {
+                Drive(Direction.TURNLEFT, 0.2);
+            } else if (this.getYaw() < (goalDegrees + 2)) {
+                Drive(Direction.TURNRIGHT, 0.2);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean checkGyro() {
+        return gyro.isCalibrating();
+>>>>>>> refs/remotes/origin/m-Automaintenence
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENCODER

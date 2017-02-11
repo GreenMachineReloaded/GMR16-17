@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Red;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
@@ -8,7 +7,7 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
-@Autonomous(name="One Beacon Red First Beacon", group="Beacon Programs")
+//@Autonomous(name="One Beacon Red First Beacon", group="Beacon Programs")
 public class FixForEndOneBeaconRed extends OpMode {
     private Robot robot;
     private boolean isDone;
@@ -138,7 +137,7 @@ public class FixForEndOneBeaconRed extends OpMode {
         }else if (state == CurrentStates.DELAY) {
             if (isDone) {isDone = false;state = CurrentStates.ELSE;}
         } else if (state == CurrentStates.PUSHBEACON) {
-            if(colorSensor.isColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED)) {
+            if(colorSensor.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED)) {
                 robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
             }
             else {

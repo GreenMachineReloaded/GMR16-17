@@ -12,10 +12,8 @@ public class Launch {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MOTOR V
     private DcMotor sweeperMotor;
-    private DcMotor ballLiftMotor;
     public DcMotor launchMotor;
     private String sweeperMotorStringArg = "sweepermotor";
-    private String ballLiftMotorStringArg = "balllift";
     private String launchMotorStringArg = "launchmotor";
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SERVO V
@@ -44,11 +42,11 @@ public class Launch {
         //setup for all the launching stuff
             //setup for the launching motor
         this.launchMotor = hardwareMap.dcMotor.get(launchMotorStringArg);
-            //setup for the ballLiftMotor
-        this.ballLiftMotor = hardwareMap.dcMotor.get(ballLiftMotorStringArg);
         //setup for all the servos
             //setup for the door servo.
         this.hopperDoorServo = hardwareMap.servo.get(hopperDoorServoStringArg);
+
+        hopperDoorServo.setPosition(0.75);
 
         //is this required?
         this.sweeperMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -78,10 +76,15 @@ public class Launch {
             timeOfCompletion = (launchTime.seconds() + 0.7);
             return false;
         } else {
-            if (launchTime.seconds() < timeOfCompletion) {launcherServoControl(true);}
-            else {launcherServoControl(false);}
-            canLaunch = true;
-            return true;
+            if (launchTime.seconds() < timeOfCompletion) {
+                launcherServoControl(true);
+                canLaunch = false;
+                return false;
+            } else {
+                launcherServoControl(false);
+                canLaunch = true;
+                return true;
+            }
         }
     }
     public boolean launchControl(boolean leftBumper, boolean x) {
@@ -129,6 +132,7 @@ public class Launch {
         }
 >>>>>>> refs/remotes/origin/m-Automaintenence
     }
+<<<<<<< HEAD
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // LINEAR SLIDE
     public void linearSlideControl(boolean gamepad2A, boolean gamepad2B) {
@@ -136,6 +140,13 @@ public class Launch {
         if (gamepad2A && !gamepad2B) {this.ballLiftMotor.setPower(0.8);}
         else if (!gamepad2A && gamepad2B) {this.ballLiftMotor.setPower(-0.8);}
         else {this.ballLiftMotor.setPower(0);}
+=======
+
+    public void stopLaunch(){
+        launchMotor.setPower(0);
+        sweeperMotor.setPower(0);
+        launcherServoControl(false);
+>>>>>>> refs/remotes/origin/m-Automaintenence
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SWEEPER

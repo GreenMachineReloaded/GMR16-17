@@ -21,6 +21,7 @@ public enum CurrentStates {
     TURNLEFT,
     STRAFELEFT,
     STRAFELEFT2,
+    STRAFELEFT3,
     STRAFERIGHT,
     DIAGONALUPRIGHT,
     DIAGONALUPLEFT,
@@ -41,7 +42,9 @@ public enum CurrentStates {
 
     COLOR,
     COLORFORWARD,
+    COLORFORWARD2,
     COLORBACKWARD,
+    COLORBACKWARD2,
     COLORTURNRIGHT,
     COLORTURNLEFT,
     COLORSTRAFELEFT,
@@ -76,5 +79,8 @@ public enum CurrentStates {
 
     TEST,
 
-    PUSHBEACON
+    PUSHBEACON,
+    PUSHBEACON2,
+
+    STRAIGHTEN
 }
