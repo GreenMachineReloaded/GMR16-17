@@ -6,11 +6,7 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.WaitFor;
-<<<<<<< HEAD
-import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Debug.DebugThread;
-=======
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
->>>>>>> refs/remotes/origin/m-Automaintenence
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Robot {
@@ -56,16 +52,15 @@ public class Robot {
 //        }
         telemtry.update();
     }
-<<<<<<< HEAD
+
 //    public void startDebug(boolean debug, boolean debugFile) {
 //        debugThread.whichDebug(debug, debugFile);
 //        debugThread.start();
 //    }
 //    public void stopDebug() {debugThread.setOn(false);}
-    public boolean colorDrive(DriveTrain.Direction direction, double power, BeaconNav.WhichGMRColorSensor whichGMRColorSensor , BeaconNav.Color whichColor) {
-=======
+
     public boolean colorDrive(DriveTrain.Direction direction, double power, GMRColorSensor.WhichGMRColorSensor whichGMRColorSensor , GMRColorSensor.Color whichColor) {
->>>>>>> refs/remotes/origin/m-Automaintenence
+
         this.driveTrain.Drive(direction, power);
         telemtry.addData("Current Blue", colorSensor.getColorValue(GMRColorSensor.Color.BLUE, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT));
         if (this.colorSensor.whichGreaterColor(whichGMRColorSensor, whichColor)) {

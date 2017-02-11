@@ -22,17 +22,12 @@ public class OneBeaconRed extends OpMode {
     private boolean isStraight = false;
     private int launches = 0;
     private double startingOrientation;
-<<<<<<< HEAD
-=======
-
-    private Continue sleep = new Continue();
 
     private int launchNumber = 0;
 
     private ElapsedTime beaconTime = new ElapsedTime();
     private double beaconServoTime;
 
->>>>>>> refs/remotes/origin/m-Automaintenence
     @Override
     public void init() {
         beaconTime.reset();

@@ -119,34 +119,23 @@ public class Launch {
         }
     }
     public void launcherServoControl(boolean x) {
-<<<<<<< HEAD
+
         mostRecentCommand = "[launchServoControl] x:"+x;
         if (x) {this.hopperDoorServo.setPosition(0);}
         else {this.hopperDoorServo.setPosition(0.5);}
-=======
         if (x) {
             this.hopperDoorServo.setPosition(0.25);
         }
         else {
             this.hopperDoorServo.setPosition(0.75);
         }
->>>>>>> refs/remotes/origin/m-Automaintenence
+
     }
-<<<<<<< HEAD
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// LINEAR SLIDE
-    public void linearSlideControl(boolean gamepad2A, boolean gamepad2B) {
-        mostRecentCommand = "[linearSlideControl] gamepad2A"+gamepad2A+" gamepad2B"+gamepad2B;
-        if (gamepad2A && !gamepad2B) {this.ballLiftMotor.setPower(0.8);}
-        else if (!gamepad2A && gamepad2B) {this.ballLiftMotor.setPower(-0.8);}
-        else {this.ballLiftMotor.setPower(0);}
-=======
 
     public void stopLaunch(){
         launchMotor.setPower(0);
         sweeperMotor.setPower(0);
         launcherServoControl(false);
->>>>>>> refs/remotes/origin/m-Automaintenence
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SWEEPER

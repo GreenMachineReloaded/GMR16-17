@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
-import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
 @Autonomous(name="One Beacon Blue", group="Beacon Programs")
@@ -20,7 +19,6 @@ public class OneBeaconBlue extends OpMode {
     private boolean isStraight = false;
     private int launches = 0;
     private double startingOrientation;
-    private Continue sleep = new Continue();
     private int launchNumber = 0;
 
     private ElapsedTime beaconTime = new ElapsedTime();

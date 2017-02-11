@@ -7,7 +7,6 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
-import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
 @Autonomous(name="Two Beacon Blue", group="Beacon Programs")
@@ -21,7 +20,6 @@ public class TwoBeaconBlue extends OpMode {
     private boolean isStraight = false;
     private int launches = 0;
     private double startingOrientation;
-    private Continue sleep = new Continue();
     private int launchNumber = 0;
 
     private ElapsedTime beaconTime = new ElapsedTime();

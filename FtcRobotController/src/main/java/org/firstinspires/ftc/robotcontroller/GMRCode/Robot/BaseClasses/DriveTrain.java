@@ -220,12 +220,10 @@ public class DriveTrain {
         this.rightRear.setPower(0);
     }
     public boolean encoderDrive(Direction direction, double power, double inches) {
-<<<<<<< HEAD
+
         mostRecentCommand = "[encoderDrive] direction:"+direction+" power:"+power+" inches:"+inches;
         double leftInput = -power;
         double rightInput = power;
-=======
->>>>>>> refs/remotes/origin/m-Automaintenence
 
         int combinedEnValue = ((getLeftEncoder() + getRightEncoder()) / 2);
         int leftStrafeValue = ((-getLeftEncoder() + getRightEncoder()) / 2);
@@ -420,7 +418,6 @@ public class DriveTrain {
     }
 
     public double currentDegrees(double x,double y) {
-<<<<<<< HEAD
         mostRecentCommand = "[currentDegrees] x:"+x+" y:"+y;
         //double magnitude = (Math.sqrt((x*x)+(-y*-y)));
         //return (Math.asin(x/magnitude)/0.0175);
@@ -431,12 +428,6 @@ public class DriveTrain {
         //return degrees;
         if (((Math.atan2(y, x)) * (180/Math.PI))<0) {return (360 + ((Math.atan2(y, x)) * (180/Math.PI)));}
         else {return ((Math.atan2(y, x)) * (180/Math.PI));}
-=======
-        if (((Math.atan2(y, x)) * (180/Math.PI))<0) {
-            return (360 + ((Math.atan2(y, x)) * (180/Math.PI)));
-        } else {
-            return ((Math.atan2(y, x)) * (180/Math.PI));
-        }
     }
 
     public void setLiftServo(boolean dpadUp, boolean dpadDown) {
@@ -487,7 +478,6 @@ public class DriveTrain {
 
     public boolean checkGyro() {
         return gyro.isCalibrating();
->>>>>>> refs/remotes/origin/m-Automaintenence
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENCODER
