@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ProxSensors;
-
-@Autonomous(name = "TestProxSensorDistance")
 @Disabled
+@Autonomous(name = "TestProxSensorDistance")
+
 public class TestProxSensorsDistance extends LinearOpMode{
     Continue c;
     Hardwaresetup hardwaresetup;

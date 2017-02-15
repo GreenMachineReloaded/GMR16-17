@@ -2,6 +2,7 @@ package org.firstinspires.ftc.robotcontroller.GMRDriveCode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
@@ -62,15 +63,26 @@ public class MoveMotors {
     boolean canLaunch = true;
 
     int goalPosition = -1;
+    double goalEncoderPosition = -1;
+
+    double servoTestPosition = 0.5;
+
+    ElapsedTime launchTime = new ElapsedTime();
+
+    double timeOfCompletion;
+
+    boolean encoderDrive = true;
+
+    int gyroRange = 4;
 
     public void init(HardwareMap hwMap, Telemetry Telemetry){
         robot.init(hwMap);
 
         telemetry = Telemetry;
 
-        colorSensorsBeacon = new ColorSensors(robot.CSBeacon_);
-        colorSensorsGroundLeft = new ColorSensors(robot.CSGroundLeft_);
-        colorSensorsGroundRight = new ColorSensors(robot.CSGroundRight_);
+        colorSensorsBeacon = new ColorSensors(robot.colorSensorBeacon);
+        colorSensorsGroundLeft = new ColorSensors(robot.colorSensorGroundLeft);
+        colorSensorsGroundRight = new ColorSensors(robot.colorSensorGroundRight);
         proxSensors = new ProxSensors(robot.proxSensor);
     }
 
@@ -96,19 +108,52 @@ public class MoveMotors {
 
     }
 
-    public void launchControl(boolean leftTrigger) {
-        if (leftTrigger) {
+    public void launchControl(boolean leftBumper, boolean x) {
+        if (leftBumper) {
             if (canLaunch){
-                goalPosition = (getLaunchEncoder() + 1550);
+                goalPosition = (getLaunchEncoder() + 1680);
                 canLaunch = false;
-                telemetry.addData("","");
+                robot.launchMotor.setPower(1);
+                robot.launchMotor.setTargetPosition(goalPosition);
             }
         }
-        if (getLaunchEncoder() < goalPosition) {
-            robot.launchMotor.setPower(1);
-            telemetry.addData("Goal Position", goalPosition);
+
+        if (robot.launchMotor.getCurrentPosition() < goalPosition - 20) {
+            launcherServoControl(false);
+            timeOfCompletion = (launchTime.seconds() + 0.7);
         } else {
-            robot.launchMotor.setPower(0);
+            if (launchTime.seconds() < timeOfCompletion) {
+                launcherServoControl(true);
+            } else {
+                if (x) {
+                    launcherServoControl(true);
+                } else {
+                    launcherServoControl(false);
+                }
+            }
+            canLaunch = true;
+        }
+    }
+
+    public void launchControl(boolean leftBumper) {
+        if (leftBumper) {
+            if (canLaunch){
+                goalPosition = (getLaunchEncoder() + 1680);
+                canLaunch = false;
+                robot.launchMotor.setPower(1);
+                robot.launchMotor.setTargetPosition(goalPosition);
+            }
+        }
+
+        if (robot.launchMotor.getCurrentPosition() < goalPosition - 20) {
+            launcherServoControl(false);
+            timeOfCompletion = (launchTime.seconds() + 0.7);
+        } else {
+            if (launchTime.seconds() < timeOfCompletion) {
+                launcherServoControl(true);
+            } else {
+                    launcherServoControl(false);
+            }
             canLaunch = true;
         }
     }
@@ -145,6 +190,22 @@ public class MoveMotors {
         }
         return degrees;
 
+    }
+
+    public void launcherServoControl(boolean x) {
+        if (x) {
+            robot.hopperDoorServo.setPosition(0.43);
+        } else {
+            robot.hopperDoorServo.setPosition(0.95);
+        }
+    }
+
+    public void liftControl(boolean dPadUp, boolean dPadDown) {
+        if (dPadUp) {
+            robot.ballLiftServo.setPosition(0.07);
+        } else if (dPadDown) {
+            robot.ballLiftServo.setPosition(0.63);
+        }
     }
 
     public void Drive(Directions direction, double power){
@@ -227,14 +288,15 @@ public class MoveMotors {
                         goalDegrees = (goalDegrees + 360);
                     }
                 }
-                if (!(getYaw() > goalDegrees - 1 && getYaw() < goalDegrees + 1)) {
+                if (!(getYaw() > goalDegrees - gyroRange && getYaw() < goalDegrees + gyroRange)) {
                     Drive(direction, power);
-                    telemetry.addData("Goal degrees", goalDegrees);
-                    return true;
+                    telemetry.addData("Current Gyro", getYaw());
+                    return false;
                 } else {
+                    telemetry.addData("Current Gyro", getYaw());
                     Stop();
                     goalDegrees = -1;
-                    return false;
+                    return true;
                 }
             case TurnRight:
                 if (goalDegrees == -1) {
@@ -243,16 +305,15 @@ public class MoveMotors {
                         goalDegrees = (goalDegrees - 360);
                     }
                 }
-                if (!(getYaw() > (goalDegrees - 3) && getYaw() < (goalDegrees + 3))) {
+                if (!(getYaw() > (goalDegrees - gyroRange) && getYaw() < (goalDegrees + gyroRange))) {
                     Drive(direction, power);
-                    telemetry.addData("Goal degrees", goalDegrees);
-                    telemetry.addData("Goal degrees + 3", goalDegrees + 3);
-                    telemetry.addData("Goal degrees - 3", goalDegrees - 3);
-                    return true;
+                    telemetry.addData("Current Gyro", getYaw());
+                    return false;
                 } else {
+                    telemetry.addData("Current Gyro", getYaw());
                     Stop();
                     goalDegrees = -1;
-                    return false;
+                    return true;
                 }
         }
         return false;
@@ -263,30 +324,55 @@ public class MoveMotors {
         double leftInput = -power;
         double rightInput = power;
 
-        switch(direction) {
+        int combinedEnValue = ((getLeftEncoder() + getRightEncoder()) / 2);
 
-            case Forward:
-                break;
-            case Backward:
-                break;
-            case StrafeLeft:
-                break;
-            case StrafeRight:
-                break;
-            case DRightUp:
-                break;
-            case DRightDown:
-                break;
-            case DLeftUp:
-                break;
-            case DLeftDown:
-                break;
-            case TurnLeft:
-                break;
-            case TurnRight:
-                break;
+        if (encoderDrive){
+            goalEncoderPosition = (combinedEnValue + (inches * countsPerInch));
+            encoderDrive = false;
+            return encoderDrive;
+        } else {
+
+            switch (direction) {
+
+                case Forward:
+                    if ((combinedEnValue) < goalEncoderPosition) {
+                        Drive(direction, power);
+                        telemetry.addData("Current Combined Value", combinedEnValue);
+                    } else {
+                        encoderDrive = true;
+                        Stop();
+                        return encoderDrive;
+                    }
+                    break;
+                case Backward:
+                    if ((combinedEnValue) > goalEncoderPosition) {
+                        Drive(direction, power);
+                        telemetry.addData("Current Combined Value", combinedEnValue);
+                    } else {
+                        encoderDrive = true;
+                        Stop();
+                        return encoderDrive;
+                    }
+                    break;
+                case StrafeLeft:
+                    return encoderDrive;
+                case StrafeRight:
+                    return encoderDrive;
+                case DRightUp:
+                    return encoderDrive;
+                case DRightDown:
+                    return encoderDrive;
+                case DLeftUp:
+                    return encoderDrive;
+                case DLeftDown:
+                    return encoderDrive;
+                case TurnLeft:
+                    return encoderDrive;
+                case TurnRight:
+                    return encoderDrive;
+            }
+            return encoderDrive;
         }
-        return false;
     }
 
     public void startEncoders(){
@@ -337,70 +423,75 @@ public class MoveMotors {
 
 
 
-    public void colorWhiteDrive(Directions direction, double power, ColorSensors.whichColorSensor which) {
+    public boolean colorWhiteDrive(Directions direction, double power, ColorSensors.whichColorSensor which) {
         Drive(direction, power);
         if(which == ColorSensors.whichColorSensor.BEACON) {
-            while(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
-                sleep.Sleep(10);
+            telemetry.addData("Current Red", colorSensorsBeacon.getRed());
+            telemetry.addData("Current Red", colorSensorsBeacon.getRed());
+            if(colorSensorsBeacon.isWhite() != ColorSensors.whichColor.WHITE) {
+                Stop();
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDLEFT){
-            while(colorSensorsGroundLeft.isWhite() != ColorSensors.whichColor.WHITE) {
-                sleep.Sleep(10);
+            telemetry.addData("Current Red", colorSensorsGroundLeft.getRed());
+            telemetry.addData("Current Red", colorSensorsGroundLeft.getRed());
+            if(colorSensorsGroundLeft.isWhite() == ColorSensors.whichColor.WHITE) {
+                Stop();
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
-            while(colorSensorsGroundRight.isWhite() != ColorSensors.whichColor.WHITE) {
-                sleep.Sleep(10);
+            telemetry.addData("Current Red", colorSensorsGroundRight.getRed());
+            telemetry.addData("Current Red", colorSensorsGroundRight.getRed());
+            if(colorSensorsGroundRight.isWhite() == ColorSensors.whichColor.WHITE) {
+                Stop();
+                return true;
             }
         }
-        else {
-            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
-            telemetry.update();
-        }
-        Stop();
+        return false;
     }
 
-    public void colorDriveRedBlue(Directions direction, double power, ColorSensors.whichColorSensor which, ColorSensors.whichColor whichColor) {
+    public boolean colorDriveRedBlue(Directions direction, double power, ColorSensors.whichColorSensor which, ColorSensors.whichColor whichColor) {
         Drive(direction, power);
         if(which == ColorSensors.whichColorSensor.BEACON) {
-            while (colorSensorsBeacon.greaterColor() == whichColor) {
-                sleep.Sleep(10);
+            if (colorSensorsBeacon.greaterColor() == whichColor) {
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDLEFT) {
-            while (colorSensorsGroundLeft.greaterColor() == whichColor) {
-                sleep.Sleep(10);
+            if (colorSensorsGroundLeft.greaterColor() == whichColor) {
+                return true;
             }
         }
         else if(which == ColorSensors.whichColorSensor.GROUNDRIGHT) {
-            while (colorSensorsGroundRight.greaterColor() == whichColor) {
-                sleep.Sleep(10);
+            if (colorSensorsGroundRight.greaterColor() == whichColor) {
+
+                return true;
             }
         }
-        else {
-            telemetry.addData("ERROR NO ENUM WHICH COLOR SENSOR", null);
-            telemetry.update();
-        }
-        Stop();
+        sleep.Sleep(10);
+        return false;
     }
 
 
 
 
 
-    public void ProxDrive(Directions direction, double power) {
+    public boolean ProxDrive(Directions direction, double power) {
         Drive(direction, power);
-        while(proxSensors.getDistance() < .5) {
-            sleep.Sleep(10);
+        if(proxSensors.getDistance() > .4) {
+            Stop();
+            return true;
         }
-        Stop();
+        return false;
     }
-    public void ProxDrive(Directions direction, double power, double prox) {
+    public boolean ProxDrive(Directions direction, double power, double prox) {
         Drive(direction, power);
-        while(proxSensors.getDistance() < prox) {
-            sleep.Sleep(10);
+        if(proxSensors.getDistance() > prox) {
+            Stop();
+            return true;
         }
-        Stop();
+        return false;
     }
 }

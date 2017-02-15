@@ -50,7 +50,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  *
  * @see Telemetry
  */
-@Autonomous(name = "Concept: Telemetry", group = "Concept")
+@Autonomous(name = "Concept: telemtry", group = "Concept")
 @Disabled
 public class ConceptTelemetry extends LinearOpMode
     {
