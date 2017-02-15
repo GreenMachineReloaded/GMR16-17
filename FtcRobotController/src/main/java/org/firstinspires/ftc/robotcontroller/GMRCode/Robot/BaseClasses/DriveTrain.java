@@ -415,28 +415,20 @@ public class DriveTrain {
     }
 
     public void setLiftServo(boolean dpadUp, float dpadDown) {
-        if (dpadUp) {
-            testLiftPosition += 0.08;
-        } else if (dpadDown > 0) {
-            testLiftPosition -= 0.08;
-        }
+        if (dpadUp) {testLiftPosition += 0.08;}
+        else if (dpadDown > 0) {testLiftPosition -= 0.08;}
         testLiftPosition = clipRange(testLiftPosition, 0, 1);
         liftServo.setPosition(testLiftPosition);
         telemetry.addData("Current Lift Servo Position", testLiftPosition);
         telemetry.addData("CUrrent Recorded Position", liftServo.getPosition());
     }
-
     public void setLiftMotor(boolean bumper, double trigger) {
         if (bumper) {
             telemetry.addData("lift motor speed", liftMotor.getMaxSpeed());
             liftMotor.setPower(1);
-        } else if (trigger > 0) {
-            liftMotor.setPower(-.4);
-        } else {
-            liftMotor.setPower(0);
-        }
+        } else if (trigger > 0) {liftMotor.setPower(-.4);}
+          else {liftMotor.setPower(0);}
     }
-
     public void resetEncoders() {
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -448,7 +440,6 @@ public class DriveTrain {
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-
     public boolean straighten(double goal) {
         if (this.getYaw() > (goalDegrees - 2) && this.getYaw() < (goalDegrees + 2)) {
             if (this.getYaw() > (goalDegrees - 2)) {
@@ -461,19 +452,13 @@ public class DriveTrain {
             return true;
         }
     }
-
     public boolean checkGyro() {
         return gyro.isCalibrating();
     }
-
     public double clipRange(double number, double min, double max) {
-        if (number < min) {
-            return min;
-        } else if (number > max) {
-            return max;
-        } else {
-            return number;
-        }
+        if (number < min) {return min;}
+        else if (number > max) {return max;}
+        else {return number;}
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENCODER
