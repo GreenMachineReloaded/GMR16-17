@@ -46,19 +46,15 @@ public class MecanumTeleOp extends OpMode {
         //robot.driveTrain.experimentalDrive(x, y, x);
         robot.launch.launchControl(gamepad1.left_bumper, gamepad1.x);
         robot.launch.sweeperControl(gamepad1.right_bumper, gamepad1.right_trigger);
-        robot.launch.linearSlideControl(gamepad2.a, gamepad2.b);
-        updateTelemetry(telemetry);
+        robot.beaconNav.teleOpBeaconPush(gamepad2.x);
+        robot.driveTrain.setLiftMotor(gamepad2.right_bumper, gamepad2.right_trigger);
+        robot.driveTrain.setLiftServo(gamepad2.left_bumper, gamepad2.left_trigger);
 
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", robot.driveTrain.getYaw());
-        //telemetry.addData("Servo Pusher Position", robot.beaconNav.beaconServo.getPosition());
-        //telemetry.addData("Hopper Door position", robot.launch.hopperDoorServo.getPosition());
-        //telemetry.addData("Left Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT));
-        //telemetry.addData("Right Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDRIGHT));
-        //telemetry.addData("Beacon Sensor Color", robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.BEACON));
+        telemetry.addData("Current Distance", robot.beaconNav.getDistance());
 
         //robot.launch.fixLauncher(gamepad2.left_stick_y);
-
-        robot.beaconNav.BeaconPusher(gamepad2.dpad_up, gamepad2.dpad_down);
+        //robot.beaconNav.beaconServos(gamepad2.a, gamepad2.b);
     }
 }

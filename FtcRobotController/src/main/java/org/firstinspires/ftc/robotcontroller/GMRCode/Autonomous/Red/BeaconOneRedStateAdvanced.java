@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Directions;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 import org.firstinspires.ftc.robotcontroller.GMRDriveCode.MoveMotors;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
 
@@ -14,11 +16,12 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
  * Created by Payton on 11/26/2016
  */
 @Autonomous(name="hit beacon red!!!!!!!", group="Mecanum Bot")
+@Disabled
 public class BeaconOneRedStateAdvanced extends OpMode {
 
     MoveMotors move = new MoveMotors();
     Hardwaresetup robot = new Hardwaresetup();
-    ColorSensors colorSensors;
+    GMRColorSensor colorSensors;
     currentState state = currentState.stateOne;
     boolean isFinished = false;
 
@@ -27,7 +30,7 @@ public class BeaconOneRedStateAdvanced extends OpMode {
     public void init() {
         move.init(hardwareMap, telemetry);
         robot.init(hardwareMap);
-        colorSensors = new ColorSensors(robot.colorSensorBeacon);
+        colorSensors = new GMRColorSensor(hardwareMap, telemetry);
     }
 
     @Override
@@ -124,7 +127,7 @@ public class BeaconOneRedStateAdvanced extends OpMode {
             state = currentState.stateThirteen;
         } else if(state == currentState.stateThirteen) {
             sleep.Sleep(4000);
-            if(colorSensors.getBlue() > colorSensors.getRed()) {
+            if(colorSensors.getBlue(GMRColorSensor.WhichGMRColorSensor.BEACON) > colorSensors.getRed(GMRColorSensor.WhichGMRColorSensor.BEACON)) {
                 telemetry.addData("Hitting Beacon","");
                 move.Drive(Directions.Forward, .25);
                 sleep.Sleep(150);

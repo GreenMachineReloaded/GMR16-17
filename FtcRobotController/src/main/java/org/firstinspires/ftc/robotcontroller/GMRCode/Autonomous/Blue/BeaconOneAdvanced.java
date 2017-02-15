@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
+import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
 
@@ -13,17 +15,21 @@ import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
  * Created by Payton on 11/26/2016
  */
 @Autonomous(name="Hit Beacon Blue", group="Mecanum Bot")
+@Disabled
 public class BeaconOneAdvanced extends OpMode {
 
     private Robot robot;
+    private GMRColorSensor colorSensor;
     private currentState state = currentState.stateOne;
     private boolean isFinished = false;
+
 
     private Continue sleep = new Continue();
 
     @Override
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
+        colorSensor = new GMRColorSensor(hardwareMap, telemetry);
         telemetry.addData("Starting Robot", "");
     }
 
@@ -88,7 +94,7 @@ public class BeaconOneAdvanced extends OpMode {
             }
         } else if (state == currentState.stateSeven) {
             if (!isFinished) {
-                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.12, BeaconNav.WhichGMRColorSensor.GROUNDLEFT);
+                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.12, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
             } else {
                 state = currentState.stateEight;
                 isFinished = false;
@@ -124,7 +130,7 @@ public class BeaconOneAdvanced extends OpMode {
             state = currentState.stateTwelve;
         } else if(state == currentState.stateTwelve) {
             sleep.Sleep(4000);
-            if(robot.beaconNav.getColorValue(BeaconNav.Color.BLUE, BeaconNav.WhichGMRColorSensor.GROUNDLEFT) < (robot.beaconNav.getColorValue(BeaconNav.Color.RED, BeaconNav.WhichGMRColorSensor.GROUNDLEFT))) {
+            if(colorSensor.getBlue(GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT) < (colorSensor.getRed(GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT))) {
                 telemetry.addData("Hitting Beacon","");
                 robot.driveTrain.Drive(DriveTrain.Direction.FORWARD, 0.25);
                 sleep.Sleep(150);
