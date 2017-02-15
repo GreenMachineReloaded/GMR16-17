@@ -28,17 +28,14 @@ public class BeaconNav {
     private double testBeaconServoPosition = 0.5;
     private double testBeaconServoPositionB = 0.5;
 
-<<<<<<< HEAD
     private double beaconServoPosition = 0.39;
     private double beaconServoPositionB = 0.63;
 
     private String mostRecentCommand;
-=======
     GMRColorSensor colorSensors;
 
     private boolean hasPushed = false;
     private boolean isStraight = false;
->>>>>>> refs/remotes/origin/m-Automaintenence
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //constructors with all references
@@ -66,67 +63,6 @@ public class BeaconNav {
         //telemetry.addData("BeaconNav Startup", "End");
         telemetry.update();
     }
-<<<<<<< HEAD
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// COLOR
-    //get raw value of the color sensor
-    public double getColorValue(Color desiredColor, WhichGMRColorSensor whichColorSensor) {
-        mostRecentCommand = "[getColorValue] desiredColor: "+desiredColor+" whichColorSensor: "+whichColorSensor;
-        if(desiredColor == Color.RED) {return this.getRed(whichColorSensor);}
-        else if(desiredColor == Color.BLUE) {return this.getBlue(whichColorSensor);}
-        else {return this.getGreen(whichColorSensor);}
-    }
-    //logic methods
-    public Color whichGreaterColor(WhichGMRColorSensor whichColorSensor) {
-        mostRecentCommand = "[whichGreaterColor] whichColorSensor: "+whichColorSensor;
-        if (getColorValue(Color.RED, whichColorSensor) > getColorValue(Color.BLUE, whichColorSensor)) {return Color.RED; }
-        else if (getColorValue(Color.RED, whichColorSensor) == getColorValue(Color.BLUE, whichColorSensor)) {return Color.EQUAL; }
-        else {return Color.BLUE;}
-    }
-    public Color whichGreaterColor(WhichGMRColorSensor whichColorSensor, Color firstColor, Color secondColor) {
-        mostRecentCommand = "[whichGreaterColor] whichColorSensor: "+whichColorSensor+" Color<first>: "+firstColor+" Color<second>: "+secondColor;
-        if (getColorValue(firstColor, whichColorSensor) > getColorValue(secondColor, whichColorSensor)) {return firstColor; }
-        else if((getColorValue(firstColor, whichColorSensor) > getColorValue(secondColor, whichColorSensor))) {return Color.EQUAL;}
-        else {return secondColor;}
-    }
-    //returns true or false to indicate if this is the correct color
-    public boolean isColor(WhichGMRColorSensor whichColorSensor, Color desiredColor) {
-        mostRecentCommand = "[isColor] desiredColor: "+desiredColor+" whichColorSensor: "+whichColorSensor;
-        if(getColorValue(desiredColor, whichColorSensor) > 5) {return true;}
-        else {return false;}
-    }
-    public boolean isWhite(WhichGMRColorSensor whichColorSensor) {
-        mostRecentCommand = "[isWhite] whichColorSensor: "+whichColorSensor;
-        if( (getRed(whichColorSensor) + getBlue(whichColorSensor) + getGreen(whichColorSensor))> 100) {return true;}
-        else {return false;}
-    }
-    //private methods for getting the value of the color sensor
-    private double getRed(WhichGMRColorSensor whichColorSensor) {
-        mostRecentCommand = "[getRed] whichColorSensor: "+whichColorSensor;
-        if(whichColorSensor == WhichGMRColorSensor.BEACON) {return (colorSensorBeacon.red() * 8);}
-        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {return (colorSensorGroundLeft.red() * 8);}
-        else {return (colorSensorGroundRight.red() * 8);}
-    }
-    private double getBlue(WhichGMRColorSensor whichColorSensor) {
-        mostRecentCommand = "[getBlue] whichColorSensor: "+whichColorSensor;
-        if(whichColorSensor == WhichGMRColorSensor.BEACON) {return (colorSensorBeacon.blue() * 8);}
-        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {return (colorSensorGroundLeft.blue() * 8);}
-        else {return (colorSensorGroundRight.blue() * 8);}
-    }
-    private double getGreen(WhichGMRColorSensor whichColorSensor) {
-        mostRecentCommand = "[getGreen] whichColorSensor: "+whichColorSensor;
-        if(whichColorSensor == WhichGMRColorSensor.BEACON) {return (colorSensorBeacon.green() * 8);}
-        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {return (colorSensorGroundLeft.green() * 8);}
-        else {return (colorSensorGroundRight.green() * 8);}
-    }
-    //methods for altering the color sensors
-    public void turnOnLightColor(boolean ONOFF, WhichGMRColorSensor whichColorSensor) {
-        mostRecentCommand = "[turnOnLightColor] ONOFF: "+ONOFF+" whichColorSensor: "+whichColorSensor;
-        if(whichColorSensor == WhichGMRColorSensor.BEACON) {colorSensorBeacon.enableLed(ONOFF);}
-        else if(whichColorSensor == WhichGMRColorSensor.GROUNDLEFT) {colorSensorGroundLeft.enableLed(ONOFF);}
-        else if(whichColorSensor == WhichGMRColorSensor.GROUNDRIGHT) {colorSensorGroundRight.enableLed(ONOFF);}
-=======
-
     public void BeaconPusher(WhichBeaconPusherPosition whichBeaconPusherPosition) {
         if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER) {
             leftBeaconButtonPusher.setPosition(.9);
@@ -187,7 +123,6 @@ public class BeaconNav {
         } else {
             return true;
         }
->>>>>>> refs/remotes/origin/m-Automaintenence
     }
 
     public boolean pushBlue() {
@@ -216,29 +151,18 @@ public class BeaconNav {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PROXS
-<<<<<<< HEAD
-    public void turnOnLightProx(boolean ONOFF) {mostRecentCommand = "[turnOnLightColor] ONOFF: "+ONOFF; proxSensor.enableLed(ONOFF);}
-    public double getRawDistance() {mostRecentCommand = "[getRawDistance]";  return proxSensor.getLightDetected();}
-    public double getDistance() {mostRecentCommand = "[getDistance]"; return (proxSensor.getLightDetected() * 1000);}
-    public double rawLight() {mostRecentCommand = "[rawLight]"; return proxSensor.getRawLightDetected();}
-=======
-    public void turnOnLightProx(boolean ONOFF) {
-        proxSensorLeft.enableLed(ONOFF);}
-    public double getRawDistance() {return proxSensorLeft.getLightDetected();}
-    public double getDistance() {return (proxSensorLeft.getLightDetected() * 1000);}
-    public double rawLight() {return proxSensorLeft.getRawLightDetected();}
->>>>>>> refs/remotes/origin/m-Automaintenence
+    public void turnOnLightProx(boolean ONOFF) {mostRecentCommand = "[turnOnLightColor] ONOFF: "+ONOFF; proxSensorLeft.enableLed(ONOFF);}
+    public double getRawDistance() {mostRecentCommand = "[getRawDistance]";  return proxSensorLeft.getLightDetected();}
+    public double getDistance() {mostRecentCommand = "[getDistance]"; return (proxSensorLeft.getLightDetected() * 1000);}
+    public double rawLight() {mostRecentCommand = "[rawLight]"; return proxSensorLeft.getRawLightDetected();}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ENUMS
     public enum Color {BLUE, RED, GREEN, EQUAL}
     public enum WhichGMRColorSensor{GROUNDLEFT, GROUNDRIGHT, BEACON}
-<<<<<<< HEAD
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DEBUG
     public String getDebugCommand() {
         return mostRecentCommand;
     }
-=======
     public enum WhichBeaconPusherPosition {EXTENDLEFTBEACONPUSHER, EXTENDRIGHTBEACONPUSHER, EXTENDBOTHPUSHERS, RETRACTBOTHPUSHERS}
->>>>>>> refs/remotes/origin/m-Automaintenence
 }
