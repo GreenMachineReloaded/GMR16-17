@@ -15,13 +15,15 @@ public class TwoBeaconRed extends OpMode {
     private GMRColorSensor colorSensor;
     private CurrentStates state = CurrentStates.ENCODERFORWARD;
     private boolean isFinished = false;
-    private boolean isStraight = false;
     private int launches = 0;
     private double startingOrientation;
     private Continue sleep = new Continue();
     private int launchNumber = 0;
     private ElapsedTime beaconTime = new ElapsedTime();
     private double beaconServoTime;
+
+    private final double beaconPushTime = 1.5;
+
     @Override
     public void init() {
         beaconTime.reset();
@@ -41,6 +43,7 @@ public class TwoBeaconRed extends OpMode {
             telemetry.addData("Robot Failed Again", "");
         }
         telemetry.addData("Gyro Done Calibrating", robot.driveTrain.checkGyro());
+        robot.beaconNav.teleOpBeaconPush(false);
     }
     @Override
     public void start() {
@@ -71,27 +74,25 @@ public class TwoBeaconRed extends OpMode {
             }
         } else if (state == CurrentStates.STRAFELEFT) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.5, 13);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.5, 11);
             } else {
                 state = CurrentStates.COLORFORWARD;
                 isFinished = false;
-                isStraight = false;
             }
         } else if (state == CurrentStates.COLORFORWARD) {
             if (!isFinished) {
-                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.1, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
+                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.2, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
             } else {
                 state = CurrentStates.STRAFELEFT2;
                 isFinished = false;
             }
         } else if (state == CurrentStates.STRAFELEFT2) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 4);
+                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 8);
             } else {
                 state = CurrentStates.PUSHBEACON;
                 isFinished = false;
-                isStraight = false;
-                beaconServoTime = (beaconTime.seconds() + 2);
+                beaconServoTime = (beaconTime.seconds() + beaconPushTime);
             }
         } else if(state == CurrentStates.PUSHBEACON) {
             if (!isFinished && (beaconServoTime > beaconTime.seconds())) {
@@ -105,15 +106,7 @@ public class TwoBeaconRed extends OpMode {
             if (!isFinished) {
                 isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFERIGHT, 0.2, 4);
             } else {
-                state = CurrentStates.STRAIGHTEN;
-                isFinished = false;
-            }
-        } else if (state == CurrentStates.STRAIGHTEN) {
-            if (!isFinished) {
-                isFinished = robot.driveTrain.straighten(startingOrientation);
-            } else {
                 state = CurrentStates.FORWARD;
-                beaconServoTime = (beaconTime.seconds() + 1);
                 isFinished = false;
             }
         } else if (state == CurrentStates.FORWARD) {
@@ -124,18 +117,18 @@ public class TwoBeaconRed extends OpMode {
             }
         } else if (state == CurrentStates.COLORFORWARD2) {
             if (!isFinished) {
-                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.1, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
+                isFinished = robot.whiteDrive(DriveTrain.Direction.FORWARD, 0.2, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
             } else {
                 state = CurrentStates.STRAFELEFT3;
                 isFinished = false;
             }
         } else if (state == CurrentStates.STRAFELEFT3) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 1);
+                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 8);
             } else {
                 state = CurrentStates.PUSHBEACON2;
                 isFinished = false;
-                beaconServoTime = (beaconTime.seconds() + 2);
+                beaconServoTime = (beaconTime.seconds() + beaconPushTime);
             }
         } else if (state == CurrentStates.PUSHBEACON2) {
             if (!isFinished && (beaconServoTime > beaconTime.seconds())) {

@@ -65,6 +65,7 @@ public class DriveTrain {
     private double goalBackwardPosition;
     private double goalLeftPosition;
     private double goalRightPosition;
+    private double goalRightStrafePosition;
 
     private double testLiftPosition = 1;
 
@@ -226,6 +227,7 @@ public class DriveTrain {
             goalBackwardPosition = (combinedEnValue - (inches * countsPerInch));
             goalLeftPosition = (getLeftEncoder() + (inches * countsPerInch));
             goalRightPosition = (getRightEncoder() + (inches * countsPerInch));
+            goalRightStrafePosition = (rightStrafeValue + (inches * countsPerInch));
             encodersCanRun = false;
             return encodersCanRun;
         } else {
@@ -266,10 +268,10 @@ public class DriveTrain {
                     }
                     break;
                 case STRAFERIGHT:
-                    if ((rightStrafeValue) < goalEncoderPosition) {
+                    if ((rightStrafeValue) < goalRightStrafePosition) {
                         Drive(direction, power);
-                        telemetry.addData("Current Combined Value", combinedEnValue);
-                        telemetry.addData("Current Goal Value", rightStrafeValue);
+                        telemetry.addData("Current Combined Value", rightStrafeValue);
+                        telemetry.addData("Current Goal Value", goalRightStrafePosition);
                         telemetry.addData("Current Comparison Value", goalEncoderPosition);
                     } else {
                         encodersCanRun = true;
