@@ -52,9 +52,9 @@ public class MecanumTeleOp extends OpMode {
 
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", robot.driveTrain.getYaw());
-        telemetry.addData("Current Distance", robot.beaconNav.getDistance());
+        telemetry.addData("Is Gyro Calibrating", robot.beaconNav.getDistance());
 
         //robot.launch.fixLauncher(gamepad2.left_stick_y);
-        //robot.beaconNav.beaconServos(gamepad2.a, gamepad2.b);
+        //robot.beaconNav.fixBeaconServos(gamepad2.a, gamepad2.b, gamepad2.x, gamepad2.y);
     }
 }

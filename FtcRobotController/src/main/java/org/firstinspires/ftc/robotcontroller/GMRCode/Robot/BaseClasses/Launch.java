@@ -78,7 +78,7 @@ public class Launch {
         }
         if (this.launchMotor.getCurrentPosition() < goalPosition - 20) {
             launcherServoControl(false);
-            timeOfCompletion = (launchTime.seconds() + 0.7);
+            timeOfCompletion = (launchTime.seconds() + 0.5);
             return false;
         } else {
             if (launchTime.seconds() < timeOfCompletion) {

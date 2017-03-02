@@ -83,5 +83,7 @@ public enum CurrentStates {
     PUSHBEACON,
     PUSHBEACON2,
 
-    STRAIGHTEN
+    STRAIGHTEN,
+
+    ENCODERTURN
 }
