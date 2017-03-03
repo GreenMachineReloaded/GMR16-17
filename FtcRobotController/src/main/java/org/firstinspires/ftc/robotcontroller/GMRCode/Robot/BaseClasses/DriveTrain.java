@@ -27,6 +27,7 @@ public class DriveTrain {
             //object for controlling the left rear motor
     private DcMotor rightRear;
             //object for controlling the right rear motor
+    private double maxMotorSpeed;
 
     private DcMotor liftMotor;
     private Servo liftServo;
@@ -34,15 +35,13 @@ public class DriveTrain {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // GYRO V
     private AHRS gyro;
-    //gyro sensor
 
-    //variables for gyro sensor
     private float goalDegrees;
-        // ???
+
     private int goalPosition;
-        // ???
+
     private int gyroRange;
-        // ???
+
     private static final double     countsPerMotorRev    = 1440 ;
     private static final double     driveGearReduction    = 1.5 ;
     private static final double     wheelDiameterInches   = 4.0 ;
@@ -58,8 +57,8 @@ public class DriveTrain {
     private final int gyroPort = 0;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
-    private Telemetry telemetry;        //do we need this?
-    //object for reference (telemetry)
+    private Telemetry telemetry;
+
     private boolean encodersCanRun;
     private double goalEncoderPosition;
     private double goalBackwardPosition;
@@ -123,6 +122,9 @@ public class DriveTrain {
         this.encodersCanRun = true;
         this.goalEncoderPosition = -1;
         goalBackwardPosition = -1;
+
+        maxMotorSpeed = 1;
+
         telemetry.addData("DriveTrain Startup", "End");
         telemetry.update();
     }
@@ -141,10 +143,10 @@ public class DriveTrain {
 //        double RFpower = Range.clip((y-x-z),-1,1);
 //        double LRpower = Range.clip(-(y-x+z),-1,1);
 //        double RRpower = Range.clip((y+x-z), -1, 1);
-        this.leftFront.setPower(Range.clip(-(y+x+z),-1,1));
-        this.rightFront.setPower(Range.clip((y-x-z),-1,1));
-        this.leftRear.setPower(Range.clip(-(y-x+z),-1,1));
-        this.rightRear.setPower(Range.clip((y+x-z), -1, 1));
+        this.leftFront.setPower(Range.clip(-(y+x+z), -maxMotorSpeed, maxMotorSpeed));
+        this.rightFront.setPower(Range.clip((y-x-z), -maxMotorSpeed, maxMotorSpeed));
+        this.leftRear.setPower(Range.clip(-(y-x+z),  -maxMotorSpeed, maxMotorSpeed));
+        this.rightRear.setPower(Range.clip((y+x-z),  -maxMotorSpeed, maxMotorSpeed));
 
     }
     public void Drive(Direction direction, double power){
@@ -331,6 +333,10 @@ public class DriveTrain {
             return encodersCanRun;
         }
     }
+    public void setMaxSpeed(double newMaxSpeed) {
+        this.maxMotorSpeed = Range.clip(newMaxSpeed,-1,1);
+    }
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //   GYRO
