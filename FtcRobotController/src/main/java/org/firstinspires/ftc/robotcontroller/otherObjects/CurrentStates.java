@@ -23,6 +23,7 @@ public enum CurrentStates {
     STRAFELEFT2,
     STRAFELEFT3,
     STRAFERIGHT,
+    STRAFERIGHT2,
     DIAGONALUPRIGHT,
     DIAGONALUPLEFT,
     DIAGONALDOWNRIGHT,
@@ -68,6 +69,7 @@ public enum CurrentStates {
 
     GYRO,
     GYROTURNRIGHT,
+    GYROTURNRIGHT2,
     GYROTURNLEFT,
 
     LAUNCH,
