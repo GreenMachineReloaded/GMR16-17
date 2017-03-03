@@ -80,7 +80,7 @@ public class OneBeaconRed extends OpMode {
             }
         } else if (state == CurrentStates.STRAFELEFT) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.5, 17);
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFELEFT, 0.5, 13);
             } else {
                 state = CurrentStates.COLORFORWARD;
                 isFinished = false;

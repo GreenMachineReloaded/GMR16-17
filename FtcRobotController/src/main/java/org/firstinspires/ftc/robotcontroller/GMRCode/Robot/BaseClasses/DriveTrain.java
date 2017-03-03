@@ -2,6 +2,7 @@ package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses;
 
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -96,6 +97,7 @@ public class DriveTrain {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         liftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         liftServo.setPosition(testLiftPosition);
 
         //sets all the motors power to zero.
@@ -436,27 +438,21 @@ public class DriveTrain {
         else {return ((Math.atan2(y, x)) * (180/Math.PI));}
     }
 
-    public void setLiftServo(boolean dpadUp, boolean dpadDown) {
-        if (dpadUp) {
-            testLiftPosition += 0.0008;
-        } else if (dpadDown) {
-            testLiftPosition -= 0.0008;
-        }
+    public void setLiftServo(boolean dpadUp, float dpadDown) {
+        if (dpadUp) {testLiftPosition += 0.08;}
+        else if (dpadDown > 0) {testLiftPosition -= 0.08;}
+        testLiftPosition = clipRange(testLiftPosition, 0, 1);
         liftServo.setPosition(testLiftPosition);
         telemetry.addData("Current Lift Servo Position", testLiftPosition);
         telemetry.addData("CUrrent Recorded Position", liftServo.getPosition());
     }
-
     public void setLiftMotor(boolean bumper, double trigger) {
         if (bumper) {
+            telemetry.addData("lift motor speed", liftMotor.getMaxSpeed());
             liftMotor.setPower(1);
-        } else if (trigger > 0) {
-            liftMotor.setPower(-.4);
-        } else {
-            liftMotor.setPower(0);
-        }
+        } else if (trigger > 0) {liftMotor.setPower(-.4);}
+          else {liftMotor.setPower(0);}
     }
-
     public void resetEncoders() {
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -468,7 +464,6 @@ public class DriveTrain {
         leftRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-
     public boolean straighten(double goal) {
         if (this.getYaw() > (goalDegrees - 2) && this.getYaw() < (goalDegrees + 2)) {
             if (this.getYaw() > (goalDegrees - 2)) {
@@ -481,9 +476,13 @@ public class DriveTrain {
             return true;
         }
     }
-
     public boolean checkGyro() {
         return gyro.isCalibrating();
+    }
+    public double clipRange(double number, double min, double max) {
+        if (number < min) {return min;}
+        else if (number > max) {return max;}
+        else {return number;}
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENCODER

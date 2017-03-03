@@ -71,6 +71,15 @@ public class LongShot extends OpMode {
             encoderDistance = 10;
             if (isDone) {
                 isDone = false;
+                state = CurrentStates.ENCODERFORWARD2;
+                robot.waitFor.Sleep(.5);
+            }
+        }
+        else if(state == CurrentStates.ENCODERFORWARD2) {
+            isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, .6, 4);
+            if (isDone) {
+                ifRepeat = true;
+                isDone = false;
                 state = CurrentStates.PROGRAMEND;
             }
         }

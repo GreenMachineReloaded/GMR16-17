@@ -1,36 +1,30 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Red;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
-/**
- * Created by Payton on 1/18/2017
- */
 @Autonomous(name="Two Beacon Red", group="Beacon Programs")
 public class TwoBeaconRed extends OpMode {
-
     private Robot robot;
     private GMRColorSensor colorSensor;
     private CurrentStates state = CurrentStates.ENCODERFORWARD;
     private boolean isFinished = false;
     private boolean isStraight = false;
-
     private int launches = 0;
-
     private double startingOrientation;
+<<<<<<< HEAD
 
+=======
+    private Continue sleep = new Continue();
+>>>>>>> refs/remotes/origin/master
     private int launchNumber = 0;
-
     private ElapsedTime beaconTime = new ElapsedTime();
     private double beaconServoTime;
-
     @Override
     public void init() {
         beaconTime.reset();
@@ -51,14 +45,12 @@ public class TwoBeaconRed extends OpMode {
         }
         telemetry.addData("Gyro Done Calibrating", robot.driveTrain.checkGyro());
     }
-
     @Override
     public void start() {
         telemetry.addData("Starting Servos", "");
         telemetry.update();
         beaconTime.reset();
     }
-
     @Override
     public void loop() {
         if (state == CurrentStates.ENCODERFORWARD) {

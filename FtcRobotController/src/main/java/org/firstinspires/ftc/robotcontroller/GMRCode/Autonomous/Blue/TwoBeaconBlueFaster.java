@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
-@Autonomous(name="Two Beacon Blue Faster", group="Beacon Programs")
+@Autonomous(name="Two Beacon Blue", group="Beacon Programs")
 
 public class TwoBeaconBlueFaster extends OpMode {
 

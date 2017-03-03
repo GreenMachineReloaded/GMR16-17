@@ -63,6 +63,7 @@ public class Robot {
 //        }
         telemtry.update();
     }
+<<<<<<< HEAD
 
 //    public void startDebug(boolean debug, boolean debugFile) {
 //        debugThread.whichDebug(debug, debugFile);
@@ -72,6 +73,9 @@ public class Robot {
 
     public boolean colorDrive(DriveTrain.Direction direction, double power, GMRColorSensor.WhichGMRColorSensor whichGMRColorSensor , GMRColorSensor.Color whichColor) {
 
+=======
+    public boolean colorDrive(DriveTrain.Direction direction, double power, GMRColorSensor.WhichGMRColorSensor whichGMRColorSensor , GMRColorSensor.Color whichColor) {
+>>>>>>> refs/remotes/origin/master
         this.driveTrain.Drive(direction, power);
         telemtry.addData("Current Blue", colorSensor.getColorValue(GMRColorSensor.Color.BLUE, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT));
         if (this.colorSensor.whichGreaterColor(whichGMRColorSensor, whichColor)) {
