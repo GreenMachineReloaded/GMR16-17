@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Debug;
 
+import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 
 /**
  * Created by Payton on 2/5/2017
@@ -11,21 +10,21 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 @TeleOp(name="Test Robot", group="Robot Test")
 public class TestRobot extends OpMode {
 
-    private Robot robot;
+    private final int gyroPort = 0;
 
-    private double someInt;
+    private AHRS gyro;
 
     @Override
     public void init() {
-        try {
-            robot = new Robot(hardwareMap, telemetry);
-        } catch (NullPointerException e) {
-            telemetry.addData("Robot Failed", "");
-        }
+        gyro = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"), gyroPort, AHRS.DeviceDataType.kProcessedData);
     }
 
     @Override
     public void loop() {
-
+        telemetry.addData("Gyro", gyro.getYaw());
+        telemetry.addData("Gyro Calibrating", gyro.isCalibrating());
+        telemetry.addData("Gyro Connected", gyro.isConnected());
+        telemetry.addData("Gyro Moving", gyro.isMoving());
+        telemetry.addData("Gyro Rotating", gyro.isRotating());
     }
 }

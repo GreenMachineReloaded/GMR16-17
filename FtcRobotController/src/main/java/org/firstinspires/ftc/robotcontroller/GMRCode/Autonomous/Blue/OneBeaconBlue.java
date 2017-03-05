@@ -21,8 +21,14 @@ public class OneBeaconBlue extends OpMode {
     private double startingOrientation;
     private int launchNumber = 0;
 
+    private double startingGyro;
+    private boolean isGyroWorking = false;
+
     private ElapsedTime beaconTime = new ElapsedTime();
     private double beaconServoTime;
+
+    private ElapsedTime gyroCheck = new ElapsedTime();
+    private double gyroCheckTime;
 
     private int iterations = 0;
 
@@ -37,11 +43,25 @@ public class OneBeaconBlue extends OpMode {
 
     public void start() {
         telemetry.addData("Starting Servos", "");
+        //startingGyro = robot.driveTrain.getYaw();
+        startingGyro = robot.driveTrain.getYaw();
         telemetry.update();
         beaconTime.reset();
+        gyroCheck.reset();
+        gyroCheckTime = (gyroCheck.seconds() + 4);
     }
 
     public void loop() {
+
+        //if (startingGyro == robot.driveTrain.getYaw() && !isGyroWorking && (gyroCheckTime > gyroCheck.seconds())) {
+        if (gyroCheckTime > gyroCheck.seconds()) {
+            if (startingGyro == robot.driveTrain.getYaw() && !isGyroWorking) {
+                isGyroWorking = false;
+            } else {
+                isGyroWorking = true;
+            }
+        }
+
         if (state == CurrentStates.ENCODERFORWARD) {
             if (!isFinished) {
                 isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.3, 13);
@@ -53,7 +73,12 @@ public class OneBeaconBlue extends OpMode {
         } else if (state == CurrentStates.LAUNCH) {
             if ((launches >= 1) && isFinished) {
                 robot.launch.launchControl(false);
-                state = CurrentStates.GYROTURNRIGHT;
+                if (isGyroWorking) {
+                    state = CurrentStates.GYROTURNRIGHT;
+                } else {
+                    state = CurrentStates.ENCODERTURN;
+                }
+                //state = CurrentStates.GYROTURNRIGHT;
                 isFinished = false;
             } else if (!isFinished) {
                 isFinished = robot.launch.launchControl(true);
@@ -64,6 +89,14 @@ public class OneBeaconBlue extends OpMode {
         } else if (state == CurrentStates.GYROTURNRIGHT) {
             if (!isFinished) {
                 isFinished = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.2, 179);
+            } else {
+                state = CurrentStates.STRAFELEFT;
+                isFinished = false;
+                robot.driveTrain.resetEncoders();
+            }
+        } else if (state == CurrentStates.ENCODERTURN) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.TURNRIGHT, 0.2, 22);
             } else {
                 state = CurrentStates.STRAFELEFT;
                 isFinished = false;
@@ -107,6 +140,6 @@ public class OneBeaconBlue extends OpMode {
             telemetry.addData("Program End", "");
         }
         telemetry.addData("Current State", state);
-        telemetry.addData("Strafe Left Two Iterations", iterations);
+        telemetry.addData("Is the Gyro working", isGyroWorking);
     }
 }

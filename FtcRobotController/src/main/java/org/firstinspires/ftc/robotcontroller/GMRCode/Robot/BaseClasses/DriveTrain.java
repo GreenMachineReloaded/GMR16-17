@@ -2,7 +2,6 @@ package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses;
 
 import com.kauailabs.navx.ftc.AHRS;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -36,6 +35,11 @@ public class DriveTrain {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // GYRO V
     private AHRS gyro;
+<<<<<<< HEAD
+=======
+    private AHRS.DimStateTracker gyroReset;
+    //gyro sensor
+>>>>>>> refs/remotes/origin/m-Automaintenence
 
     private float goalDegrees;
 
@@ -65,6 +69,7 @@ public class DriveTrain {
     private double goalBackwardPosition;
     private double goalLeftPosition;
     private double goalRightPosition;
+    private double goalRightStrafePosition;
 
     private double testLiftPosition = 1;
 
@@ -110,6 +115,9 @@ public class DriveTrain {
         this.gyro = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"), gyroPort, AHRS.DeviceDataType.kProcessedData);
             //sets up the gyro sensor.
         this.gyro.zeroYaw();
+        gyroReset = gyro.getDimStateTrackerInstance();
+
+        gyroReset.reset();
             //sets the gyro sensors position to zero.
         //miss setup
 
@@ -141,6 +149,7 @@ public class DriveTrain {
         Left Rear: y + x - z
         Right Rear: - (y - x + z)
          */
+<<<<<<< HEAD
 //        double LFpower = Range.clip(-(y+x+z),-1,1);
 //        double RFpower = Range.clip((y-x-z),-1,1);
 //        double LRpower = Range.clip(-(y-x+z),-1,1);
@@ -149,6 +158,12 @@ public class DriveTrain {
         this.rightFront.setPower(Range.clip((y-x-z), -maxMotorSpeed, maxMotorSpeed));
         this.leftRear.setPower(Range.clip(-(y-x+z),  -maxMotorSpeed, maxMotorSpeed));
         this.rightRear.setPower(Range.clip((y+x-z),  -maxMotorSpeed, maxMotorSpeed));
+=======
+        this.leftFront.setPower(Range.clip(-(y+x+z),-1,1));
+        this.rightFront.setPower(Range.clip((y-x-z),-1,1));
+        this.leftRear.setPower(Range.clip(-(y-x+z),-1,1));
+        this.rightRear.setPower(Range.clip((y+x-z), -1, 1));
+>>>>>>> refs/remotes/origin/m-Automaintenence
 
     }
     public void Drive(Direction direction, double power){
@@ -239,6 +254,7 @@ public class DriveTrain {
             goalBackwardPosition = (combinedEnValue - (inches * countsPerInch));
             goalLeftPosition = (getLeftEncoder() + (inches * countsPerInch));
             goalRightPosition = (getRightEncoder() + (inches * countsPerInch));
+            goalRightStrafePosition = (rightStrafeValue + (inches * countsPerInch));
             encodersCanRun = false;
             return encodersCanRun;
         } else {
@@ -279,9 +295,11 @@ public class DriveTrain {
                     }
                     break;
                 case STRAFERIGHT:
-                    if ((rightStrafeValue) > goalEncoderPosition) {
+                    if ((rightStrafeValue) < goalRightStrafePosition) {
                         Drive(direction, power);
-                        telemetry.addData("Current Combined Value", combinedEnValue);
+                        telemetry.addData("Current Combined Value", rightStrafeValue);
+                        telemetry.addData("Current Goal Value", goalRightStrafePosition);
+                        telemetry.addData("Current Comparison Value", goalEncoderPosition);
                     } else {
                         encodersCanRun = true;
                         goalEncoderPosition = -1;
@@ -330,6 +348,16 @@ public class DriveTrain {
                 case TURNLEFT:
                     break;
                 case TURNRIGHT:
+                    if (getLeftEncoder() < goalLeftPosition) {
+                        Drive(direction, power);
+                        telemetry.addData("Current Combined Value", combinedEnValue);
+                        telemetry.addData("Goal Value", goalEncoderPosition);
+                    } else {
+                        encodersCanRun = true;
+                        goalEncoderPosition = -1;
+                        stop();
+                        return encodersCanRun;
+                    }
                     break;
             }
             return encodersCanRun;
@@ -382,10 +410,19 @@ public class DriveTrain {
         }
         return false;
     }
+
     public float getYaw(){
+<<<<<<< HEAD
         mostRecentCommand = "[getYaw]";
         if(this.gyro.getYaw() < 0) {return (360 + this.gyro.getYaw());}
         else {return this.gyro.getYaw();}
+=======
+        if(this.gyro.getYaw() < 0) {
+            return (360 + this.gyro.getYaw());
+        } else {
+            return this.gyro.getYaw();
+        }
+>>>>>>> refs/remotes/origin/m-Automaintenence
     }
 
     public void experimentalDrive(double x, double y, double z){
