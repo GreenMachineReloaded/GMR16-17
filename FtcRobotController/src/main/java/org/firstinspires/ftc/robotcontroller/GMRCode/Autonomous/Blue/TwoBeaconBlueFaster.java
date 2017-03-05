@@ -20,14 +20,11 @@ public class TwoBeaconBlueFaster extends OpMode {
     private boolean isStraight = false;
     private int launches = 0;
     private double startingOrientation;
-<<<<<<< HEAD
     private int launchNumber = 0;
-=======
 
     private boolean hasStrafed = false;
 
     private final double beaconPushTime = 1.5;
->>>>>>> refs/remotes/origin/m-Automaintenence
 
     private ElapsedTime beaconTime = new ElapsedTime();
     private double beaconServoTime;

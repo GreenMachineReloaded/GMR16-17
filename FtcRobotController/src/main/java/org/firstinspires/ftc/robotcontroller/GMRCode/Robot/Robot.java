@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.vuforia.Vuforia;
-
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
@@ -12,7 +10,6 @@ import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Robot {
-
     public DriveTrain driveTrain;
     public Launch launch;
     public BeaconNav beaconNav;
@@ -24,11 +21,10 @@ public class Robot {
     public HardwareMap hwMap;
     public Telemetry telemtry;
 
-
     private int number = 0;
 
-    private double VuforiaX;
-    private double VuforiaZ;
+    private double vuforiaX;
+    private double vuforiaZ;
 
     public Robot(HardwareMap hwMap, Telemetry telemtry) {
         colorSensor = new GMRColorSensor(hwMap, telemtry);
@@ -135,15 +131,28 @@ public class Robot {
         beaconNav.stopBeaconNav();
         launch.stopLaunch();
     }
-    public void driveVuforia() {
-        driveTrain.setMaxSpeed(.2);
+    public void driveVuforia(double speed) {
+        driveTrain.Drive(DriveTrain.Direction.STRAFERIGHT, speed);
+        do {vuforiaX = robotEyes.getArrayXYZ()[0];}while (vuforiaX >= 20);
+        driveTrain.stop();
         do {
-            VuforiaX = robotEyes.getSpecificArrayXYZ(robotEyes.getImageOfCurrentVisualBeacon())[0];
-            VuforiaZ = robotEyes.getSpecificArrayXYZ(robotEyes.getImageOfCurrentVisualBeacon())[2];
-            if(VuforiaZ < 20) {VuforiaZ = 0;}
-            driveTrain.setMotorPower(VuforiaX, VuforiaZ, 0);
-        }while((VuforiaX > 30 || VuforiaX < -30) && (VuforiaZ > 20));
-        driveTrain.setMaxSpeed(1);
+            vuforiaZ = robotEyes.getArrayXYZ()[2];
+                 if(vuforiaZ >  1) {driveTrain.Drive(DriveTrain.Direction.BACKWARD, speed);}
+            else if(vuforiaZ < -1) {driveTrain.Drive(DriveTrain.Direction.FORWARD, speed); }
+            else                   {driveTrain.stop();                                     }
+        }while (vuforiaZ > 20 && vuforiaZ > 20);
+        driveTrain.stop();
+    }
+    public void driveVuforiaFocus(double speed, double focusX, double focusZ) {
+        driveTrain.Drive(DriveTrain.Direction.STRAFERIGHT, speed);
+        do {vuforiaX = robotEyes.getArrayXYZ()[0];}while (vuforiaX >= focusX);
+        driveTrain.stop();
+        do {
+            vuforiaZ = robotEyes.getArrayXYZ()[2];
+            if(vuforiaZ >  1) {driveTrain.Drive(DriveTrain.Direction.BACKWARD, speed);}
+            else if(vuforiaZ < -1) {driveTrain.Drive(DriveTrain.Direction.FORWARD, speed); }
+            else                   {driveTrain.stop();                                     }
+        }while (vuforiaZ > focusZ && vuforiaZ > focusZ);
         driveTrain.stop();
     }
 }

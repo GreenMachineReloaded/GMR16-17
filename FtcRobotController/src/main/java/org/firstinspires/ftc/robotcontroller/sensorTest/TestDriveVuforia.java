@@ -28,7 +28,7 @@ public class TestDriveVuforia extends LinearOpMode{
             telemetry.addData("GEARS", "X:"+robot.robotEyes.getSpecificArrayXYZ(RobotEyes.Images.GEARS)[0]+" Y: "+robot.robotEyes.getSpecificArrayXYZ(RobotEyes.Images.GEARS)[1]+" Z: "+robot.robotEyes.getSpecificArrayXYZ(RobotEyes.Images.GEARS)[2]);
             telemetry.update();
 
-            robot.driveVuforia();
+            robot.driveVuforia(.2);
         }
     }
 }
