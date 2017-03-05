@@ -63,19 +63,8 @@ public class Robot {
 //        }
         telemtry.update();
     }
-<<<<<<< HEAD
-
-//    public void startDebug(boolean debug, boolean debugFile) {
-//        debugThread.whichDebug(debug, debugFile);
-//        debugThread.start();
-//    }
-//    public void stopDebug() {debugThread.setOn(false);}
 
     public boolean colorDrive(DriveTrain.Direction direction, double power, GMRColorSensor.WhichGMRColorSensor whichGMRColorSensor , GMRColorSensor.Color whichColor) {
-
-=======
-    public boolean colorDrive(DriveTrain.Direction direction, double power, GMRColorSensor.WhichGMRColorSensor whichGMRColorSensor , GMRColorSensor.Color whichColor) {
->>>>>>> refs/remotes/origin/master
         this.driveTrain.Drive(direction, power);
         telemtry.addData("Current Blue", colorSensor.getColorValue(GMRColorSensor.Color.BLUE, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT));
         if (this.colorSensor.whichGreaterColor(whichGMRColorSensor, whichColor)) {
@@ -148,11 +137,12 @@ public class Robot {
     }
     public void driveVuforia() {
         driveTrain.setMaxSpeed(.2);
-        while((VuforiaX > 30 || VuforiaX < -30) && (VuforiaZ > 30 || VuforiaZ < -30)) {
+        do {
             VuforiaX = robotEyes.getSpecificArrayXYZ(robotEyes.getImageOfCurrentVisualBeacon())[0];
-            VuforiaZ = -robotEyes.getSpecificArrayXYZ(robotEyes.getImageOfCurrentVisualBeacon())[2];
+            VuforiaZ = robotEyes.getSpecificArrayXYZ(robotEyes.getImageOfCurrentVisualBeacon())[2];
+            if(VuforiaZ < 20) {VuforiaZ = 0;}
             driveTrain.setMotorPower(VuforiaX, VuforiaZ, 0);
-        }
+        }while((VuforiaX > 30 || VuforiaX < -30) && (VuforiaZ > 20));
         driveTrain.setMaxSpeed(1);
         driveTrain.stop();
     }

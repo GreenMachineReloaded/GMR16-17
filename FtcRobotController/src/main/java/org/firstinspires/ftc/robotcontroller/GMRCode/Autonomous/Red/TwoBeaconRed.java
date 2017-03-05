@@ -17,11 +17,6 @@ public class TwoBeaconRed extends OpMode {
     private boolean isStraight = false;
     private int launches = 0;
     private double startingOrientation;
-<<<<<<< HEAD
-
-=======
-    private Continue sleep = new Continue();
->>>>>>> refs/remotes/origin/master
     private int launchNumber = 0;
     private ElapsedTime beaconTime = new ElapsedTime();
     private double beaconServoTime;
