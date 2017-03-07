@@ -55,7 +55,7 @@ public class DriveTrain {
     private String RightRear = "rightrear";
     private String LiftMotor = "liftmotor";
     private String LiftServo = "liftservo";
-    private final int gyroPort = 0;
+    private final int gyroPort = 3;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
     private Telemetry telemetry;        //do we need this?
@@ -66,6 +66,7 @@ public class DriveTrain {
     private double goalLeftPosition;
     private double goalRightPosition;
     private double goalRightStrafePosition;
+    private double goalLeftStrafePosition;
 
     private double testLiftPosition = 1;
 
@@ -228,6 +229,7 @@ public class DriveTrain {
             goalLeftPosition = (getLeftEncoder() + (inches * countsPerInch));
             goalRightPosition = (getRightEncoder() + (inches * countsPerInch));
             goalRightStrafePosition = (rightStrafeValue + (inches * countsPerInch));
+            goalLeftStrafePosition = (leftStrafeValue + (inches *countsPerInch));
             encodersCanRun = false;
             return encodersCanRun;
         } else {
@@ -256,10 +258,10 @@ public class DriveTrain {
                     }
                     break;
                 case STRAFELEFT:
-                    if ((leftStrafeValue) < goalEncoderPosition) {
+                    if ((leftStrafeValue) < goalLeftStrafePosition) {
                         Drive(direction, power);
                         telemetry.addData("Current Combined Value", combinedEnValue);
-                        telemetry.addData("Goal Value", goalEncoderPosition);
+                        telemetry.addData("Goal Value", goalLeftStrafePosition);
                     } else {
                         encodersCanRun = true;
                         goalEncoderPosition = -1;
@@ -432,8 +434,11 @@ public class DriveTrain {
     }
 
     public void setLiftServo(boolean dpadUp, float dpadDown) {
-        if (dpadUp) {testLiftPosition += 0.08;}
-        else if (dpadDown > 0) {testLiftPosition -= 0.08;}
+        if (dpadUp) {
+            testLiftPosition -= 0.08;
+        } else if (dpadDown > 0) {
+            testLiftPosition += 0.08;
+        }
         testLiftPosition = clipRange(testLiftPosition, 0, 1);
         liftServo.setPosition(testLiftPosition);
         telemetry.addData("Current Lift Servo Position", testLiftPosition);
@@ -458,10 +463,10 @@ public class DriveTrain {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     public boolean straighten(double goal) {
-        if (this.getYaw() > (goalDegrees - 2) && this.getYaw() < (goalDegrees + 2)) {
-            if (this.getYaw() > (goalDegrees - 2)) {
+        if (this.getYaw() > (goal - 1) && this.getYaw() < (goal + 1)) {
+            if (this.getYaw() > (goal - 1)) {
                 Drive(Direction.TURNLEFT, 0.2);
-            } else if (this.getYaw() < (goalDegrees + 2)) {
+            } else if (this.getYaw() < (goal + 1)) {
                 Drive(Direction.TURNRIGHT, 0.2);
             }
             return false;
@@ -469,6 +474,7 @@ public class DriveTrain {
             return true;
         }
     }
+
     public boolean checkGyro() {
         return gyro.isCalibrating();
     }

@@ -61,7 +61,7 @@ public class BeaconNav {
 
     public void BeaconPusher(WhichBeaconPusherPosition whichBeaconPusherPosition) {
         if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER) {
-            leftBeaconButtonPusher.setPosition(.712);
+            leftBeaconButtonPusher.setPosition(.7);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER) {
             rightBeaconButtonPusher.setPosition(.679);
@@ -71,17 +71,17 @@ public class BeaconNav {
             rightBeaconButtonPusher.setPosition(.679);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.RETRACTBOTHPUSHERS) {
-            leftBeaconButtonPusher.setPosition(.577);
+            leftBeaconButtonPusher.setPosition(.56);
             rightBeaconButtonPusher.setPosition(.797);
         }
     }
 
     public void teleOpBeaconPush(boolean x) {
         if (x) {
-            leftBeaconButtonPusher.setPosition(.712);
+            leftBeaconButtonPusher.setPosition(.7);
             rightBeaconButtonPusher.setPosition(.679);
         } else {
-            leftBeaconButtonPusher.setPosition(.577);
+            leftBeaconButtonPusher.setPosition(.56);
             rightBeaconButtonPusher.setPosition(.797);
         }
     }
