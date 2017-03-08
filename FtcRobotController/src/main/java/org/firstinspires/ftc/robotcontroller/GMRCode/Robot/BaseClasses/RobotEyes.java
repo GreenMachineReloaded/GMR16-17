@@ -103,12 +103,6 @@ public class RobotEyes {
         else                                                                                                                                             { return Images.NULL; }
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//The Matrix methods.
-    //this method dose not work...
-    private OpenGLMatrix rotateVision(OpenGLMatrix currentMatrix) {
-        return OpenGLMatrix.translation(currentMatrix.getData()[0], currentMatrix.getData()[1], currentMatrix.getData()[2]).multiplied(Orientation.getRotationMatrix(AxesReference.EXTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES, 90, 0, 0));
-    }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Extra stuff.
     public void activateOn(boolean onOff) {if(onOff) {trackables.activate();} else{trackables.deactivate();}}
     public enum Images {WHEELS, TOOLS, LEGOS, GEARS, NULL}
