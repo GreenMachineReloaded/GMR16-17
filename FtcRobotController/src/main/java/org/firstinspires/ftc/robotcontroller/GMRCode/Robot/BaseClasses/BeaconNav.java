@@ -120,7 +120,6 @@ public class BeaconNav {
         if (!hasPushed) {
             if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
-
                 if (leftBeaconButtonPusher.getPosition() == .59) {
                     hasPushed = true;
                 }
@@ -152,6 +151,22 @@ public class BeaconNav {
             return false;
         } else {
             return true;
+        }
+    }
+
+    public boolean checkColor(GMRColorSensor.Color color) {
+        if (color == GMRColorSensor.Color.RED) {
+            if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (!(colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

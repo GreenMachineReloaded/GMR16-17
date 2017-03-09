@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
-@Autonomous(name="Two Beacon Red", group="Beacon Programs")
+@Autonomous(name="Two Beacon Red", group="Beacon Programs Red")
 public class TwoBeaconRed extends OpMode {
     private Robot robot;
     private GMRColorSensor colorSensor;
@@ -111,9 +111,25 @@ public class TwoBeaconRed extends OpMode {
             if (!isFinished && (beaconServoTime > beaconTime.seconds())) {
                 isFinished = robot.beaconNav.pushRed();
             } else {
-                state = CurrentStates.STRAFERIGHT;
+                state = CurrentStates.CHECKCOLOR;
                 robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
                 isFinished = false;
+            }
+        } else if (state == CurrentStates.CHECKCOLOR) {
+            if (robot.beaconNav.checkColor(GMRColorSensor.Color.RED)) {
+                state = CurrentStates.STRAFERIGHT;
+            } else {
+                state = CurrentStates.FIXBEACON;
+                beaconServoTime = (beaconTime.seconds() + 5);
+            }
+        } else if (state == CurrentStates.FIXBEACON) {
+            if (beaconServoTime > beaconTime.seconds()) {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+            } else if ((beaconServoTime + 1.5) > beaconTime.seconds()) {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.EXTENDBOTHPUSHERS);
+            } else {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+                state = CurrentStates.STRAFERIGHT;
             }
         } else if (state == CurrentStates.STRAFERIGHT) {
             if (!isFinished) {
@@ -155,9 +171,25 @@ public class TwoBeaconRed extends OpMode {
             if (!isFinished && (beaconServoTime > beaconTime.seconds())) {
                 isFinished = robot.beaconNav.pushRed();
             } else {
-                state = CurrentStates.STRAFERIGHT2;
+                state = CurrentStates.CHECKCOLOR2;
                 robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
                 isFinished = false;
+            }
+        } else if (state == CurrentStates.CHECKCOLOR2) {
+            if (robot.beaconNav.checkColor(GMRColorSensor.Color.RED)) {
+                state = CurrentStates.STRAFERIGHT2;
+            } else {
+                state = CurrentStates.FIXBEACON2;
+                beaconServoTime = (beaconTime.seconds() + 5);
+            }
+        } else if (state == CurrentStates.FIXBEACON2) {
+            if (beaconServoTime > beaconTime.seconds()) {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+            } else if ((beaconServoTime + 1.5) > beaconTime.seconds()) {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.EXTENDBOTHPUSHERS);
+            } else {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+                state = CurrentStates.STRAFERIGHT2;
             }
         } else if (state == CurrentStates.STRAFERIGHT2) {
             if (!isFinished) {
