@@ -53,9 +53,9 @@ public class MecanumTeleOp extends OpMode {
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", robot.driveTrain.getYaw());
         telemetry.addData("---------------", "");
-        telemetry.addData("Current Degrees", (Math.atan2(y, x) * (180 / Math.PI)));
-        telemetry.addData("Current X", x);
-        telemetry.addData("Current Y", y);
+        telemetry.addData("Current Degrees", robot.driveTrain.currentDegrees(x, y));
+        telemetry.addData("Current Strength", (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))));
+        telemetry.addData("Current Zone", robot.driveTrain.currentZone(x, y));
 
         //robot.launch.fixLauncher(gamepad2.left_stick_y);
         //robot.beaconNav.fixBeaconServos(gamepad2.a, gamepad2.b, gamepad2.x, gamepad2.y);

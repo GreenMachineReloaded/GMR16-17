@@ -82,16 +82,16 @@ public class TwoBeaconBlueFaster extends OpMode {
             if (!isFinished) {
                 isFinished = robot.whiteDrive(DriveTrain.Direction.BACKWARD, 0.2, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
             } else {
-                state = CurrentStates.STRAIGHTEN;
+                state = CurrentStates.COLORBACKWARD;
                 robot.driveTrain.resetEncoders();
                 isFinished = false;
             }
-        } else if (state == CurrentStates.STRAIGHTEN) {
-            if (!isStraight) {
-                isStraight = robot.driveTrain.straighten(startingOrientation + 180);
+        } else if (state == CurrentStates.COLORBACKWARD) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.1, 0.5);
             } else {
-                isStraight = false;
                 state = CurrentStates.STRAFELEFT2;
+                isFinished = false;
             }
         } else if (state == CurrentStates.STRAFELEFT2) {
             if (!isFinished) {
@@ -128,6 +128,13 @@ public class TwoBeaconBlueFaster extends OpMode {
         } else if (state == CurrentStates.COLORFORWARD2) {
             if (!isFinished) {
                 isFinished = robot.whiteDrive(DriveTrain.Direction.BACKWARD, 0.2, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
+            } else {
+                state = CurrentStates.COLORBACKWARD2;
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.COLORBACKWARD2) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.1, 0.5);
             } else {
                 state = CurrentStates.STRAFELEFT3;
                 isFinished = false;

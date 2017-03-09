@@ -108,12 +108,13 @@ public class DriveTrain {
         this.rightRear.setPower(0);
         //gyro sensor setup.
         this.gyro = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"), gyroPort, AHRS.DeviceDataType.kProcessedData);
-            //sets up the gyro sensor.
+        //sets up the gyro sensor.
         this.gyro.zeroYaw();
         gyroReset = gyro.getDimStateTrackerInstance();
 
+        //sets the gyro sensors position to zero.
         gyroReset.reset();
-            //sets the gyro sensors position to zero.
+
         //miss setup
 
         this.goalDegrees = -1;
@@ -146,6 +147,60 @@ public class DriveTrain {
         this.rightRear.setPower(Range.clip((y+x-z), -1, 1));
 
     }
+
+    public void zonedDrive(int zone, double power) {
+        switch(zone) {
+            case 0:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 1:
+                Drive(Direction.DRIGHTUPHALFSTRAFERIGHT, power);
+                break;
+            case 2:
+                Drive(Direction.DRIGHTUP, power);
+                break;
+            case 3:
+                Drive(Direction.DRIGHTUPHALFFORWARD, power);
+                break;
+            case 4:
+                Drive(Direction.FORWARD, power);
+                break;
+            case 5:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 6:
+                Drive(Direction.DLEFTUP, power);
+                break;
+            case 7:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 8:
+                Drive(Direction.STRAFELEFT, power);
+                break;
+            case 9:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 10:
+                Drive(Direction.DLEFTDOWN, power);
+                break;
+            case 11:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 12:
+                Drive(Direction.BACKWARD, power);
+                break;
+            case 13:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 14:
+                Drive(Direction.DRIGHTDOWN, power);
+                break;
+            case 15:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+        }
+    }
+
     public void Drive(Direction direction, double power){
         switch (direction) {
             case FORWARD:
@@ -208,6 +263,34 @@ public class DriveTrain {
                 this.leftRear.setPower(-power);
                 this.rightRear.setPower(-power);
                 break;
+
+            //Possible movement code, not yet tested
+            case DRIGHTUPHALFSTRAFERIGHT:
+                this.leftFront.setPower(-power);
+                this.rightFront.setPower(-power/2);
+                this.leftRear.setPower(power/2);
+                this.rightRear.setPower(power);
+                break;
+            case DRIGHTUPHALFFORWARD:
+                this.leftFront.setPower(-power);
+                this.rightFront.setPower(power/2);
+                this.leftRear.setPower(-power/2);
+                this.rightRear.setPower(power);
+                break;
+            case DLEFTUPHALFFORWARD:
+                this.leftFront.setPower(-power/2);
+                this.rightFront.setPower(power);
+                this.leftRear.setPower(-power);
+                this.rightRear.setPower(power/2);
+                break;
+            case DLEFTUPHALFSTRAFELEFT:
+                this.leftFront.setPower(power/2);
+                this.rightFront.setPower(power);
+                this.leftRear.setPower(-power);
+                this.rightRear.setPower(-power/2);
+                break;
+            case DLEFTDOWNHALFSTRAFELEFT:
+
         }
     }
     public void stop(){
@@ -433,6 +516,14 @@ public class DriveTrain {
         }
     }
 
+    public double currentZone(double x,double y) {
+        if (((int) (Math.round(currentDegrees(x, y) / 22.5))) <= 15) {
+            return (int) (Math.round(currentDegrees(x, y) / 22.5));
+        } else {
+            return 0;
+        }
+    }
+
     public void setLiftServo(boolean dpadUp, float dpadDown) {
         if (dpadUp) {
             testLiftPosition -= 0.08;
@@ -494,5 +585,24 @@ public class DriveTrain {
     public double encoderInchesLeft() {return (this.getLeftEncoder() / (1440 * 1.5) / (4 * Math.PI));}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENUMS
-    public enum Direction{FORWARD,BACKWARD,STRAFELEFT,STRAFERIGHT,DRIGHTUP,DRIGHTDOWN,DLEFTUP,DLEFTDOWN,TURNLEFT,TURNRIGHT}
+    public enum Direction{
+    FORWARD,
+    BACKWARD,
+    STRAFELEFT,
+    STRAFERIGHT,
+    DRIGHTUP,
+    DRIGHTDOWN,
+    DLEFTUP,
+    DLEFTDOWN,
+    TURNLEFT,
+    TURNRIGHT,
+    DRIGHTUPHALFSTRAFERIGHT,
+    DRIGHTUPHALFFORWARD,
+    DLEFTUPHALFFORWARD,
+    DLEFTUPHALFSTRAFELEFT,
+    DLEFTDOWNHALFSTRAFELEFT,
+    DLEFTDOWNHALFBACKWARD,
+    DRIGHTDOWNHALFBACKWARD,
+    DRIGHTDOWNHALFSTRAFERIGHT
+}
 }

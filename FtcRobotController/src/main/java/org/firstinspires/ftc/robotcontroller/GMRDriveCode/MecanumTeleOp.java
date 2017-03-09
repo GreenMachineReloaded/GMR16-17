@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.robotcontroller.GMRDriveCode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @TeleOp(name="Mecanum Drive: Version Three", group="Mecanum Bot")
+@Disabled
 //@Disabled
 public class MecanumTeleOp extends OpMode {
 
