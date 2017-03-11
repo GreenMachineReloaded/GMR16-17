@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.robotcontroller.sensorTest;
+package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.TestCode.ColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
-import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
-import static org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor.*;
+import org.firstinspires.ftc.robotcontroller.GMRCode.SensorObjects.GMRColorSensor;
+import static org.firstinspires.ftc.robotcontroller.GMRCode.SensorObjects.GMRColorSensor.*;
 @Autonomous(name = "TEST GMR COLOR SENSOR", group = "Tests")
 public class TestColorSensors extends LinearOpMode{
     GMRColorSensor colorSensor;

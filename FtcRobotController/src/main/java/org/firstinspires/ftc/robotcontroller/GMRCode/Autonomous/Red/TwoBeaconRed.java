@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
-import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
-import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
+import org.firstinspires.ftc.robotcontroller.GMRCode.SensorObjects.GMRColorSensor;
+import org.firstinspires.ftc.robotcontroller.GMRCode.otherObjects.CurrentStates;
 
 @Autonomous(name="Two Beacon Red", group="Beacon Programs")
 public class TwoBeaconRed extends OpMode {

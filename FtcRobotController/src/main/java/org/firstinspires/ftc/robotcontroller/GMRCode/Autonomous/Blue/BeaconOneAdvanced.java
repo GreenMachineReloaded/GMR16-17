@@ -6,8 +6,8 @@
 //
 //import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 //import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
-//import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
-//import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
+//import GMRColorSensor;
+//import CurrentStates;
 //
 ///**
 // * Created by Payton on 11/26/2016

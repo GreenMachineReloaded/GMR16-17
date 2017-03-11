@@ -8,7 +8,7 @@
 //import org.firstinspires.ftc.robotcontroller.GMRDriveCode.Hardwaresetup;
 //import org.firstinspires.ftc.robotcontroller.GMRDriveCode.MoveMotors;
 //import org.firstinspires.ftc.robotcontroller.SensorObjects.ColorSensors;
-//import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
+//import GMRColorSensor;
 //import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 //import org.firstinspires.ftc.robotcontroller.otherObjects.currentState;
 //

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.otherObjects;
+package org.firstinspires.ftc.robotcontroller.GMRCode.otherObjects;
 public enum CurrentStates {
 
     STATEONE,

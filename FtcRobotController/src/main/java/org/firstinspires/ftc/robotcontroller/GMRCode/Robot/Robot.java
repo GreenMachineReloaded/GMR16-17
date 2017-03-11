@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Range;
+
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.RobotEyes;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.WaitFor;
-import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
+import org.firstinspires.ftc.robotcontroller.GMRCode.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Robot {
@@ -131,37 +133,19 @@ public class Robot {
         beaconNav.stopBeaconNav();
         launch.stopLaunch();
     }
-
-
-
-
-
-    public void driveVuforia(double speed) {
-        this.getCloseBeacon(500, speed);
-        this.isAlinedWithBeacon(speed);
-    }
-//    THIS WOULD BE THE LINER EQUIV
-//    public void getCloseVuforiaDrive(double closeness, double speed) {
-//        driveTrain.Drive(DriveTrain.Direction.STRAFELEFT, speed);
-//        do {vuforiaX = robotEyes.getArrayXYZ()[0];}
-//        while (vuforiaX >= 500);
-//        driveTrain.stop();
-//    }
     public boolean getCloseBeacon(double closeness, double speed) {
         vuforiaX = robotEyes.getArrayXYZ()[0];
-        driveTrain.Drive(DriveTrain.Direction.STRAFELEFT, speed);
-
-        if (vuforiaX <= closeness) {driveTrain.stop(); return true;}
-        else if(vuforiaX == 0)     {driveTrain.stop(); return true;}
-        else {return false;}
+             if (vuforiaX <= closeness) {driveTrain.stop();                                        return  true;}
+        else if (vuforiaX >= closeness) {driveTrain.Drive(DriveTrain.Direction.STRAFELEFT, speed); return false;}
+        else if (vuforiaX == 0)         {driveTrain.stop();                                        return false;}
+        else                            {driveTrain.stop();                                        return false;}
     }
     public boolean isAlinedWithBeacon(double speed) {
         vuforiaZ = robotEyes.getArrayXYZ()[2];
-             if(vuforiaZ > 60) {driveTrain.Drive(DriveTrain.Direction.BACKWARD, speed); return false;}
-        else if(vuforiaZ < 50) {driveTrain.Drive(DriveTrain.Direction.FORWARD,  speed); return false;}
+             if(vuforiaZ > 60) {driveTrain.Drive(DriveTrain.Direction.BACKWARD, Range.clip(speed, -.3, .3)); return false;}
+        else if(vuforiaZ < 50) {driveTrain.Drive(DriveTrain.Direction.FORWARD,  Range.clip(speed, -.3, .3)); return false;}
         else if(vuforiaZ == 0) {driveTrain.stop();                                      return false;}
         else {driveTrain.stop(); return true;}
-        //I need to rework this later... bad structer...
     }
     public boolean isAlinedWithBeacon(double speed, double focus) {
         //the focus varibul effects the area in which the robot stops.

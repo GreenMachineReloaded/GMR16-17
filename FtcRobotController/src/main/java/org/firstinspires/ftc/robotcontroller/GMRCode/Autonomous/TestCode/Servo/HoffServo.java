@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.HoffServo;
+package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.TestCode.Servo;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

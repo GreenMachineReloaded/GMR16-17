@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
-import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
-import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
+import org.firstinspires.ftc.robotcontroller.GMRCode.SensorObjects.GMRColorSensor;
+import org.firstinspires.ftc.robotcontroller.GMRCode.otherObjects.CurrentStates;
 
 /**
  * Created by Payton on 1/18/2017

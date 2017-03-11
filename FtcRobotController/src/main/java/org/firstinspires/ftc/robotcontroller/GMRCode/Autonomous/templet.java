@@ -2,7 +2,7 @@ package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
-import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
+import org.firstinspires.ftc.robotcontroller.GMRCode.otherObjects.CurrentStates;
 
 public class templet extends OpMode {
     private Robot robot;

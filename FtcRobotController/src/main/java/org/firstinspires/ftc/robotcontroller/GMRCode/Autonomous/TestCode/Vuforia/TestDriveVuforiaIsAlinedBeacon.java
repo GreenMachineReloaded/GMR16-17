@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.sensorTest;
+package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.TestCode.Vuforia;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;

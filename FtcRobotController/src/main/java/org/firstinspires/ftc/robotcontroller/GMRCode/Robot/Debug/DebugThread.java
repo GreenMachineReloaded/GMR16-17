@@ -8,7 +8,7 @@
 ////import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 ////import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 ////import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
-////import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
+////import GMRColorSensor;
 ////
 ////import org.firstinspires.ftc.robotcore.external.Telemetry;
 ////import java.io.BufferedWriter;
@@ -116,7 +116,7 @@
 //import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 //import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 //import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.Launch;
-//import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
+//import GMRColorSensor;
 //>>>>>>> refs/remotes/origin/m-Automaintenence
 //import org.firstinspires.ftc.robotcore.external.Telemetry;
 //import java.io.BufferedWriter;

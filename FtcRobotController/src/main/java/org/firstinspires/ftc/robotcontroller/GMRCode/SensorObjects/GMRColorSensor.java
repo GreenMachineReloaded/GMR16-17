@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.robotcontroller.SensorObjects;
+package org.firstinspires.ftc.robotcontroller.GMRCode.SensorObjects;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
