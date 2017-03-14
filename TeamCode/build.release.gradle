@@ -10,7 +10,7 @@ dependencies {
 }
 repositories {
     flatDir {
-        dirs 'libs', '/home/jeremy/AndroidStudioProjects/GMR16-17/navx-micro/android/libs'
+        dirs 'libs', 'C:\\Users\\Payton\\GMR-2016-2017\\navx-micro\\android\\libs'
     }
 }
 
