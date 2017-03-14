@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\Analytics-release\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="9dafed45e330aec14abcce05bdb7bbdb2a2d7092">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-Analytics-release_5cf1d6480029364322004f6e29639c41cc1f47b3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="b8457dfc17251cd396f369421b9f91013be6c66a">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\instant-run-bootstrap_af71a6da863a6eeafdb308381fba8e9a1cd55151.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\Inspection-release\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="b1a3a00c0ec6312741914629ed283101a3301293">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-Inspection-release_40af8ff1e116493288b465a7e63802c2a6207843.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\ModernRobotics-release\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="01999c87afe3d10ffa06f3efa66f39e61e6aba0c">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-ModernRobotics-release_7fa150d8d2e1aac796899a9d64f5b11f48582066.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\navx_ftc-release\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8645f44944ec57b771a5794f7c27238009d0aa69">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-navx_ftc-release_e729f6269c717395866102edc70031c8be90375f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\WirelessP2p-release\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="9403be210676ed196cdcc64c7391b9ae2361c174">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-WirelessP2p-release_f6151bc2ada9965bdc30f7511ad6a8398d48bf74.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\RobotCore-release\jars\libs\d2xx.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="a6cc281519866bbb2d0ac480409212d8d9816d18">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\d2xx_b5f52a5ba1e7079b87a2319fa25abadf07456a23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="36bc8d235ea518c37dc4cef1e9a9a6ccac7e3ab8">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\instant-run_8cd5e1b2d86cc4b89b9df742ad8fa661c71db0ef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\Hardware-release\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="4d964a43f48520428edfadad534fa0a3279deb84">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-Hardware-release_0fa3497d5ed46f2e5877aab02057a85f540d0700.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\RobotCore-release\jars\libs\Vuforia.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ca5be875a082e7b5f0277a0e85564617b181ae76">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\Vuforia_c543f5cf2f8c48abb0283d9a5f1b69f00da9aef2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\FtcCommon-release\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ec068454985de756c760317d9c63c23b3ce2055c">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-FtcCommon-release_fdecf33b74555884cb35978ef4e1505397931b83.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\RobotCore-release\jars\libs\support-annotations-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="15632afee8c14c7c0ba7168d25710c38badee7c8">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\support-annotations-23.4.0_9fa50d74ee84e6d02710c3b25cecfc99a22b5736.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\RobotCore-release\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="2a24cdb4bd53ff8f890698775608b84ab6703fe2">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-RobotCore-release_55f263c4b883fe15adb347ee64657dbad8c1847a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\Blocks-release\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="c5216545889f13d4560613d35d498b2ca2db1d1f">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\intermediates-exploded-aar-Blocks-release_b6b1139ea184282022b2b8e532586d12095f9cf7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\exploded-aar\RobotCore-release\jars\libs\gson-2.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="23.0.3"
+        sha1="f8bcd8ef93636064d155d8e8ea6541ea7e4280d0">
+        <dex dex="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\gson-2.7_869033fbb7b936df5c759665d67063980b2ea270.jar" />
+    </item>
+
+</items>
