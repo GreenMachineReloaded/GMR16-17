@@ -51,7 +51,6 @@ public class Robot {
 //            //start thread
 //        }
         telemtry.update();
-
     }
     public boolean colorDrive(DriveTrain.Direction direction, double power, GMRColorSensor.WhichGMRColorSensor whichGMRColorSensor , GMRColorSensor.Color whichColor) {
         this.driveTrain.Drive(direction, power);

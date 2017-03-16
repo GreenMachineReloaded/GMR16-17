@@ -16,6 +16,7 @@ public class BeaconNav {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
     private Telemetry telemetry;
+
     private double colorFactor = 8;
 
     private Servo leftBeaconButtonPusher;
@@ -27,6 +28,10 @@ public class BeaconNav {
     private double testBeaconServoPosition = 0.5;
     private double testBeaconServoPositionB = 0.5;
 
+    private double beaconServoPosition = 0.39;
+    private double beaconServoPositionB = 0.63;
+
+    private String mostRecentCommand;
     GMRColorSensor colorSensors;
 
     private boolean hasPushed = false;
@@ -58,7 +63,6 @@ public class BeaconNav {
         //telemetry.addData("BeaconNav Startup", "End");
         telemetry.update();
     }
-
     public void BeaconPusher(WhichBeaconPusherPosition whichBeaconPusherPosition) {
         if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER) {
             leftBeaconButtonPusher.setPosition(.7);
@@ -175,14 +179,18 @@ public class BeaconNav {
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PROXS
-    public void turnOnLightProx(boolean ONOFF) {
-        proxSensorLeft.enableLed(ONOFF);}
-    public double getRawDistance() {return proxSensorLeft.getLightDetected();}
-    public double getDistance() {return (proxSensorLeft.getLightDetected() * 1000);}
-    public double rawLight() {return proxSensorLeft.getRawLightDetected();}
+    public void turnOnLightProx(boolean ONOFF) {mostRecentCommand = "[turnOnLightColor] ONOFF: "+ONOFF; proxSensorLeft.enableLed(ONOFF);}
+    public double getRawDistance() {mostRecentCommand = "[getRawDistance]";  return proxSensorLeft.getLightDetected();}
+    public double getDistance() {mostRecentCommand = "[getDistance]"; return (proxSensorLeft.getLightDetected() * 1000);}
+    public double rawLight() {mostRecentCommand = "[rawLight]"; return proxSensorLeft.getRawLightDetected();}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ENUMS
     public enum Color {BLUE, RED, GREEN, EQUAL}
     public enum WhichGMRColorSensor{GROUNDLEFT, GROUNDRIGHT, BEACON}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// DEBUG
+    public String getDebugCommand() {
+        return mostRecentCommand;
+    }
     public enum WhichBeaconPusherPosition {EXTENDLEFTBEACONPUSHER, EXTENDRIGHTBEACONPUSHER, EXTENDBOTHPUSHERS, RETRACTBOTHPUSHERS}
 }

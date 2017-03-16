@@ -38,8 +38,6 @@ public class Launch {
 // CONSTRUCT
     //calls the second constructor of Launch and passes a reference to the hardware map, telemetry and the 3 string names of the motors and servos in the order sweeper, launcher and door hopper.
     public Launch(HardwareMap hardwareMap, Telemetry telemetry){
-        telemetry.addData("Launch Startup", "Beginning");
-        telemetry.update();
         this.telemetry = telemetry;
         //setup for the sweeper
         this.sweeperMotor = hardwareMap.dcMotor.get(sweeperMotorStringArg);
