@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Debug;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
 
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
@@ -26,7 +28,7 @@ public class DebugThread extends Thread{
     BufferedWriter bufferedWriter;
 
     String allDebugCommands;
-    public DebugThread(Telemetry telemetry, DriveTrain driveTrain, Launch launch, BeaconNav beaconNav, WaitFor waitFor, String fileName, boolean debug, boolean fileDebug, double secondInterval) {
+    public DebugThread(Telemetry telemetry, HardwareMap hardware, DriveTrain driveTrain, Launch launch, BeaconNav beaconNav, WaitFor waitFor, String fileName, boolean debug, boolean fileDebug, double secondInterval) {
         this.beaconNav = beaconNav;
         this.colorSensor = new GMRColorSensor(hardware, telemetry);
         this.driveTrain = driveTrain;
@@ -89,6 +91,7 @@ public class DebugThread extends Thread{
             telemetry.addData(this.allDebugCommands, null);
             telemetry.update();
         }
+    }
     }
     public void stopThread() {ON = false;}
 }

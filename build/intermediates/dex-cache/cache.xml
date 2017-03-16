@@ -34,7 +34,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="436718c6b05e9991655808443687c1eb383c7a5d">
+        sha1="08064e8bb3617f6b216c0e5e848573990f6683c0">
         <dex dex="C:\Users\jstoneberger\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\instant-run-bootstrap_05fe2b0bf1759d49568a6515d0a115c4694669f8.jar" />
     </item>
     <item
@@ -43,7 +43,7 @@
         jumboMode="true"
         optimize="true"
         revision="23.0.3"
-        sha1="4bf2c79f4fe1ac1fcde9d39be8b4f85b3d0357f5">
+        sha1="e86392f42c75c44d779029206b031e0248a1757d">
         <dex dex="C:\Users\jstoneberger\GMR-2016-2017\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\instant-run_d1d0853c2d69a3fae41199f6b02b522ab960c474.jar" />
     </item>
     <item

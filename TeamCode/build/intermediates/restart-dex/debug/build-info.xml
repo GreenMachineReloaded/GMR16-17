@@ -5,29 +5,29 @@
     density="hdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="60662216567444"
+    timestamp="76853235830291"
     token="-6868779829975564112"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="1076" />
+        duration="388" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="1947" />
+        duration="12" />
     <task
         name="verifier"
-        duration="522" />
+        duration="1" />
 
     <artifact
         location="C:\Users\jstoneberger\GMR-2016-2017\GMR16-17\TeamCode\build\outputs\apk\TeamCode-debug.apk"
         type="MAIN" />
 
     <build
-        timestamp="60662216567444"
+        timestamp="76853235830291"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\jstoneberger\GMR-2016-2017\GMR16-17\TeamCode\build\outputs\apk\TeamCode-debug.apk"
