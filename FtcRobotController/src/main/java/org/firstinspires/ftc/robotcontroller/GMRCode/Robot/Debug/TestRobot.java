@@ -13,19 +13,16 @@ public class TestRobot extends OpMode {
 
     private Robot robot;
 
-    private double someInt;
-
     @Override
     public void init() {
-        try {
-            robot = new Robot(hardwareMap, telemetry);
-        } catch (NullPointerException e) {
-            telemetry.addData("Robot Failed", "");
-        }
+        robot = new Robot(hardwareMap, telemetry);
     }
 
     @Override
     public void loop() {
-
+        telemetry.addData("--------------------", "");
+        telemetry.addData("Gyro", robot.driveTrain.getYaw());
+        telemetry.addData("--------------------", "");
+        telemetry.addData("Proximity Sensor", robot.beaconNav.getDistance());
     }
 }

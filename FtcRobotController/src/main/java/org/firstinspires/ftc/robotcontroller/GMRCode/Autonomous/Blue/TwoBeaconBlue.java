@@ -102,8 +102,15 @@ public class TwoBeaconBlue extends OpMode {
             if (!isFinished && (beaconServoTime > beaconTime.seconds())) {
                 isFinished = robot.beaconNav.pushBlue();
             } else {
-                state = CurrentStates.BACKWARD;
+                state = CurrentStates.STRAFERIGHT;
                 robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.STRAFERIGHT) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFERIGHT, 0.2, 3);
+            } else {
+                state = CurrentStates.BACKWARD;
                 beaconServoTime = (beaconTime.seconds() + 1);
                 isFinished = false;
             }
@@ -122,7 +129,7 @@ public class TwoBeaconBlue extends OpMode {
             }
         } else if (state == CurrentStates.STRAFELEFT3) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 1);
+                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 4);
             } else {
                 state = CurrentStates.PUSHBEACON2;
                 isFinished = false;

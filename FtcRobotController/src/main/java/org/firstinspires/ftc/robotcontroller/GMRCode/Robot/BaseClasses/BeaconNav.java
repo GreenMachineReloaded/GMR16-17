@@ -57,36 +57,36 @@ public class BeaconNav {
         leftBeaconButtonPusher = hardwareMap.servo.get(leftBeaconButtonPusherStringArg);
         rightBeaconButtonPusher = hardwareMap.servo.get(rightBeaconButtonPusherStringArg);
 
-        leftBeaconButtonPusher.setPosition(0.63);
-        rightBeaconButtonPusher.setPosition(0.39);
+//        leftBeaconButtonPusher.setPosition(0.577);
+//        rightBeaconButtonPusher.setPosition(0.797);
 
         //telemetry.addData("BeaconNav Startup", "End");
         telemetry.update();
     }
     public void BeaconPusher(WhichBeaconPusherPosition whichBeaconPusherPosition) {
         if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER) {
-            leftBeaconButtonPusher.setPosition(.9);
+            leftBeaconButtonPusher.setPosition(.7);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER) {
-            rightBeaconButtonPusher.setPosition(.17);
+            rightBeaconButtonPusher.setPosition(.679);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDBOTHPUSHERS) {
-            leftBeaconButtonPusher.setPosition(.9);
-            rightBeaconButtonPusher.setPosition(.17);
+            leftBeaconButtonPusher.setPosition(.712);
+            rightBeaconButtonPusher.setPosition(.679);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.RETRACTBOTHPUSHERS) {
-            leftBeaconButtonPusher.setPosition(.63);
-            rightBeaconButtonPusher.setPosition(.41);
+            leftBeaconButtonPusher.setPosition(.56);
+            rightBeaconButtonPusher.setPosition(.797);
         }
     }
 
     public void teleOpBeaconPush(boolean x) {
         if (x) {
-            leftBeaconButtonPusher.setPosition(.9);
-            rightBeaconButtonPusher.setPosition(.17);
+            leftBeaconButtonPusher.setPosition(.7);
+            rightBeaconButtonPusher.setPosition(.679);
         } else {
-            leftBeaconButtonPusher.setPosition(.63);
-            rightBeaconButtonPusher.setPosition(.41);
+            leftBeaconButtonPusher.setPosition(.56);
+            rightBeaconButtonPusher.setPosition(.797);
         }
     }
 
@@ -104,17 +104,31 @@ public class BeaconNav {
         telemetry.addData("Current Right Position", rightBeaconButtonPusher.getPosition());
     }
 
+    public void fixBeaconServos(boolean a, boolean b, boolean x, boolean y) {
+        if (a) {
+            testBeaconServoPosition -= 0.001;
+        } else if (b) {
+            testBeaconServoPositionB += 0.001;
+        } else if (x) {
+            testBeaconServoPosition += 0.001;
+        } else if (y) {
+            testBeaconServoPositionB -= 0.001;
+        }
+        leftBeaconButtonPusher.setPosition(testBeaconServoPosition);
+        rightBeaconButtonPusher.setPosition(testBeaconServoPositionB);
+        telemetry.addData("Current Left Position", leftBeaconButtonPusher.getPosition());
+        telemetry.addData("Current Right Position", rightBeaconButtonPusher.getPosition());
+    }
+
     public boolean pushRed() {
         if (!hasPushed) {
             if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
-                rightBeaconButtonPusher.setPosition(.41);
                 if (leftBeaconButtonPusher.getPosition() == .59) {
                     hasPushed = true;
                 }
             } else {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
-                leftBeaconButtonPusher.setPosition(.63);
                 if (rightBeaconButtonPusher.getPosition() == .83) {
                     hasPushed = true;
                 }
@@ -129,13 +143,11 @@ public class BeaconNav {
         if (!hasPushed) {
             if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
-                leftBeaconButtonPusher.setPosition(.63);
                 if (rightBeaconButtonPusher.getPosition() == .83) {
                     hasPushed = true;
                 }
             } else {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
-                rightBeaconButtonPusher.setPosition(.41);
                 if (leftBeaconButtonPusher.getPosition() == .59) {
                     hasPushed = true;
                 }
@@ -143,6 +155,22 @@ public class BeaconNav {
             return false;
         } else {
             return true;
+        }
+    }
+
+    public boolean checkColor(GMRColorSensor.Color color) {
+        if (color == GMRColorSensor.Color.RED) {
+            if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (!(colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

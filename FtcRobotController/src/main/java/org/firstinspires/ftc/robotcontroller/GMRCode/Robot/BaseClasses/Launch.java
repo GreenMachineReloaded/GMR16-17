@@ -76,7 +76,7 @@ public class Launch {
         }
         if (this.launchMotor.getCurrentPosition() < goalPosition - 20) {
             launcherServoControl(false);
-            timeOfCompletion = (launchTime.seconds() + 0.7);
+            timeOfCompletion = (launchTime.seconds() + 0.5);
             return false;
         } else {
             if (launchTime.seconds() < timeOfCompletion) {
@@ -139,9 +139,13 @@ public class Launch {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SWEEPER
     public void sweeperControl(boolean rightBumper, double rightTrigger) {
-        if(rightBumper) {this.sweeperMotor.setPower(1);}
-        else if (rightTrigger > 0) {this.sweeperMotor.setPower(-1);}
-        else {this.sweeperMotor.setPower(0);}
+        if (rightBumper) {
+            this.sweeperMotor.setPower(1);
+        } else if (rightTrigger > 0) {
+            this.sweeperMotor.setPower(-1);
+        } else {
+            this.sweeperMotor.setPower(0);
+        }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ENCODER

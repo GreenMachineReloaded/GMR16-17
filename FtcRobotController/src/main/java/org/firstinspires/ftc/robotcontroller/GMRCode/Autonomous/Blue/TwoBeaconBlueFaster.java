@@ -7,41 +7,39 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
-import org.firstinspires.ftc.robotcontroller.otherObjects.Continue;
 import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
 
-@Autonomous(name="Two Beacon Blue", group="Beacon Programs")
+@Autonomous(name="Two Beacon Blue", group="Beacon Programs Blue")
 
 public class TwoBeaconBlueFaster extends OpMode {
 
     private Robot robot;
-    private GMRColorSensor colorSensor;
     private CurrentStates state = CurrentStates.ENCODERFORWARD;
     private boolean isFinished = false;
     private boolean isStraight = false;
     private int launches = 0;
     private double startingOrientation;
-    private Continue sleep = new Continue();
-    private int launchNumber = 0;
+
+    private boolean hasStrafed = false;
+
+    private final double beaconPushTime = 1.5;
 
     private ElapsedTime beaconTime = new ElapsedTime();
     private double beaconServoTime;
 
-    private int iterations = 0;
-
     public void init() {
         robot = new Robot(hardwareMap, telemetry);
-        colorSensor = new GMRColorSensor(hardwareMap, telemetry);
         telemetry.addData("Starting Robot", "");
         startingOrientation = robot.driveTrain.getYaw();
         beaconTime.reset();
-        telemetry.addData("Gyro Done Calibrating", robot.driveTrain.checkGyro());
+        robot.beaconNav.teleOpBeaconPush(false);
     }
 
     public void start() {
         telemetry.addData("Starting Servos", "");
         telemetry.update();
         beaconTime.reset();
+        robot.beaconNav.teleOpBeaconPush(false);
     }
 
     public void loop() {
@@ -66,7 +64,7 @@ public class TwoBeaconBlueFaster extends OpMode {
             }
         } else if (state == CurrentStates.GYROTURNRIGHT) {
             if (!isFinished) {
-                isFinished = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.2, 179);
+                isFinished = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.3, 179);
             } else {
                 state = CurrentStates.STRAFELEFT;
                 isFinished = false;
@@ -82,63 +80,147 @@ public class TwoBeaconBlueFaster extends OpMode {
             }
         } else if (state == CurrentStates.COLORFORWARD) {
             if (!isFinished) {
-                isFinished = robot.whiteDrive(DriveTrain.Direction.BACKWARD, 0.1, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
+                isFinished = robot.whiteDrive(DriveTrain.Direction.BACKWARD, 0.2, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
+            } else {
+                state = CurrentStates.COLORBACKWARD;
+                robot.driveTrain.resetEncoders();
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.COLORBACKWARD) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.1, 0.5);
             } else {
                 state = CurrentStates.STRAFELEFT2;
-                robot.driveTrain.resetEncoders();
                 isFinished = false;
             }
         } else if (state == CurrentStates.STRAFELEFT2) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 4);
+                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 8);
             } else {
                 state = CurrentStates.PUSHBEACON;
-                iterations += 1;
                 isFinished = false;
-                beaconServoTime = (beaconTime.seconds() + 2);
+                beaconServoTime = (beaconTime.seconds() + beaconPushTime);
             }
         } else if(state == CurrentStates.PUSHBEACON) {
             if (!isFinished && (beaconServoTime > beaconTime.seconds())) {
                 isFinished = robot.beaconNav.pushBlue();
             } else {
-                state = CurrentStates.BACKWARD;
+                state = CurrentStates.CHECKCOLOR;
                 robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
-                beaconServoTime = (beaconTime.seconds() + 1);
+                robot.driveTrain.resetEncoders();
                 isFinished = false;
             }
-        } else if (state == CurrentStates.BACKWARD) {
+        } else if (state == CurrentStates.CHECKCOLOR) {
+            if (robot.beaconNav.checkColor(GMRColorSensor.Color.BLUE)) {
+                state = CurrentStates.STRAFERIGHT;
+            } else {
+                state = CurrentStates.FIXBEACON;
+                beaconServoTime = (beaconTime.seconds() + 5);
+            }
+        } else if (state == CurrentStates.FIXBEACON) {
             if (beaconServoTime > beaconTime.seconds()) {
-                robot.driveTrain.Drive(DriveTrain.Direction.BACKWARD, 0.1);
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+            } else if ((beaconServoTime + 1.5) > beaconTime.seconds()) {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.EXTENDBOTHPUSHERS);
+            } else {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+                state = CurrentStates.STRAFERIGHT;
+            }
+        } else if (state == CurrentStates.STRAFERIGHT) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFERIGHT, 0.2, 3);
+            } else {
+                state = CurrentStates.BACKWARD;
+                beaconServoTime = (beaconTime.seconds() + 1);
+                hasStrafed = true;
+                isFinished = false;
+            }
+        }  else if (state == CurrentStates.BACKWARD) {
+            if (beaconServoTime > beaconTime.seconds()) {
+                robot.driveTrain.Drive(DriveTrain.Direction.BACKWARD, 0.2);
             } else {
                 state = CurrentStates.COLORFORWARD2;
             }
         } else if (state == CurrentStates.COLORFORWARD2) {
             if (!isFinished) {
-                isFinished = robot.whiteDrive(DriveTrain.Direction.BACKWARD, 0.15, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
+                isFinished = robot.whiteDrive(DriveTrain.Direction.BACKWARD, 0.2, GMRColorSensor.WhichGMRColorSensor.GROUNDLEFT);
+            } else {
+                state = CurrentStates.COLORBACKWARD2;
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.COLORBACKWARD2) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.1, 0.5);
             } else {
                 state = CurrentStates.STRAFELEFT3;
                 isFinished = false;
             }
         } else if (state == CurrentStates.STRAFELEFT3) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 1);
+                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 5);
             } else {
                 state = CurrentStates.PUSHBEACON2;
                 isFinished = false;
-                beaconServoTime = (beaconTime.seconds() + 2);
+                beaconServoTime = (beaconTime.seconds() + beaconPushTime);
             }
         } else if (state == CurrentStates.PUSHBEACON2) {
             if (!isFinished && (beaconServoTime > beaconTime.seconds())) {
                 isFinished = robot.beaconNav.pushBlue();
             } else {
-                state = CurrentStates.PROGRAMEND;
+                state = CurrentStates.CHECKCOLOR2;
                 robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
                 isFinished = false;
             }
+        } else if (state == CurrentStates.CHECKCOLOR2) {
+            if (robot.beaconNav.checkColor(GMRColorSensor.Color.BLUE)) {
+                state = CurrentStates.STRAFERIGHT2;
+            } else {
+                state = CurrentStates.FIXBEACON2;
+                beaconServoTime = (beaconTime.seconds() + 5);
+            }
+        } else if (state == CurrentStates.FIXBEACON2) {
+            if (beaconServoTime > beaconTime.seconds()) {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+            } else if ((beaconServoTime + 1.5) > beaconTime.seconds()) {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.EXTENDBOTHPUSHERS);
+            } else {
+                robot.beaconNav.BeaconPusher(BeaconNav.WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+                state = CurrentStates.STRAFERIGHT2;
+            }
+        } else if (state == CurrentStates.STRAFERIGHT2) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.STRAFERIGHT, 0.2, 3);
+            } else {
+                state = CurrentStates.GYROTURNRIGHT2;
+                isFinished = false;
+            }
+        } else if (state == CurrentStates.GYROTURNRIGHT2) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.gyroTurn(DriveTrain.Direction.TURNRIGHT, 0.2, 45);
+            } else {
+                state = CurrentStates.FORWARD;
+                isFinished = false;
+                robot.driveTrain.resetEncoders();
+            }
+        } else if(state == CurrentStates.FORWARD) {
+            if (!isFinished) {
+                isFinished = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, 0.9, 22);
+                robot.launch.launcherServoControl(false);
+            } else {
+                state = CurrentStates.PROGRAMEND;
+                beaconServoTime = (beaconTime.seconds() + beaconPushTime);
+                isFinished = false;
+            }
         } else if (state == CurrentStates.PROGRAMEND) {
-            robot.stopRobot();
+            if (!isFinished && (beaconServoTime > beaconTime.seconds())) {
+                robot.launch.sweeperControl(false, 0);
+            } else {
+                robot.stopRobot();
+            }
             telemetry.addData("Program End", "");
+            robot.beaconNav.teleOpBeaconPush(false);
         }
         telemetry.addData("Current State", state);
+        telemetry.addData("Has Strafed", hasStrafed);
     }
 }

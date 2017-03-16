@@ -58,8 +58,7 @@ public class LongShot extends OpMode {
 
                 }
             }
-        }
-        else if (state == CurrentStates.LAUNCH) {
+        } else if (state == CurrentStates.LAUNCH) {
             robot.launch.launchControl(true);
             robot.waitFor.Sleep(1);
             robot.launch.launcherServoControl(true);
@@ -74,8 +73,7 @@ public class LongShot extends OpMode {
                 state = CurrentStates.ENCODERFORWARD2;
                 robot.waitFor.Sleep(.5);
             }
-        }
-        else if(state == CurrentStates.ENCODERFORWARD2) {
+        } else if(state == CurrentStates.ENCODERFORWARD2) {
             isDone = robot.driveTrain.encoderDrive(DriveTrain.Direction.FORWARD, .6, 4);
             if (isDone) {
                 ifRepeat = true;
