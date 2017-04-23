@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\TeamCode\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\bundles\\default\\res\\drawable-mdpi-v4\\ic_launcher.png"
+    },
+    {
         "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\TeamCode\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_launcher.png",
         "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\TeamCode\\build\\intermediates\\exploded-aar\\GMR16-17\\FtcRobotController\\unspecified\\res\\drawable-mdpi-v4\\ic_launcher.png"
     }

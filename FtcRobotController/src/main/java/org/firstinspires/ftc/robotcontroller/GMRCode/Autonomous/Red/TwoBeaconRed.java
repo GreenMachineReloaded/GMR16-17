@@ -6,13 +6,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.BeaconNav;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain;
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
-<<<<<<< HEAD
 import org.firstinspires.ftc.robotcontroller.GMRCode.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.GMRCode.otherObjects.CurrentStates;
-=======
-import org.firstinspires.ftc.robotcontroller.SensorObjects.GMRColorSensor;
-import org.firstinspires.ftc.robotcontroller.otherObjects.CurrentStates;
->>>>>>> refs/remotes/origin/master
 
 @Autonomous(name="Two Beacon Red", group="Beacon Programs Red")
 public class TwoBeaconRed extends OpMode {
@@ -22,10 +17,6 @@ public class TwoBeaconRed extends OpMode {
     private boolean isFinished = false;
     private int launches = 0;
     private double startingOrientation;
-<<<<<<< HEAD
-    private int launchNumber = 0;
-=======
->>>>>>> refs/remotes/origin/master
     private ElapsedTime beaconTime = new ElapsedTime();
     private double beaconServoTime;
     private boolean isStraight = false;

@@ -11,6 +11,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import static java.lang.Math.cos;
 import static java.lang.Math.pow;
 import static java.lang.Math.sin;
+import static org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain.Direction.DRIGHTUPHALFFORWARD;
+import static org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain.Direction.DRIGHTUPHALFSTRAFERIGHT;
+import static org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrain.Direction.DRIGHTUPHALFSTRAFERIGHT;
 
 public class DriveTrain {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -165,13 +168,13 @@ public class DriveTrain {
                 Drive(Direction.STRAFERIGHT, power);
                 break;
             case 1:
-                Drive(Direction.DRIGHTUPHALFSTRAFERIGHT, power);
+                Drive(DRIGHTUPHALFSTRAFERIGHT, power);
                 break;
             case 2:
                 Drive(Direction.DRIGHTUP, power);
                 break;
             case 3:
-                Drive(Direction.DRIGHTUPHALFFORWARD, power);
+                Drive(DRIGHTUPHALFFORWARD, power);
                 break;
             case 4:
                 Drive(Direction.FORWARD, power);
@@ -616,15 +619,7 @@ public class DriveTrain {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENUMS
-<<<<<<< HEAD
-    public enum Direction{FORWARD,BACKWARD,STRAFELEFT,STRAFERIGHT,DRIGHTUP,DRIGHTDOWN,DLEFTUP,DLEFTDOWN,TURNLEFT,TURNRIGHT}
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// DEBUG
-    public String getDebugCommand() {
-        return mostRecentCommand;
-    }
-=======
-    public enum Direction{
+public enum Direction{
     FORWARD,
     BACKWARD,
     STRAFELEFT,
@@ -644,5 +639,9 @@ public class DriveTrain {
     DRIGHTDOWNHALFBACKWARD,
     DRIGHTDOWNHALFSTRAFERIGHT
 }
->>>>>>> refs/remotes/origin/master
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// DEBUG
+    public String getDebugCommand() {
+        return mostRecentCommand;
+    }
 }

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="FtcCommon-release-">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/FtcRobotController/build/intermediates/exploded-aar/FtcCommon-release/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/FtcRobotController/build/intermediates/exploded-aar/FtcCommon-release/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/89847c12512c8f1f33659d9e9085b03e873d036b/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/89847c12512c8f1f33659d9e9085b03e873d036b/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
