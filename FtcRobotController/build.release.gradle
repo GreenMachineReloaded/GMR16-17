@@ -11,6 +11,10 @@ dependencies {
 }
 repositories {
     flatDir {
+<<<<<<< HEAD
         dirs 'libs', 'C:\\Users\\Noah Bennett\\navx-micro\\android\\libs'
+=======
+        dirs 'libs', 'C:\\Users\\jstoneberger\\GMR-2016-2017\\navx-micro\\android\\libs'
+>>>>>>> refs/remotes/origin/master
     }
 }

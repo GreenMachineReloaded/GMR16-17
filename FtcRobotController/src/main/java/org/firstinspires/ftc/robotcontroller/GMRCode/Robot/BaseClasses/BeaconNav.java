@@ -63,7 +63,7 @@ public class BeaconNav {
     }
     public void BeaconPusher(WhichBeaconPusherPosition whichBeaconPusherPosition) {
         if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER) {
-            leftBeaconButtonPusher.setPosition(.712);
+            leftBeaconButtonPusher.setPosition(.7);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER) {
             rightBeaconButtonPusher.setPosition(.679);
@@ -73,17 +73,17 @@ public class BeaconNav {
             rightBeaconButtonPusher.setPosition(.679);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.RETRACTBOTHPUSHERS) {
-            leftBeaconButtonPusher.setPosition(.577);
+            leftBeaconButtonPusher.setPosition(.56);
             rightBeaconButtonPusher.setPosition(.797);
         }
     }
 
     public void teleOpBeaconPush(boolean x) {
         if (x) {
-            leftBeaconButtonPusher.setPosition(.712);
+            leftBeaconButtonPusher.setPosition(.7);
             rightBeaconButtonPusher.setPosition(.679);
         } else {
-            leftBeaconButtonPusher.setPosition(.577);
+            leftBeaconButtonPusher.setPosition(.56);
             rightBeaconButtonPusher.setPosition(.797);
         }
     }
@@ -122,7 +122,6 @@ public class BeaconNav {
         if (!hasPushed) {
             if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
-
                 if (leftBeaconButtonPusher.getPosition() == .59) {
                     hasPushed = true;
                 }
@@ -154,6 +153,22 @@ public class BeaconNav {
             return false;
         } else {
             return true;
+        }
+    }
+
+    public boolean checkColor(GMRColorSensor.Color color) {
+        if (color == GMRColorSensor.Color.RED) {
+            if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (!(colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

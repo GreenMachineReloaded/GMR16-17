@@ -87,5 +87,11 @@ public enum CurrentStates {
 
     STRAIGHTEN,
 
-    ENCODERTURN
+    ENCODERTURN,
+
+    CHECKCOLOR,
+    CHECKCOLOR2,
+
+    FIXBEACON,
+    FIXBEACON2,
 }

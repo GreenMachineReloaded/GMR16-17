@@ -56,7 +56,7 @@ public class DriveTrain {
     private String RightRear = "rightrear";
     private String LiftMotor = "liftmotor";
     private String LiftServo = "liftservo";
-    private final int gyroPort = 0;
+    private final int gyroPort = 3;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MISS V
     private Telemetry telemetry;
@@ -67,6 +67,7 @@ public class DriveTrain {
     private double goalLeftPosition;
     private double goalRightPosition;
     private double goalRightStrafePosition;
+    private double goalLeftStrafePosition;
 
     private double testLiftPosition = 1;
 
@@ -110,12 +111,13 @@ public class DriveTrain {
         this.rightRear.setPower(0);
         //gyro sensor setup.
         this.gyro = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"), gyroPort, AHRS.DeviceDataType.kProcessedData);
-            //sets up the gyro sensor.
+        //sets up the gyro sensor.
         this.gyro.zeroYaw();
         gyroReset = gyro.getDimStateTrackerInstance();
 
+        //sets the gyro sensors position to zero.
         gyroReset.reset();
-            //sets the gyro sensors position to zero.
+
         //miss setup
 
         this.goalDegrees = -1;
@@ -156,6 +158,60 @@ public class DriveTrain {
         this.leftRear.setPower(Range.clip(-(y-x+z),  -maxMotorSpeed, maxMotorSpeed));
         this.rightRear.setPower(Range.clip((y+x-z),  -maxMotorSpeed, maxMotorSpeed));
     }
+
+    public void zonedDrive(int zone, double power) {
+        switch(zone) {
+            case 0:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 1:
+                Drive(Direction.DRIGHTUPHALFSTRAFERIGHT, power);
+                break;
+            case 2:
+                Drive(Direction.DRIGHTUP, power);
+                break;
+            case 3:
+                Drive(Direction.DRIGHTUPHALFFORWARD, power);
+                break;
+            case 4:
+                Drive(Direction.FORWARD, power);
+                break;
+            case 5:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 6:
+                Drive(Direction.DLEFTUP, power);
+                break;
+            case 7:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 8:
+                Drive(Direction.STRAFELEFT, power);
+                break;
+            case 9:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 10:
+                Drive(Direction.DLEFTDOWN, power);
+                break;
+            case 11:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 12:
+                Drive(Direction.BACKWARD, power);
+                break;
+            case 13:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+            case 14:
+                Drive(Direction.DRIGHTDOWN, power);
+                break;
+            case 15:
+                Drive(Direction.STRAFERIGHT, power);
+                break;
+        }
+    }
+
     public void Drive(Direction direction, double power){
         mostRecentCommand = "[Drive] direction: "+direction+" power:"+power;
         switch (direction) {
@@ -219,6 +275,34 @@ public class DriveTrain {
                 this.leftRear.setPower(-power);
                 this.rightRear.setPower(-power);
                 break;
+
+            //Possible movement code, not yet tested
+            case DRIGHTUPHALFSTRAFERIGHT:
+                this.leftFront.setPower(-power);
+                this.rightFront.setPower(-power/2);
+                this.leftRear.setPower(power/2);
+                this.rightRear.setPower(power);
+                break;
+            case DRIGHTUPHALFFORWARD:
+                this.leftFront.setPower(-power);
+                this.rightFront.setPower(power/2);
+                this.leftRear.setPower(-power/2);
+                this.rightRear.setPower(power);
+                break;
+            case DLEFTUPHALFFORWARD:
+                this.leftFront.setPower(-power/2);
+                this.rightFront.setPower(power);
+                this.leftRear.setPower(-power);
+                this.rightRear.setPower(power/2);
+                break;
+            case DLEFTUPHALFSTRAFELEFT:
+                this.leftFront.setPower(power/2);
+                this.rightFront.setPower(power);
+                this.leftRear.setPower(-power);
+                this.rightRear.setPower(-power/2);
+                break;
+            case DLEFTDOWNHALFSTRAFELEFT:
+
         }
     }
     public void stop(){
@@ -245,6 +329,7 @@ public class DriveTrain {
             goalLeftPosition = (getLeftEncoder() + (inches * countsPerInch));
             goalRightPosition = (getRightEncoder() + (inches * countsPerInch));
             goalRightStrafePosition = (rightStrafeValue + (inches * countsPerInch));
+            goalLeftStrafePosition = (leftStrafeValue + (inches *countsPerInch));
             encodersCanRun = false;
             return encodersCanRun;
         } else {
@@ -273,10 +358,10 @@ public class DriveTrain {
                     }
                     break;
                 case STRAFELEFT:
-                    if ((leftStrafeValue) < goalEncoderPosition) {
+                    if ((leftStrafeValue) < goalLeftStrafePosition) {
                         Drive(direction, power);
                         telemetry.addData("Current Combined Value", combinedEnValue);
-                        telemetry.addData("Goal Value", goalEncoderPosition);
+                        telemetry.addData("Goal Value", goalLeftStrafePosition);
                     } else {
                         encodersCanRun = true;
                         goalEncoderPosition = -1;
@@ -459,9 +544,20 @@ public class DriveTrain {
         else {return ((Math.atan2(y, x)) * (180/Math.PI));}
     }
 
+    public double currentZone(double x,double y) {
+        if (((int) (Math.round(currentDegrees(x, y) / 22.5))) <= 15) {
+            return (int) (Math.round(currentDegrees(x, y) / 22.5));
+        } else {
+            return 0;
+        }
+    }
+
     public void setLiftServo(boolean dpadUp, float dpadDown) {
-        if (dpadUp) {testLiftPosition += 0.08;}
-        else if (dpadDown > 0) {testLiftPosition -= 0.08;}
+        if (dpadUp) {
+            testLiftPosition -= 0.08;
+        } else if (dpadDown > 0) {
+            testLiftPosition += 0.08;
+        }
         testLiftPosition = clipRange(testLiftPosition, 0, 1);
         liftServo.setPosition(testLiftPosition);
         telemetry.addData("Current Lift Servo Position", testLiftPosition);
@@ -486,10 +582,10 @@ public class DriveTrain {
         rightRear.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     public boolean straighten(double goal) {
-        if (this.getYaw() > (goalDegrees - 2) && this.getYaw() < (goalDegrees + 2)) {
-            if (this.getYaw() > (goalDegrees - 2)) {
+        if (this.getYaw() > (goal - 1) && this.getYaw() < (goal + 1)) {
+            if (this.getYaw() > (goal - 1)) {
                 Drive(Direction.TURNLEFT, 0.2);
-            } else if (this.getYaw() < (goalDegrees + 2)) {
+            } else if (this.getYaw() < (goal + 1)) {
                 Drive(Direction.TURNRIGHT, 0.2);
             }
             return false;
@@ -497,6 +593,7 @@ public class DriveTrain {
             return true;
         }
     }
+
     public boolean checkGyro() {
         return gyro.isCalibrating();
     }
@@ -519,10 +616,33 @@ public class DriveTrain {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  ENUMS
+<<<<<<< HEAD
     public enum Direction{FORWARD,BACKWARD,STRAFELEFT,STRAFERIGHT,DRIGHTUP,DRIGHTDOWN,DLEFTUP,DLEFTDOWN,TURNLEFT,TURNRIGHT}
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // DEBUG
     public String getDebugCommand() {
         return mostRecentCommand;
     }
+=======
+    public enum Direction{
+    FORWARD,
+    BACKWARD,
+    STRAFELEFT,
+    STRAFERIGHT,
+    DRIGHTUP,
+    DRIGHTDOWN,
+    DLEFTUP,
+    DLEFTDOWN,
+    TURNLEFT,
+    TURNRIGHT,
+    DRIGHTUPHALFSTRAFERIGHT,
+    DRIGHTUPHALFFORWARD,
+    DLEFTUPHALFFORWARD,
+    DLEFTUPHALFSTRAFELEFT,
+    DLEFTDOWNHALFSTRAFELEFT,
+    DLEFTDOWNHALFBACKWARD,
+    DRIGHTDOWNHALFBACKWARD,
+    DRIGHTDOWNHALFSTRAFERIGHT
+}
+>>>>>>> refs/remotes/origin/master
 }

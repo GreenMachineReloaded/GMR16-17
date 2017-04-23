@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.otherObjects.CurrentStates;
 /**
  * Created by Payton on 1/18/2017
  */
-@Autonomous(name="One Beacon Red", group="Beacon Programs")
+@Autonomous(name="One Beacon Red", group="Beacon Programs Red")
 public class OneBeaconRed extends OpMode {
 
     private Robot robot;

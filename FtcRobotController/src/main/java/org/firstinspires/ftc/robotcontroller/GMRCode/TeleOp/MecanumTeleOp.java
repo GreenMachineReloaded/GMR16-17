@@ -43,16 +43,19 @@ public class MecanumTeleOp extends OpMode {
         z = gamepad1.right_stick_x;
 
         robot.driveTrain.setMotorPower(x, y, z);
-        //robot.driveTrain.experimentalDrive(x, y, x);
+        //robot.driveTrain.experimentalDrive(x, y, z);
         robot.launch.launchControl(gamepad1.left_bumper, gamepad1.x);
         robot.launch.sweeperControl(gamepad1.right_bumper, gamepad1.right_trigger);
-        robot.beaconNav.teleOpBeaconPush(gamepad2.x);
         robot.driveTrain.setLiftMotor(gamepad2.right_bumper, gamepad2.right_trigger);
         robot.driveTrain.setLiftServo(gamepad2.left_bumper, gamepad2.left_trigger);
+        robot.beaconNav.teleOpBeaconPush(gamepad2.x);
 
         telemetry.addData("Current time", time.seconds());
         telemetry.addData("Current Yaw", robot.driveTrain.getYaw());
-        telemetry.addData("Is Gyro Calibrating", robot.beaconNav.getDistance());
+        telemetry.addData("---------------", "");
+        telemetry.addData("Current Degrees", robot.driveTrain.currentDegrees(x, y));
+        telemetry.addData("Current Strength", (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))));
+        telemetry.addData("Current Zone", robot.driveTrain.currentZone(x, y));
 
         //robot.launch.fixLauncher(gamepad2.left_stick_y);
         //robot.beaconNav.fixBeaconServos(gamepad2.a, gamepad2.b, gamepad2.x, gamepad2.y);
