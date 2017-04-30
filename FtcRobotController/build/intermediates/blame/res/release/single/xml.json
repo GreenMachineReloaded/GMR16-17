@@ -12,12 +12,36 @@
         "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
     },
     {
+        "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
+        "source": "C:\\Users\\Noah Bennett\\.android\\build-cache\\89847c12512c8f1f33659d9e9085b03e873d036b\\output\\res\\xml\\squarebot.xml"
+    },
+    {
+        "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\preferences.xml",
+        "source": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\src\\main\\res\\xml\\preferences.xml"
+    },
+    {
+        "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbot.xml",
+        "source": "C:\\Users\\Noah Bennett\\.android\\build-cache\\89847c12512c8f1f33659d9e9085b03e873d036b\\output\\res\\xml\\pushbot.xml"
+    },
+    {
         "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
         "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\xml\\pushbotsens.xml"
     },
     {
+        "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\device_filter.xml",
+        "source": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\src\\main\\res\\xml\\device_filter.xml"
+    },
+    {
+        "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\pushbotsens.xml",
+        "source": "C:\\Users\\Noah Bennett\\.android\\build-cache\\89847c12512c8f1f33659d9e9085b03e873d036b\\output\\res\\xml\\pushbotsens.xml"
+    },
+    {
         "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
         "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\xml\\k9legacybot.xml"
+    },
+    {
+        "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9legacybot.xml",
+        "source": "C:\\Users\\Noah Bennett\\.android\\build-cache\\89847c12512c8f1f33659d9e9085b03e873d036b\\output\\res\\xml\\k9legacybot.xml"
     },
     {
         "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\preferences.xml",
@@ -26,6 +50,10 @@
     {
         "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
         "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\xml\\k9usbbot.xml"
+    },
+    {
+        "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\k9usbbot.xml",
+        "source": "C:\\Users\\Noah Bennett\\.android\\build-cache\\89847c12512c8f1f33659d9e9085b03e873d036b\\output\\res\\xml\\k9usbbot.xml"
     },
     {
         "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\xml\\squarebot.xml",
