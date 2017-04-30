@@ -140,6 +140,13 @@ public class Robot {
         else if (vuforiaX == 0)         {driveTrain.stop();                                        return false;}
         else                            {driveTrain.stop();                                        return false;}
     }
+    public boolean goAwayBeacon(double closeness, double speed) {
+        vuforiaX = robotEyes.getArrayXYZ()[0];
+        if (vuforiaX >= closeness) {driveTrain.stop();                                        return  true;}
+        else if (vuforiaX <= closeness) {driveTrain.Drive(DriveTrain.Direction.STRAFERIGHT, speed); return false;}
+        else if (vuforiaX == 0)         {driveTrain.stop();                                        return false;}
+        else                            {driveTrain.stop();                                        return false;}
+    }
     public boolean isAlinedWithBeacon(double speed) {
         vuforiaZ = robotEyes.getArrayXYZ()[2];
              if(vuforiaZ > 60) {driveTrain.Drive(DriveTrain.Direction.BACKWARD, Range.clip(speed, -.3, .3)); return false;}

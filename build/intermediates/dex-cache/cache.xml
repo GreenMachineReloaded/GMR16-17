@@ -6,9 +6,63 @@
         jar="C:\Users\Noah Bennett\.android\build-cache\e86a32b40283d2c01af47368a313f748cb9bc2d9\output\jars\libs\support-annotations-23.4.0.jar"
         jumboMode="false"
         optimize="true"
+        revision="25.0.3"
+        sha1="ba3817622501fb5da8e6b967e42c6717fbd26b02">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\support-annotations-23.4.0_73339136b8130b5638221c507201e710436442e3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\461345c1c8329816f5093c93a2ccc5d7df2ade99\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="a82bee948963c3d4ed5b535c680c3183f5d1bcb6">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_0efeab554cfab328bf92e77d8de3693093a7e23b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\e86a32b40283d2c01af47368a313f748cb9bc2d9\output\jars\libs\gson-2.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="f6a826116ec7bc3c38197e60ff96e806e2a323b8">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\gson-2.7_6cbc530c937e3bcfafe679f4d446284e37e8ac1a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\c9684feec3682a94c3aabfe93052f01c5c40d410\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bfdfb2339e516dcb78b53e85a9f32e33ee71833f">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_8263ba350b8f3631a03b74aa0cb4bf84d68b8ca1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\e86a32b40283d2c01af47368a313f748cb9bc2d9\output\jars\libs\support-annotations-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
         revision="25.0.0"
         sha1="ba3817622501fb5da8e6b967e42c6717fbd26b02">
         <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\support-annotations-23.4.0_73339136b8130b5638221c507201e710436442e3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\89847c12512c8f1f33659d9e9085b03e873d036b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="42c41c87fc12bbc65308fd3f55c87d2e1cdf8912">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_2659a6692eea5a31f8775142c3ba9c0a45a8d59e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\0a0e86dc6b455d753339c183a2f12d9926af777a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9dafed45e330aec14abcce05bdb7bbdb2a2d7092">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_87caeb5aca97c1671459d53af1175959b6df5fa0.jar" />
     </item>
     <item
         is-multidex="false"
@@ -18,6 +72,15 @@
         revision="25.0.0"
         sha1="9bf02f41db1f6ec91af06ec508925c91ac5c72e9">
         <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_2faa91b8c27fd27f7e7dcef9f5f7350fcc084343.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\a08cde73958bb8bbb364e364d2b089a65bb6f5aa\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="01999c87afe3d10ffa06f3efa66f39e61e6aba0c">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_ea99c99a1ddcab973aad482d719357081c39b09f.jar" />
     </item>
     <item
         is-multidex="false"
@@ -57,12 +120,57 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\FtcRobotController\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="04fbc5fadae12e28ac4c5e2d1292dc1ca783217a">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_4bd518d96a7cc65392ec553afd944dfd085b1991.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\529cedcbdfdca648634b2b9bdb445d7f30320b8f\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9403be210676ed196cdcc64c7391b9ae2361c174">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_99f07804a8a2590fdafcc1f5fe004e2c7b4e9f6d.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Noah Bennett\.android\build-cache\89847c12512c8f1f33659d9e9085b03e873d036b\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
         sha1="42c41c87fc12bbc65308fd3f55c87d2e1cdf8912">
         <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_2659a6692eea5a31f8775142c3ba9c0a45a8d59e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\e86a32b40283d2c01af47368a313f748cb9bc2d9\output\jars\libs\d2xx.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="04004e5f55992d1d8a105a4ade7be348986ed34e">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\d2xx_233a0853487a398aeed48abef2d761e342e337da.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\4e61bf0b21891851731f7aff59b6d93c777ebcf1\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9bf02f41db1f6ec91af06ec508925c91ac5c72e9">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_2faa91b8c27fd27f7e7dcef9f5f7350fcc084343.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\e86a32b40283d2c01af47368a313f748cb9bc2d9\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="51343b483c5a260b7203ac91d9009f27d38d8e3d">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_5b14878834e8e390a3eca65398709bac754e5f8e.jar" />
     </item>
     <item
         is-multidex="false"
@@ -105,6 +213,15 @@
         jar="C:\Users\Noah Bennett\.android\build-cache\e86a32b40283d2c01af47368a313f748cb9bc2d9\output\jars\libs\Vuforia.jar"
         jumboMode="false"
         optimize="true"
+        revision="25.0.3"
+        sha1="58b9241fc73757cb6e0cdc32422a71a8e7e6d178">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\Vuforia_db943bb60f1cc01379c170d602e479abae1e2a2a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\e86a32b40283d2c01af47368a313f748cb9bc2d9\output\jars\libs\Vuforia.jar"
+        jumboMode="false"
+        optimize="true"
         revision="25.0.0"
         sha1="58b9241fc73757cb6e0cdc32422a71a8e7e6d178">
         <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\Vuforia_db943bb60f1cc01379c170d602e479abae1e2a2a.jar" />
@@ -126,6 +243,15 @@
         revision="25.0.0"
         sha1="bfdfb2339e516dcb78b53e85a9f32e33ee71833f">
         <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_8263ba350b8f3631a03b74aa0cb4bf84d68b8ca1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Noah Bennett\.android\build-cache\99bae522e901f0629923707b304f70d65b314a48\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="8645f44944ec57b771a5794f7c27238009d0aa69">
+        <dex dex="C:\Users\Noah Bennett\Documents\GitHub\GMR16-17\TeamCode\build\intermediates\pre-dexed\debug\classes_d6361c99d3d62cfd399f72ef18f55e5f8274958d.jar" />
     </item>
 
 </items>

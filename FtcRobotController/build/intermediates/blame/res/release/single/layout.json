@@ -1,11 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\loading_indicator_overlay.xml",
-        "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\layout\\loading_indicator_overlay.xml"
-    },
-    {
         "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\servo_controller_banner.xml",
         "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\servo_controller_banner.xml"
+    },
+    {
+        "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\loading_indicator_overlay.xml",
+        "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\RobotCore-release\\res\\layout\\loading_indicator_overlay.xml"
     },
     {
         "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\activity_config_wifi_direct.xml",
@@ -24,12 +24,12 @@
         "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\legacy.xml"
     },
     {
-        "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\motor_controller_banner.xml",
-        "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\motor_controller_banner.xml"
-    },
-    {
         "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\activity_configure_from_template.xml",
         "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\activity_configure_from_template.xml"
+    },
+    {
+        "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\motor_controller_banner.xml",
+        "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\motor_controller_banner.xml"
     },
     {
         "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\activity_ftc_controller.xml",
@@ -48,12 +48,12 @@
         "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\activity_swap_usb_devices.xml"
     },
     {
-        "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\darker_gray_line.xml",
-        "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\darker_gray_line.xml"
-    },
-    {
         "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\motor_list.xml",
         "source": "C:\\Users\\Noah Bennett\\.android\\build-cache\\89847c12512c8f1f33659d9e9085b03e873d036b\\output\\res\\layout\\motor_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\darker_gray_line.xml",
+        "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\darker_gray_line.xml"
     },
     {
         "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\activity_programming_mode.xml",
@@ -100,12 +100,12 @@
         "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\device_interface_module.xml"
     },
     {
-        "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\servo.xml",
-        "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\servo.xml"
-    },
-    {
         "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\activity_programming_mode.xml",
         "source": "C:\\Users\\Noah Bennett\\.android\\build-cache\\c9684feec3682a94c3aabfe93052f01c5c40d410\\output\\res\\layout\\activity_programming_mode.xml"
+    },
+    {
+        "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\servo.xml",
+        "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\servo.xml"
     },
     {
         "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\release\\layout\\motor_controller_banner.xml",

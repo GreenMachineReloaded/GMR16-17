@@ -4,12 +4,12 @@
         "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\button_list.xml"
     },
     {
-        "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\analog_input_device.xml",
-        "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\analog_input_device.xml"
-    },
-    {
         "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\analog_input_device.xml",
         "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\analog_input_device.xml"
+    },
+    {
+        "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\analog_input_device.xml",
+        "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\analog_input_device.xml"
     },
     {
         "merged": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_inspection.xml",
@@ -28,20 +28,20 @@
         "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\motor_controller_banner.xml"
     },
     {
-        "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_ftc_controller.xml",
-        "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_ftc_controller.xml"
-    },
-    {
         "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pwm_device.xml",
         "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\layout\\pwm_device.xml"
     },
     {
-        "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\analog_outputs.xml",
-        "source": "C:\\Users\\Noah Bennett\\.android\\build-cache\\89847c12512c8f1f33659d9e9085b03e873d036b\\output\\res\\layout\\analog_outputs.xml"
+        "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_ftc_controller.xml",
+        "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\layout\\activity_ftc_controller.xml"
     },
     {
         "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\analog_output_device.xml",
         "source": "C:\\Users\\Noah Bennett\\.android\\build-cache\\89847c12512c8f1f33659d9e9085b03e873d036b\\output\\res\\layout\\analog_output_device.xml"
+    },
+    {
+        "merged": "C:\\Users\\Noah Bennett\\Documents\\GitHub\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\analog_outputs.xml",
+        "source": "C:\\Users\\Noah Bennett\\.android\\build-cache\\89847c12512c8f1f33659d9e9085b03e873d036b\\output\\res\\layout\\analog_outputs.xml"
     },
     {
         "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\activity_load.xml",
