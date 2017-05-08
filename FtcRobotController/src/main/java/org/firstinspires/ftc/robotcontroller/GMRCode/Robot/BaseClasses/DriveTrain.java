@@ -71,6 +71,8 @@ public class DriveTrain {
     private double testLiftPosition = 1;
 
     private double currentGyro;
+
+    private double power;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //calls the second constructor of DriveTrain and passes a reference to the hardware map, telemetry, the 4 string names of the motors in the order left front, right front, left back, right back and the port reference to the gyro.
@@ -148,55 +150,72 @@ public class DriveTrain {
 
     }
 
-    public void zonedDrive(int zone, double power) {
+    public void zonedDrive(int zone, double x, double y, double z) {
+        power = Math.sqrt((x*x) + (y*y));
         switch(zone) {
             case 0:
-                Drive(Direction.STRAFERIGHT, power);
+                setMotorPower(power, 0, z);
+                telemetry.addData("Current Movement", Direction.STRAFERIGHT);
                 break;
             case 1:
-                Drive(Direction.DRIGHTUPHALFSTRAFERIGHT, power);
+                setMotorPower(power, (power*.41), z);
+                telemetry.addData("Current Movement", Direction.DSTRAFERIGHTUP);
                 break;
             case 2:
-                Drive(Direction.DRIGHTUP, power);
+                setMotorPower(power, power, z);
+                telemetry.addData("Current Movement", Direction.DRIGHTUP);
                 break;
             case 3:
-                Drive(Direction.DRIGHTUPHALFFORWARD, power);
+                setMotorPower((power*.41), power, z);
+                telemetry.addData("Current Movement", Direction.DUPSTRAFERIGHT);
                 break;
             case 4:
-                Drive(Direction.FORWARD, power);
+                setMotorPower(0, power, z);
+                telemetry.addData("Current Movement", Direction.FORWARD);
                 break;
             case 5:
-                Drive(Direction.STRAFERIGHT, power);
+                setMotorPower(-(power*.41), power, z);
+                telemetry.addData("Current Movement", Direction.DUPSTRAFELEFT);
                 break;
             case 6:
-                Drive(Direction.DLEFTUP, power);
+                setMotorPower(-power, power, z);
+                telemetry.addData("Current Movement", Direction.DLEFTUP);
                 break;
             case 7:
-                Drive(Direction.STRAFERIGHT, power);
+                setMotorPower(-power, (power*.41), z);
+                telemetry.addData("Current Movement", Direction.DSTRAFELEFTUP);
                 break;
             case 8:
-                Drive(Direction.STRAFELEFT, power);
+                setMotorPower(-power, 0, z);
+                telemetry.addData("Current Movement", Direction.STRAFELEFT);
                 break;
             case 9:
-                Drive(Direction.STRAFERIGHT, power);
+                setMotorPower(-power, -(power*.41), z);
+                telemetry.addData("Current Movement", Direction.DSTRAFELEFTDOWN);
                 break;
             case 10:
-                Drive(Direction.DLEFTDOWN, power);
+                setMotorPower(-power, -power, z);
+                telemetry.addData("Current Movement", Direction.DLEFTDOWN);
                 break;
             case 11:
-                Drive(Direction.STRAFERIGHT, power);
+                setMotorPower(-(power*.41), -power, z);
+                telemetry.addData("Current Movement", Direction.DDOWNSTRAFELEFT);
                 break;
             case 12:
-                Drive(Direction.BACKWARD, power);
+                setMotorPower(0, -power, z);
+                telemetry.addData("Current Movement", Direction.BACKWARD);
                 break;
             case 13:
-                Drive(Direction.STRAFERIGHT, power);
+                setMotorPower((power*.41), -power, z);
+                telemetry.addData("Current Movement", Direction.DDOWNSTRAFERIGHT);
                 break;
             case 14:
-                Drive(Direction.DRIGHTDOWN, power);
+                setMotorPower(power, -power, z);
+                telemetry.addData("Current Movement", Direction.DRIGHTDOWN);
                 break;
             case 15:
-                Drive(Direction.STRAFERIGHT, power);
+                setMotorPower(power, -(power*.41), z);
+                telemetry.addData("Current Movement", Direction.DSTRAFERIGHTDOWN);
                 break;
         }
     }
@@ -265,31 +284,81 @@ public class DriveTrain {
                 break;
 
             //Possible movement code, not yet tested
-            case DRIGHTUPHALFSTRAFERIGHT:
+
+            case DSTRAFERIGHTUP:
                 this.leftFront.setPower(-power);
                 this.rightFront.setPower(-power/2);
                 this.leftRear.setPower(power/2);
                 this.rightRear.setPower(power);
                 break;
-            case DRIGHTUPHALFFORWARD:
+            case DUPSTRAFERIGHT:
                 this.leftFront.setPower(-power);
                 this.rightFront.setPower(power/2);
                 this.leftRear.setPower(-power/2);
                 this.rightRear.setPower(power);
                 break;
-            case DLEFTUPHALFFORWARD:
+            case DUPSTRAFELEFT:
                 this.leftFront.setPower(-power/2);
                 this.rightFront.setPower(power);
                 this.leftRear.setPower(-power);
                 this.rightRear.setPower(power/2);
                 break;
-            case DLEFTUPHALFSTRAFELEFT:
+            case DSTRAFELEFTUP:
                 this.leftFront.setPower(power/2);
                 this.rightFront.setPower(power);
                 this.leftRear.setPower(-power);
                 this.rightRear.setPower(-power/2);
                 break;
-            case DLEFTDOWNHALFSTRAFELEFT:
+            case DSTRAFELEFTDOWN:
+                this.leftFront.setPower(power);
+                this.rightFront.setPower(power/2);
+                this.leftRear.setPower(-power/2);
+                this.rightRear.setPower(-power);
+                break;
+            case DDOWNSTRAFELEFT:
+                this.leftFront.setPower(power/2);
+                this.rightFront.setPower(-power);
+                this.leftRear.setPower(power);
+                this.rightRear.setPower(-power/2);
+                break;
+            case DDOWNSTRAFERIGHT:
+                this.leftFront.setPower(power);
+                this.rightFront.setPower(-power/2);
+                this.leftRear.setPower(power/2);
+                this.rightRear.setPower(-power);
+                break;
+            case DSTRAFERIGHTDOWN:
+                this.leftFront.setPower(-power/2);
+                this.rightFront.setPower(-power);
+                this.leftRear.setPower(power);
+                this.rightRear.setPower(power/2);
+                break;
+
+//            case DSTRAFERIGHTUP:
+//                this.leftFront.setPower(-power);
+//                this.rightFront.setPower(-power/2);
+//                this.leftRear.setPower(power/2);
+//                this.rightRear.setPower(power);
+//                break;
+//            case DUPSTRAFERIGHT:
+//                this.leftFront.setPower(-power);
+//                this.rightFront.setPower(power/2);
+//                this.leftRear.setPower(-power/2);
+//                this.rightRear.setPower(power);
+//                break;
+//            case DUPSTRAFELEFT:
+//                this.leftFront.setPower(-power/2);
+//                this.rightFront.setPower(power);
+//                this.leftRear.setPower(-power);
+//                this.rightRear.setPower(power/2);
+//                break;
+//            case DSTRAFELEFTUP:
+//                this.leftFront.setPower(power/2);
+//                this.rightFront.setPower(power);
+//                this.leftRear.setPower(-power);
+//                this.rightRear.setPower(-power/2);
+//                break;
+//            case DSTRAFELEFTDOWN:
 
         }
     }
@@ -596,13 +665,13 @@ public class DriveTrain {
     DLEFTDOWN,
     TURNLEFT,
     TURNRIGHT,
-    DRIGHTUPHALFSTRAFERIGHT,
-    DRIGHTUPHALFFORWARD,
-    DLEFTUPHALFFORWARD,
-    DLEFTUPHALFSTRAFELEFT,
-    DLEFTDOWNHALFSTRAFELEFT,
-    DLEFTDOWNHALFBACKWARD,
-    DRIGHTDOWNHALFBACKWARD,
-    DRIGHTDOWNHALFSTRAFERIGHT
+    DSTRAFERIGHTUP,
+    DUPSTRAFERIGHT,
+    DUPSTRAFELEFT,
+    DSTRAFELEFTUP,
+    DSTRAFELEFTDOWN,
+    DDOWNSTRAFELEFT,
+    DDOWNSTRAFERIGHT,
+    DSTRAFERIGHTDOWN
 }
 }
