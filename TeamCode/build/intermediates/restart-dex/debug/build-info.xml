@@ -5,22 +5,22 @@
     density="hdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="524354200440335"
+    timestamp="530512699945718"
     token="-44752652428313271"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="549" />
+        duration="178" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="198" />
+        duration="14" />
     <task
         name="verifier"
-        duration="16" />
+        duration="2" />
 
     <artifact
         location="C:\Users\Payton\GMR-2016-2017\GMR16-17\TeamCode\build\outputs\apk\TeamCode-debug.apk"

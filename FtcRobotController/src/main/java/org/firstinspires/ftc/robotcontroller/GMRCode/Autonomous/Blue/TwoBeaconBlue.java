@@ -91,7 +91,8 @@ public class TwoBeaconBlue extends OpMode {
             }
         } else if (state == CurrentStates.STRAFELEFT2) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 4);
+                //isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 4);
+                isFinished = robot.UltrasonicDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 14);
             } else {
                 state = CurrentStates.PUSHBEACON;
                 iterations += 1;
@@ -129,7 +130,8 @@ public class TwoBeaconBlue extends OpMode {
             }
         } else if (state == CurrentStates.STRAFELEFT3) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 4);
+                //isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 4);
+                isFinished = robot.UltrasonicDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 14);
             } else {
                 state = CurrentStates.PUSHBEACON2;
                 isFinished = false;

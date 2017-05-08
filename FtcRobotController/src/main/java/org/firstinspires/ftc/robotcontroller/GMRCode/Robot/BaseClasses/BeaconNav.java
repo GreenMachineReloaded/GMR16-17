@@ -1,6 +1,10 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.I2cAddr;
+import com.qualcomm.robotcore.hardware.I2cDevice;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
+import com.qualcomm.robotcore.hardware.I2cDeviceSynchImpl;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -36,6 +40,16 @@ public class BeaconNav {
 
     private boolean hasPushed = false;
     private boolean isStraight = false;
+
+    byte[] range1Cache; //The read will return an array of bytes. They are stored in this variable
+
+    private I2cAddr RANGE1ADDRESS = new I2cAddr(0x14); //Default I2C address for MR Range (7-bit)
+    private static final int RANGE1_REG_START = 0x04; //Register to start reading
+    private static final int RANGE1_READ_LENGTH = 2; //Number of byte to read
+
+    private I2cDevice RANGE1;
+    private I2cDeviceSynch RANGE1Reader;
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CONSTRUCT
     //constructors with all references
@@ -56,6 +70,10 @@ public class BeaconNav {
 
         leftBeaconButtonPusher = hardwareMap.servo.get(leftBeaconButtonPusherStringArg);
         rightBeaconButtonPusher = hardwareMap.servo.get(rightBeaconButtonPusherStringArg);
+
+        RANGE1 = hardwareMap.i2cDevice.get("range");
+        RANGE1Reader = new I2cDeviceSynchImpl(RANGE1, RANGE1ADDRESS, false);
+        RANGE1Reader.engage();
 
 //        leftBeaconButtonPusher.setPosition(0.577);
 //        rightBeaconButtonPusher.setPosition(0.797);
@@ -176,6 +194,16 @@ public class BeaconNav {
 
     public void stopBeaconNav(){
         BeaconPusher(WhichBeaconPusherPosition.RETRACTBOTHPUSHERS);
+    }
+
+    public int ultrasonicDistance() {
+        range1Cache = RANGE1Reader.read(RANGE1_REG_START, RANGE1_READ_LENGTH);
+        return range1Cache[0] & 0xFF;
+    }
+
+    public int IRDistance() {
+        range1Cache = RANGE1Reader.read(RANGE1_REG_START, RANGE1_READ_LENGTH);
+        return range1Cache[1] & 0xFF;
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PROXS

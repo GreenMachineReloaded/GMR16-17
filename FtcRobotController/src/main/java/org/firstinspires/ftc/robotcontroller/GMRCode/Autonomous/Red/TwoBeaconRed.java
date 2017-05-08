@@ -101,7 +101,8 @@ public class TwoBeaconRed extends OpMode {
             }
         } else if (state == CurrentStates.STRAFELEFT2) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 8);
+                //isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 8);
+                isFinished = robot.UltrasonicDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 14);
             } else {
                 state = CurrentStates.PUSHBEACON;
                 beaconServoTime = (beaconTime.seconds() + beaconPushTime);
@@ -161,7 +162,8 @@ public class TwoBeaconRed extends OpMode {
             }
         } else if (state == CurrentStates.STRAFELEFT3) {
             if (!isFinished) {
-                isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 8);
+                //isFinished = robot.ProxDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 8);
+                isFinished = robot.UltrasonicDrive(DriveTrain.Direction.STRAFELEFT, 0.2, 14);
             } else {
                 state = CurrentStates.PUSHBEACON2;
                 beaconServoTime = (beaconTime.seconds() + beaconPushTime);

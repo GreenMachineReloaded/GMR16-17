@@ -88,6 +88,12 @@ public class Robot {
         }
     }
 
+    public boolean UltrasonicDrive(DriveTrain.Direction direction, double power, double prox) {
+        this.driveTrain.Drive(direction, power);
+        if(this.beaconNav.ultrasonicDistance() <= prox) {this.driveTrain.stop(); return true;}
+        else {return false;}
+    }
+
     public DriveTrain getDriveTrain() {
         if (this.driveTrain == null) {
             this.driveTrain = new DriveTrain(hwMap, telemtry);
