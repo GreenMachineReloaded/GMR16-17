@@ -100,5 +100,8 @@ public enum CurrentStates {
     VUFORIA3,
     VUFORIA4,
     VUFORIA5,
-    VUFORIA6
+    VUFORIA6,
+
+    VUFORIADRIVE,
+    VUFORIADRIVE2
 }

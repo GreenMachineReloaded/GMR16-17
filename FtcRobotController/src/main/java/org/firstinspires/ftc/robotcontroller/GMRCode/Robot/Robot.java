@@ -135,30 +135,39 @@ public class Robot {
     }
     public boolean getCloseBeacon(double closeness, double speed) {
         vuforiaX = robotEyes.getArrayXYZ()[0];
-             if (vuforiaX <= closeness) {driveTrain.stop();                                        return  true;}
-        else if (vuforiaX >= closeness) {driveTrain.Drive(DriveTrain.Direction.STRAFELEFT, speed); return false;}
-        else if (vuforiaX == 0)         {driveTrain.stop();                                        return false;}
-        else                            {driveTrain.stop();                                        return false;}
+        if (vuforiaX <= closeness && vuforiaX > 10) {
+            driveTrain.stop();
+            return  true;
+        }
+        else if (vuforiaX >= closeness) {
+            driveTrain.Drive(DriveTrain.Direction.STRAFELEFT, speed);
+            return false;
+        }
+        else if (vuforiaX == 0){
+            driveTrain.stop();
+            return false;
+        }
+        return false;
     }
     public boolean goAwayBeacon(double closeness, double speed) {
         vuforiaX = robotEyes.getArrayXYZ()[0];
-        if (vuforiaX >= closeness) {driveTrain.stop();                                        return  true;}
+             if (vuforiaX >= closeness) {driveTrain.stop();                                         return  true;}
         else if (vuforiaX <= closeness) {driveTrain.Drive(DriveTrain.Direction.STRAFERIGHT, speed); return false;}
-        else if (vuforiaX == 0)         {driveTrain.stop();                                        return false;}
-        else                            {driveTrain.stop();                                        return false;}
+        else if (vuforiaX == 0)         {driveTrain.stop();                                         return false;}
+        else                            {driveTrain.stop();                                         return false;}
     }
     public boolean isAlinedWithBeacon(double speed) {
         vuforiaZ = robotEyes.getArrayXYZ()[2];
-             if(vuforiaZ > 60) {driveTrain.Drive(DriveTrain.Direction.BACKWARD, Range.clip(speed, -.3, .3)); return false;}
-        else if(vuforiaZ < 50) {driveTrain.Drive(DriveTrain.Direction.FORWARD,  Range.clip(speed, -.3, .3)); return false;}
+             if(vuforiaZ > -48 && vuforiaZ != 0) {driveTrain.Drive(DriveTrain.Direction.BACKWARD, Range.clip(speed, -.3, .3)); return false;}
+        else if(vuforiaZ < -52) {driveTrain.Drive(DriveTrain.Direction.FORWARD,  Range.clip(speed, -.3, .3)); return false;}
         else if(vuforiaZ == 0) {driveTrain.stop();                                      return false;}
         else {driveTrain.stop(); return true;}
     }
     public boolean isAlinedWithBeacon(double speed, double focus) {
         //the focus varibul effects the area in which the robot stops.
         vuforiaZ = robotEyes.getArrayXYZ()[2];
-             if(vuforiaZ > 60 + focus) {driveTrain.Drive(DriveTrain.Direction.BACKWARD, speed); return false;}
-        else if(vuforiaZ < 50 - focus) {driveTrain.Drive(DriveTrain.Direction.FORWARD,  speed); return false;}
+             if(vuforiaZ > -50 + focus) {driveTrain.Drive(DriveTrain.Direction.BACKWARD, speed); return false;}
+        else if(vuforiaZ < -60 - focus) {driveTrain.Drive(DriveTrain.Direction.FORWARD,  speed); return false;}
         else if(vuforiaZ == 0) {driveTrain.stop();                                              return false;}
         else {driveTrain.stop(); return true;}
     }

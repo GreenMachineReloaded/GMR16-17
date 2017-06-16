@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.otherObjects.CurrentStates;
 /**
  * Created by Payton on 3/5/2017
  */
+
 @Autonomous(name="Ramp Shot Red", group="Ramp Shot")
 public class RedRampShot extends OpMode {
 

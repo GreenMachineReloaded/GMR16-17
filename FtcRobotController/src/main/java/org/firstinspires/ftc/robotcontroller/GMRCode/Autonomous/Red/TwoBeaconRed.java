@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Red;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -8,7 +9,6 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.BaseClasses.DriveTrai
 import org.firstinspires.ftc.robotcontroller.GMRCode.Robot.Robot;
 import org.firstinspires.ftc.robotcontroller.GMRCode.SensorObjects.GMRColorSensor;
 import org.firstinspires.ftc.robotcontroller.GMRCode.otherObjects.CurrentStates;
-
 @Autonomous(name="Two Beacon Red", group="Beacon Programs Red")
 public class TwoBeaconRed extends OpMode {
     private Robot robot;

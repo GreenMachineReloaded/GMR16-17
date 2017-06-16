@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.GMRCode.Autonomous.Red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.robotcontroller.GMRCode.otherObjects.CurrentStates;
 /**
  * Created by Payton on 1/18/2017
  */
+
 @Autonomous(name="One Beacon Red", group="Beacon Programs Red")
 public class OneBeaconRed extends OpMode {
 
