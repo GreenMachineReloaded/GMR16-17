@@ -83,28 +83,28 @@ public class BeaconNav {
     }
     public void BeaconPusher(WhichBeaconPusherPosition whichBeaconPusherPosition) {
         if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER) {
-            leftBeaconButtonPusher.setPosition(.7);
+            leftBeaconButtonPusher.setPosition(.161);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER) {
-            rightBeaconButtonPusher.setPosition(.679);
+            rightBeaconButtonPusher.setPosition(.619);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.EXTENDBOTHPUSHERS) {
-            leftBeaconButtonPusher.setPosition(.712);
-            rightBeaconButtonPusher.setPosition(.679);
+            leftBeaconButtonPusher.setPosition(.161);
+            rightBeaconButtonPusher.setPosition(.619);
         }
         else if(whichBeaconPusherPosition == WhichBeaconPusherPosition.RETRACTBOTHPUSHERS) {
-            leftBeaconButtonPusher.setPosition(.56);
-            rightBeaconButtonPusher.setPosition(.797);
+            leftBeaconButtonPusher.setPosition(.031);
+            rightBeaconButtonPusher.setPosition(.753);
         }
     }
 
     public void teleOpBeaconPush(boolean x) {
         if (x) {
-            leftBeaconButtonPusher.setPosition(.7);
-            rightBeaconButtonPusher.setPosition(.679);
+            leftBeaconButtonPusher.setPosition(.161);
+            rightBeaconButtonPusher.setPosition(.619);
         } else {
-            leftBeaconButtonPusher.setPosition(.56);
-            rightBeaconButtonPusher.setPosition(.797);
+            leftBeaconButtonPusher.setPosition(.031);
+            rightBeaconButtonPusher.setPosition(.753);
         }
     }
 
@@ -142,12 +142,12 @@ public class BeaconNav {
         if (!hasPushed) {
             if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
-                if (leftBeaconButtonPusher.getPosition() == .59) {
+                if (leftBeaconButtonPusher.getPosition() == .15) {
                     hasPushed = true;
                 }
             } else {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
-                if (rightBeaconButtonPusher.getPosition() == .83) {
+                if (rightBeaconButtonPusher.getPosition() == .6) {
                     hasPushed = true;
                 }
             }
@@ -161,12 +161,12 @@ public class BeaconNav {
         if (!hasPushed) {
             if (colorSensors.whichGreaterColor(GMRColorSensor.WhichGMRColorSensor.BEACON, GMRColorSensor.Color.RED, GMRColorSensor.Color.BLUE) == GMRColorSensor.Color.RED) {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDRIGHTBEACONPUSHER);
-                if (rightBeaconButtonPusher.getPosition() == .83) {
+                if (rightBeaconButtonPusher.getPosition() == .6) {
                     hasPushed = true;
                 }
             } else {
                 BeaconPusher(WhichBeaconPusherPosition.EXTENDLEFTBEACONPUSHER);
-                if (leftBeaconButtonPusher.getPosition() == .59) {
+                if (leftBeaconButtonPusher.getPosition() == .15) {
                     hasPushed = true;
                 }
             }
@@ -204,6 +204,11 @@ public class BeaconNav {
     public int IRDistance() {
         range1Cache = RANGE1Reader.read(RANGE1_REG_START, RANGE1_READ_LENGTH);
         return range1Cache[1] & 0xFF;
+    }
+
+    public void setServos() {
+        leftBeaconButtonPusher.setPosition(.031);
+        rightBeaconButtonPusher.setPosition(.753);
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PROXS

@@ -39,6 +39,7 @@ public class LongShot extends OpMode {
         robot = new Robot(hardwareMap, telemetry);
         colorSensor = new GMRColorSensor(hardwareMap, telemetry);
         sleepTime = (time.seconds() + 15);
+        robot.beaconNav.setServos();
     }
 
     public void loop() {

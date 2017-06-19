@@ -12,7 +12,15 @@
         "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_launcher.png"
     },
     {
+        "merged": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\button_shape.xml",
+        "source": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\drawable-hdpi-v4\\button_shape.xml"
+    },
+    {
         "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ic_launcher.png",
         "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\ic_launcher.png"
     }
 ]

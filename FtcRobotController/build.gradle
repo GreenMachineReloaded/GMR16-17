@@ -26,7 +26,7 @@ repositories {
 
 repositories {
     flatDir {
-        dirs 'C:\\Users\\Payton\\GMR-2016-2017\\navx-micro\\android\\libs'
+        dirs 'C:\\Users\\pston\\GMR\\GMR2016-2017\\navx-micro\\navx-micro\\android\\libs'
     }
 }
 

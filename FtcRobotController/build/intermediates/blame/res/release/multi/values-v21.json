@@ -1,0 +1,28 @@
+[
+    {
+        "outputFile": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v21\\values-v21.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 4,
+                    "endColumn": 12,
+                    "endOffset": 203
+                },
+                "from": {
+                    "file": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\src\\main\\res\\values-v21\\styles.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 59,
+                        "endLine": 5,
+                        "endColumn": 12,
+                        "endOffset": 209
+                    }
+                }
+            }
+        ]
+    }
+]

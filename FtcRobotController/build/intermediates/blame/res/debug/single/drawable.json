@@ -20,6 +20,14 @@
         "source": "C:\\Users\\Payton\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\Inspection-release\\res\\drawable\\icon_menu.png"
     },
     {
+        "merged": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\drawable\\icon_robotcontroller.png",
+        "source": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\Inspection-release\\res\\drawable\\icon_robotcontroller.png"
+    },
+    {
+        "merged": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\drawable\\black_border.xml",
+        "source": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\Blocks-release\\res\\drawable\\black_border.xml"
+    },
+    {
         "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\drawable\\icon_menu.png",
         "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\Inspection-release\\res\\drawable\\icon_menu.png"
     },
@@ -30,5 +38,13 @@
     {
         "merged": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\drawable\\icon_robotcontroller.png",
         "source": "C:\\Users\\jstoneberger\\GMR-2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\Inspection-release\\res\\drawable\\icon_robotcontroller.png"
+    },
+    {
+        "merged": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\drawable\\button_shape.xml",
+        "source": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\FtcCommon-release\\res\\drawable\\button_shape.xml"
+    },
+    {
+        "merged": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\res\\merged\\debug\\drawable\\icon_menu.png",
+        "source": "C:\\Users\\pston\\GMR\\GMR2016-2017\\GMR16-17\\FtcRobotController\\build\\intermediates\\exploded-aar\\Inspection-release\\res\\drawable\\icon_menu.png"
     }
 ]
